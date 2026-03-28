@@ -1,0 +1,91 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://tools/story_graph/story_graph_viewer.gd" id="1"]
+
+[node name="StoryGraphViewer" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RootSplit" type="HSplitContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+split_offset = 260
+
+[node name="LeftPanel" type="VBoxContainer" parent="MarginContainer/RootSplit"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="ReloadButton" type="Button" parent="MarginContainer/RootSplit/LeftPanel"]
+layout_mode = 2
+text = "重新加载故事图"
+
+[node name="EventsTitle" type="Label" parent="MarginContainer/RootSplit/LeftPanel"]
+layout_mode = 2
+text = "事件列表"
+
+[node name="EventList" type="ItemList" parent="MarginContainer/RootSplit/LeftPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="WarningsTitle" type="Label" parent="MarginContainer/RootSplit/LeftPanel"]
+layout_mode = 2
+text = "校验结果"
+
+[node name="WarningList" type="ItemList" parent="MarginContainer/RootSplit/LeftPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="CenterPanel" type="GraphEdit" parent="MarginContainer/RootSplit"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+right_disconnects = true
+show_menu = false
+minimap_enabled = true
+
+[node name="RightPanel" type="VBoxContainer" parent="MarginContainer/RootSplit"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="DetailTitle" type="Label" parent="MarginContainer/RootSplit/RightPanel"]
+layout_mode = 2
+text = "事件详情"
+
+[node name="DetailLabel" type="RichTextLabel" parent="MarginContainer/RootSplit/RightPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+bbcode_enabled = true
+scroll_active = true
+
+[connection signal="pressed" from="MarginContainer/RootSplit/LeftPanel/ReloadButton" to="." method="_on_reload_button_pressed"]
+[connection signal="item_selected" from="MarginContainer/RootSplit/LeftPanel/EventList" to="." method="_on_event_list_item_selected"]
+[connection signal="item_selected" from="MarginContainer/RootSplit/LeftPanel/WarningList" to="." method="_on_warning_list_item_selected"]

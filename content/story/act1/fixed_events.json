@@ -1,0 +1,248 @@
+[
+  {
+    "id": "act1_day1_arrival",
+    "story_id": "act1_well_whisper",
+    "event_class": "fixed_story",
+    "slot": "phase_entry",
+    "schedule_priority": 100,
+    "title": "初入外门",
+    "description": "你进外门的第一天，师兄在晨间顺口提了一句：西边那口旧井，入夜后不要靠近。",
+    "trigger_conditions": [
+      { "type": "day_range", "min": 1, "max": 1 },
+      { "type": "phase_is", "value": "morning" }
+    ],
+    "repeatable": false,
+    "options": [
+      {
+        "id": "remember_warning",
+        "text": "把这句警告记在心里",
+        "conditions": [],
+        "effects": [
+          { "type": "add_tag", "scope": "player", "key": "heard_of_west_well" },
+          { "type": "modify_world_value", "key": "investigation_progress", "delta": 1 }
+        ],
+        "result_text": "你把“西井”这个名字记了下来。对一个刚进门的人来说，被刻意回避的地方往往最值得记住。"
+      }
+    ]
+  },
+  {
+    "id": "act1_day2_missing_rumor",
+    "story_id": "act1_well_whisper",
+    "event_class": "fixed_story",
+    "slot": "phase_entry",
+    "schedule_priority": 100,
+    "title": "失踪传闻",
+    "description": "第二天清晨，外门里开始传有人失踪。有人说他夜里靠近过西井，也有人说他得罪了药房执事。",
+    "trigger_conditions": [
+      { "type": "day_range", "min": 2, "max": 2 },
+      { "type": "phase_is", "value": "morning" }
+    ],
+    "repeatable": false,
+    "options": [
+      {
+        "id": "treat_as_real",
+        "text": "把这件事当作真的去查",
+        "conditions": [],
+        "effects": [
+          { "type": "add_tag", "scope": "player", "key": "missing_is_not_random" },
+          { "type": "modify_world_value", "key": "investigation_progress", "delta": 1 },
+          { "type": "modify_resource", "scope": "player", "key": "clue_fragments", "delta": 1 }
+        ],
+        "result_text": "从这一刻起，西井不再只是怪谈，而是和“人会出事”直接挂上了钩。"
+      }
+    ]
+  },
+  {
+    "id": "act1_day4_first_choice",
+    "story_id": "act1_well_whisper",
+    "event_class": "fixed_story",
+    "slot": "phase_entry",
+    "schedule_priority": 110,
+    "title": "第一次重大选择",
+    "description": "到了第四夜，你已经积累了足够多的不对劲，不能再只靠试探。接下来，你必须决定自己用什么方式继续深入。",
+    "trigger_conditions": [
+      { "type": "day_range", "min": 4, "max": 4 },
+      { "type": "phase_is", "value": "night" }
+    ],
+    "repeatable": false,
+    "options": [
+      {
+        "id": "seek_senior_help",
+        "text": "去求助外门师兄",
+        "conditions": [],
+        "effects": [
+          { "type": "add_tag", "scope": "player", "key": "route_seek_senior" },
+          { "type": "modify_npc_relation", "npc_id": "outer_senior_brother", "field": "favor", "delta": 1 }
+        ],
+        "result_text": "你决定把一部分风险转交给更懂规矩的人，但也明白，从现在起你必须承担“看错人”的代价。"
+      },
+      {
+        "id": "sneak_into_records",
+        "text": "盯紧药房记录",
+        "conditions": [],
+        "effects": [
+          { "type": "add_tag", "scope": "player", "key": "route_records" },
+          { "type": "modify_resource", "scope": "player", "key": "exposure", "delta": 1 }
+        ],
+        "result_text": "你决定从人留下的痕迹里找答案。查账不会让井说话，但会让掩盖事实的人坐不住。"
+      },
+      {
+        "id": "approach_the_well",
+        "text": "直接盯住西井",
+        "conditions": [],
+        "effects": [
+          { "type": "add_tag", "scope": "player", "key": "route_well" },
+          { "type": "modify_resource", "scope": "player", "key": "pollution", "delta": 1 }
+        ],
+        "result_text": "你决定不再绕路。井下的东西也许最危险，但它离真相最近。"
+      },
+      {
+        "id": "stay_low_and_observe",
+        "text": "暂时收手，先保住自己",
+        "conditions": [],
+        "effects": [
+          { "type": "add_tag", "scope": "player", "key": "route_lie_low" },
+          { "type": "modify_world_value", "key": "anomaly_progress", "delta": 1 }
+        ],
+        "result_text": "你没有彻底退出，只是决定先让自己活过这一晚。但世界不会因为你的收手就停下。"
+      }
+    ]
+  },
+  {
+    "id": "act1_day5_lockdown",
+    "story_id": "act1_well_whisper",
+    "event_class": "fixed_story",
+    "slot": "phase_entry",
+    "schedule_priority": 120,
+    "title": "封锁与盘查",
+    "description": "第五天一早，西井周围被临时封锁，夜巡加人，药房开始清点人员。别院终于不再假装无事发生。",
+    "trigger_conditions": [
+      { "type": "day_range", "min": 5, "max": 5 },
+      { "type": "phase_is", "value": "morning" }
+    ],
+    "repeatable": false,
+    "options": [
+      {
+        "id": "accept_lockdown",
+        "text": "先记住封锁细节",
+        "conditions": [],
+        "effects": [
+          { "type": "add_tag", "scope": "world", "key": "well_area_locked" },
+          { "type": "add_tag", "scope": "world", "key": "patrol_intensified" },
+          { "type": "modify_world_value", "key": "patrol_level", "delta": 1 },
+          { "type": "modify_world_value", "key": "anomaly_progress", "delta": 1 }
+        ],
+        "result_text": "封锁没有让你安心，反而证明你前几天的判断没错：事情已经走到了所有人都不得不应对的阶段。"
+      }
+    ]
+  },
+  {
+    "id": "act1_day6_truth_reversal",
+    "story_id": "act1_well_whisper",
+    "event_class": "fixed_story",
+    "slot": "phase_entry",
+    "schedule_priority": 130,
+    "title": "真相或误判回收",
+    "description": "第六夜，前几天拼起来的线索开始互相咬合。你终于意识到，危险的不只是井，还有围绕井运转的整套沉默。",
+    "trigger_conditions": [
+      { "type": "day_range", "min": 6, "max": 6 },
+      { "type": "phase_is", "value": "night" }
+    ],
+    "repeatable": false,
+    "options": [
+      {
+        "id": "prepare_report",
+        "text": "把线索整理成能上报的结果",
+        "conditions": [
+          {
+            "type": "any_of",
+            "conditions": [
+              { "type": "tag_present", "scope": "player", "key": "route_seek_senior" },
+              { "type": "tag_present", "scope": "player", "key": "route_lie_low" }
+            ]
+          }
+        ],
+        "effects": [
+          { "type": "add_tag", "scope": "player", "key": "prepared_report" },
+          { "type": "add_tag", "scope": "player", "key": "reported_to_patrol" },
+          { "type": "modify_npc_relation", "npc_id": "night_patrol_disciple", "field": "favor", "delta": 1 }
+        ],
+        "result_text": "你决定先活下来，把这一周变成一份能交出去的结果。若真相带不走，至少别让井先把你带走。"
+      },
+      {
+        "id": "prepare_descent",
+        "text": "把碎片整理成下井的把握",
+        "conditions": [
+          { "type": "resource_gte", "scope": "player", "key": "clue_fragments", "value": 4 },
+          {
+            "type": "any_of",
+            "conditions": [
+              { "type": "tag_present", "scope": "player", "key": "route_records" },
+              { "type": "tag_present", "scope": "player", "key": "route_well" }
+            ]
+          }
+        ],
+        "effects": [
+          { "type": "add_tag", "scope": "player", "key": "prepared_descent" },
+          { "type": "add_knowledge", "key": "anomaly_source_identified" },
+          { "type": "modify_world_value", "key": "investigation_progress", "delta": 2 }
+        ],
+        "result_text": "你不打算只把这一切交给别人处理。现在的线索已经足够让你确认：终夜时，你得亲自去井口拿答案。"
+      },
+      {
+        "id": "accept_whisper",
+        "text": "承认那道低语已经在替你决定",
+        "conditions": [
+          {
+            "type": "any_of",
+            "conditions": [
+              { "type": "tag_present", "scope": "player", "key": "marked_by_well" },
+              { "type": "resource_gte", "scope": "player", "key": "pollution", "value": 2 }
+            ]
+          }
+        ],
+        "effects": [
+          { "type": "add_tag", "scope": "player", "key": "accepted_whisper" },
+          { "type": "modify_world_value", "key": "anomaly_progress", "delta": 2 },
+          { "type": "modify_resource", "scope": "player", "key": "pollution", "delta": 1 }
+        ],
+        "result_text": "你第一次不再把那声音当成必须驱散的东西。它也第一次像在回报你的让步一样，贴得更近了。"
+      },
+      {
+        "id": "remain_uncertain",
+        "text": "你仍然没法确定自己看到的是什么",
+        "conditions": [],
+        "effects": [
+          { "type": "modify_world_value", "key": "anomaly_progress", "delta": 1 },
+          { "type": "modify_resource", "scope": "player", "key": "pollution", "delta": 1 }
+        ],
+        "result_text": "你拼出了很多碎片，却还缺少一块最关键的部分。异变不会等你想明白。"
+      }
+    ]
+  },
+  {
+    "id": "act1_day7_final_judgement",
+    "story_id": "act1_well_whisper",
+    "event_class": "ending_check",
+    "slot": "phase_entry",
+    "schedule_priority": 1000,
+    "title": "结算夜验证",
+    "description": "第七夜终于到了。无论你是想苟活、窥见真相，还是已经被井下之物拖进更深处，这一夜都会给出结果。",
+    "trigger_conditions": [
+      { "type": "day_range", "min": 7, "max": 7 },
+      { "type": "phase_is", "value": "night" }
+    ],
+    "repeatable": false,
+    "options": [
+      {
+        "id": "face_result",
+        "text": "面对第七夜的结果",
+        "conditions": [],
+        "effects": [
+          { "type": "finish_run", "reason_id": "ending_check" }
+        ],
+        "result_text": "这一周终于走到尽头。接下来决定你的，不再是还能不能拖延，而是这七天究竟把你带到了哪一边。"
+      }
+    ]
+  }
+]

@@ -1,0 +1,5 @@
+pool_id,story_id,pool_class,phase,location_hint,notes
+act1_resource_pool,act1_well_whisper,resource,day,herb_room|dormitory,资源波动事件池
+act1_relation_pool,act1_well_whisper,relationship,day,corridor|herb_room,关系波动事件池
+act1_anomaly_pool,act1_well_whisper,anomaly,night,west_well|dormitory,异常波动事件池
+act1_risk_pool,act1_well_whisper,risk,night,corridor|west_well,风险波动事件池

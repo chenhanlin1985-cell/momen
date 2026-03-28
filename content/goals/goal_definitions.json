@@ -1,0 +1,16 @@
+[
+  {
+    "id": "resolve_west_well",
+    "display_name": "查明西井异声",
+    "description": "在第七夜之前确认西井异声的真相，并决定如何面对它。",
+    "completion_conditions": [
+      {
+        "type": "knowledge_present",
+        "key": "anomaly_source_identified"
+      }
+    ],
+    "failure_conditions": [],
+    "reward_tags": ["goal_west_well_resolved"],
+    "priority": 10
+  }
+]

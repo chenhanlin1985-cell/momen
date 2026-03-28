@@ -1,0 +1,79 @@
+[
+  {
+    "id": "ending_well_mutation",
+    "title": "异化结局",
+    "description": "你没有赶在世界完成异变前厘清真相，反而在一次次靠近中成了仪式的一部分。等别人再看见你时，你已经开始替井下之物说话。",
+    "outcome_type": "corruption",
+    "priority": 40,
+    "conditions": [
+      {
+        "type": "all_of",
+        "conditions": [
+          { "type": "world_value_gte", "key": "anomaly_progress", "value": 6 },
+          { "type": "resource_gte", "scope": "player", "key": "pollution", "value": 4 },
+          {
+            "type": "any_of",
+            "conditions": [
+              { "type": "tag_present", "scope": "player", "key": "accepted_whisper" },
+              { "type": "tag_present", "scope": "player", "key": "ending_corruption_route" }
+            ]
+          },
+          { "type": "npc_relation_gte", "npc_id": "night_patrol_disciple", "field": "alert", "value": 2 }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ending_glimpse_truth",
+    "title": "真相结局",
+    "description": "你带着足够的线索碎片与代价冲进终夜，终于看清西井封着的是会借人声完成仪式的异常。你未能全身而退，但至少把真相带了出来。",
+    "outcome_type": "truth",
+    "priority": 30,
+    "conditions": [
+      {
+        "type": "all_of",
+        "conditions": [
+          { "type": "world_value_gte", "key": "investigation_progress", "value": 6 },
+          { "type": "resource_gte", "scope": "player", "key": "clue_fragments", "value": 5 },
+          { "type": "resource_lte", "scope": "player", "key": "pollution", "value": 4 },
+          { "type": "resource_lte", "scope": "player", "key": "exposure", "value": 4 },
+          { "type": "npc_relation_gte", "npc_id": "friendly_peer", "field": "favor", "value": 1 },
+          { "type": "tag_present", "scope": "player", "key": "prepared_descent" }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ending_lingering_survival",
+    "title": "苟活结局",
+    "description": "你在最后关头选择把自己放在第一位。西井之事暂时被压回去，别院恢复了表面的平静，而你也学会了什么事最好别看得太清楚。",
+    "outcome_type": "survival",
+    "priority": 20,
+    "conditions": [
+      {
+        "type": "all_of",
+        "conditions": [
+          { "type": "world_value_gte", "key": "investigation_progress", "value": 3 },
+          { "type": "resource_lte", "scope": "player", "key": "pollution", "value": 2 },
+          { "type": "resource_lte", "scope": "player", "key": "exposure", "value": 3 },
+          { "type": "npc_relation_gte", "npc_id": "night_patrol_disciple", "field": "favor", "value": 1 },
+          {
+            "type": "any_of",
+            "conditions": [
+              { "type": "tag_present", "scope": "player", "key": "prepared_report" },
+              { "type": "tag_present", "scope": "player", "key": "reported_to_patrol" }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ending_unresolved",
+    "title": "未竟之夜",
+    "description": "你撑过了七天，但没能在调查推进与异变推进之间抢出明确结果。西井安静了一阵，像是在等你下一次犯错。",
+    "outcome_type": "fallback",
+    "priority": 0,
+    "conditions": []
+  }
+]

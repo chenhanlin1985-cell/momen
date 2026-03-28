@@ -1,0 +1,56 @@
+[
+  {
+    "id": "default_run",
+    "story_id": "act1_well_whisper",
+    "display_name": "西井异声 Demo",
+    "starting_day": 1,
+    "max_day": 7,
+    "actions_per_day": 1,
+    "player_init": {
+      "stats": {
+        "physique": 2,
+        "mind": 2,
+        "insight": 1,
+        "occult": 1,
+        "tact": 1
+      },
+      "resources": {
+        "blood_qi": 4,
+        "spirit_stone": 3,
+        "spirit_sense": 1,
+        "clue_fragments": 0,
+        "pollution": 0,
+        "exposure": 0
+      },
+      "tags": [
+        "outer_disciple"
+      ]
+    },
+    "world_init": {
+      "values": {
+        "patrol_level": 1,
+        "investigation_progress": 0,
+        "anomaly_progress": 0
+      },
+      "tags": [
+        "west_well_open"
+      ]
+    },
+    "starting_npcs": [
+      "outer_senior_brother",
+      "friendly_peer",
+      "night_patrol_disciple",
+      "herb_steward"
+    ],
+    "story_event_source": "csv",
+    "story_csv_dir": "res://content/story/act1/csv",
+    "story_event_paths": [
+      "res://content/story/act1/fixed_events.json",
+      "res://content/story/act1/conditional_events.json",
+      "res://content/story/act1/random_event_pools.json"
+    ],
+    "starting_goal_pool": [
+      "resolve_west_well"
+    ]
+  }
+]

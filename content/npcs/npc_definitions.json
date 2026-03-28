@@ -1,0 +1,92 @@
+[
+  {
+    "id": "outer_senior_brother",
+    "display_name": "外门师兄",
+    "role": "senior",
+    "faction_id": "outer_court",
+    "tags": ["strict"],
+    "initial_relation": {
+      "favor": 0,
+      "alert": 1
+    },
+    "initial_status_tags": [],
+    "initial_flags": {
+      "alive": true,
+      "interactable": true
+    },
+    "secrets": [],
+    "preferred_actions": ["cultivate", "work"]
+  },
+  {
+    "id": "herb_steward",
+    "display_name": "药房执事",
+    "role": "steward",
+    "faction_id": "herb_house",
+    "tags": ["greedy", "resource_gatekeeper"],
+    "initial_relation": {
+      "favor": 0,
+      "alert": 0
+    },
+    "initial_status_tags": [],
+    "initial_flags": {
+      "alive": true,
+      "interactable": true
+    },
+    "secrets": ["hidden_side_trade"],
+    "preferred_actions": ["work"]
+  },
+  {
+    "id": "black_market_broker",
+    "display_name": "黑市中间人",
+    "role": "broker",
+    "faction_id": "black_market",
+    "tags": ["risky"],
+    "initial_relation": {
+      "favor": 0,
+      "alert": 1
+    },
+    "initial_status_tags": [],
+    "initial_flags": {
+      "alive": true,
+      "interactable": true
+    },
+    "secrets": ["market_route"],
+    "preferred_actions": ["work", "rest"]
+  },
+  {
+    "id": "friendly_peer",
+    "display_name": "可结交同门",
+    "role": "peer",
+    "faction_id": "outer_court",
+    "tags": ["curious", "hesitant"],
+    "initial_relation": {
+      "favor": 0,
+      "alert": 0
+    },
+    "initial_status_tags": [],
+    "initial_flags": {
+      "alive": true,
+      "interactable": true
+    },
+    "secrets": ["heard_well_rumor"],
+    "preferred_actions": ["rest", "cultivate"]
+  },
+  {
+    "id": "night_patrol_disciple",
+    "display_name": "夜巡弟子",
+    "role": "patrol",
+    "faction_id": "discipline_hall",
+    "tags": ["watchful", "duty_bound"],
+    "initial_relation": {
+      "favor": 0,
+      "alert": 1
+    },
+    "initial_status_tags": [],
+    "initial_flags": {
+      "alive": true,
+      "interactable": true
+    },
+    "secrets": ["well_lockdown_record"],
+    "preferred_actions": ["work"]
+  }
+]

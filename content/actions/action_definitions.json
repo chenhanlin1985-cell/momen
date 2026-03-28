@@ -1,0 +1,105 @@
+[
+  {
+    "id": "west_well",
+    "display_name": "去西井",
+    "description": "调查推进最快，但最容易沾上异常与污染。偏冒险。",
+    "tags": ["location", "west_well", "high_risk"],
+    "availability_conditions": [
+      {
+        "type": "resource_gte",
+        "scope": "player",
+        "key": "blood_qi",
+        "value": 1
+      }
+    ],
+    "base_costs": {
+      "resources": {
+        "blood_qi": 1
+      },
+      "stats": {},
+      "tags": []
+    },
+    "base_rewards": {
+      "resources": {
+        "clue_fragments": 1
+      },
+      "stats": {},
+      "tags": []
+    },
+    "linked_event_pool": ["location_west_well"],
+    "risk_weight": 12,
+    "sort_order": 100,
+    "is_visible": true
+  },
+  {
+    "id": "herb_room",
+    "display_name": "去药房",
+    "description": "查药册、配药压污染，推进稍慢但更稳。偏保守调查。",
+    "tags": ["location", "herb_room", "support"],
+    "availability_conditions": [],
+    "base_costs": {
+      "resources": {},
+      "stats": {},
+      "tags": []
+    },
+    "base_rewards": {
+      "resources": {
+        "clue_fragments": 1
+      },
+      "stats": {},
+      "tags": []
+    },
+    "linked_event_pool": ["location_herb_room"],
+    "risk_weight": 4,
+    "sort_order": 200,
+    "is_visible": true
+  },
+  {
+    "id": "corridor",
+    "display_name": "去回廊",
+    "description": "打听流言、观察巡逻，容易涨暴露，但能摸清世界压力。偏信息与关系。",
+    "tags": ["location", "corridor", "social"],
+    "availability_conditions": [],
+    "base_costs": {
+      "resources": {},
+      "stats": {},
+      "tags": []
+    },
+    "base_rewards": {
+      "resources": {},
+      "stats": {
+        "tact": 1
+      },
+      "tags": []
+    },
+    "linked_event_pool": ["location_corridor"],
+    "risk_weight": 6,
+    "sort_order": 300,
+    "is_visible": true
+  },
+  {
+    "id": "dormitory",
+    "display_name": "回寝舍",
+    "description": "整理线索、恢复状态、与同门交谈。推进最慢，但最安全。偏恢复。",
+    "tags": ["location", "dormitory", "recovery"],
+    "availability_conditions": [],
+    "base_costs": {
+      "resources": {},
+      "stats": {},
+      "tags": []
+    },
+    "base_rewards": {
+      "resources": {
+        "blood_qi": 1
+      },
+      "stats": {
+        "mind": 1
+      },
+      "tags": []
+    },
+    "linked_event_pool": ["location_dormitory"],
+    "risk_weight": 1,
+    "sort_order": 400,
+    "is_visible": true
+  }
+]

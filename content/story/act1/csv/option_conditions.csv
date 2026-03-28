@@ -1,0 +1,9 @@
+option_id,group_id,order,condition_type,scope,key,op_value,target_id,field,extra_json
+prepare_report,main,1,tag_present,player,route_seek_senior,,,
+prepare_report,alt,1,tag_present,player,route_lie_low,,,
+prepare_descent,main,1,resource_gte,player,clue_fragments,4,,,
+prepare_descent,main,2,tag_present,player,route_records,,,
+prepare_descent,alt,1,resource_gte,player,clue_fragments,4,,,
+prepare_descent,alt,2,tag_present,player,route_well,,,
+accept_whisper,main,1,tag_present,player,marked_by_well,,,
+accept_whisper,alt,1,resource_gte,player,pollution,2,,,

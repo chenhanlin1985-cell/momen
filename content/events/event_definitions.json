@@ -1,0 +1,748 @@
+[
+  {
+    "id": "morning_day_1_notice",
+    "title": "晨间：别院禁井",
+    "description": "入门第一晨，外门师兄把你拦在回廊边，只说了一句：西边旧井最近别靠近，尤其入夜之后。",
+    "trigger_conditions": [
+      { "type": "day_range", "min": 1, "max": 1 },
+      { "type": "phase_is", "value": "morning" }
+    ],
+    "weight": 100,
+    "priority": 100,
+    "repeatable": false,
+    "options": [
+      {
+        "id": "note_warning",
+        "text": "先记下这句警告",
+        "conditions": [],
+        "effects": [
+          { "type": "add_tag", "scope": "player", "key": "west_well_warning_received" }
+        ],
+        "result_text": "你把“西井”两个字牢牢记下。对一个刚进门的人来说，被刻意回避的地方往往最危险。"
+      },
+      {
+        "id": "press_for_more",
+        "text": "追问为什么不能靠近",
+        "conditions": [],
+        "effects": [
+          { "type": "add_tag", "scope": "player", "key": "west_well_warning_received" },
+          { "type": "modify_npc_relation", "npc_id": "outer_senior_brother", "field": "alert", "delta": 1 },
+          { "type": "modify_world_value", "key": "investigation_progress", "delta": 1 }
+        ],
+        "result_text": "师兄没有解释，只让你少问。可越是这样，你越确定西井不是普通的禁地。"
+      }
+    ]
+  },
+  {
+    "id": "morning_day_2_pressure",
+    "title": "晨间：别院气氛发紧",
+    "description": "第二天一早，回廊里说话的人都少了。你隐约听见有人提到昨夜西侧又传来了水声。",
+    "trigger_conditions": [
+      { "type": "day_range", "min": 2, "max": 2 },
+      { "type": "phase_is", "value": "morning" }
+    ],
+    "weight": 100,
+    "priority": 100,
+    "repeatable": false,
+    "options": [
+      {
+        "id": "watch_people",
+        "text": "观察众人的反应",
+        "conditions": [],
+        "effects": [
+          { "type": "modify_world_value", "key": "anomaly_progress", "delta": 1 },
+          { "type": "modify_world_value", "key": "patrol_level", "delta": 1 }
+        ],
+        "result_text": "你意识到，别院里的紧张并不是因为流言，而是有人真的在防着什么。"
+      }
+    ]
+  },
+  {
+    "id": "morning_day_3_patrol",
+    "title": "晨间：巡逻路线变了",
+    "description": "第三天清晨，夜巡弟子的脚印停在西井附近，比前两天更近，也更多。",
+    "trigger_conditions": [
+      { "type": "day_range", "min": 3, "max": 3 },
+      { "type": "phase_is", "value": "morning" }
+    ],
+    "weight": 100,
+    "priority": 100,
+    "repeatable": false,
+    "options": [
+      {
+        "id": "read_patrol_pattern",
+        "text": "记住巡逻变化",
+        "conditions": [],
+        "effects": [
+          { "type": "modify_world_value", "key": "anomaly_progress", "delta": 1 },
+          { "type": "modify_world_value", "key": "patrol_level", "delta": 1 },
+          { "type": "modify_resource", "scope": "player", "key": "clue_fragments", "delta": 1 }
+        ],
+        "result_text": "你从巡逻路线的变化里读出一个讯号：西井的异常已经开始影响白天的秩序。"
+      }
+    ]
+  },
+  {
+    "id": "morning_day_4_lockdown",
+    "title": "晨间：封锁开始",
+    "description": "第四天清晨，西井外围被临时封住。有人说夜里少了一个人，也有人说只是被带去问话。",
+    "trigger_conditions": [
+      { "type": "day_range", "min": 4, "max": 4 },
+      { "type": "phase_is", "value": "morning" }
+    ],
+    "weight": 100,
+    "priority": 100,
+    "repeatable": false,
+    "options": [
+      {
+        "id": "stay_calm",
+        "text": "压住情绪，先记住封锁细节",
+        "conditions": [],
+        "effects": [
+          { "type": "add_tag", "scope": "world", "key": "patrol_alert" },
+          { "type": "modify_world_value", "key": "anomaly_progress", "delta": 1 },
+          { "type": "modify_world_value", "key": "patrol_level", "delta": 1 }
+        ],
+        "result_text": "从这一刻起，你知道事情已经越过了“异声传闻”的阶段，别院开始正式进入应急状态。"
+      }
+    ]
+  },
+  {
+    "id": "morning_day_5_missing_peer",
+    "title": "晨间：少了一个熟面孔",
+    "description": "第五天，常在回廊出现的同门没有来。有人说他病了，但你知道事情没那么简单。",
+    "trigger_conditions": [
+      { "type": "day_range", "min": 5, "max": 5 },
+      { "type": "phase_is", "value": "morning" }
+    ],
+    "weight": 100,
+    "priority": 100,
+    "repeatable": false,
+    "options": [
+      {
+        "id": "treat_as_warning",
+        "text": "把这视作最后警告",
+        "conditions": [],
+        "effects": [
+          { "type": "modify_world_value", "key": "anomaly_progress", "delta": 1 },
+          { "type": "modify_world_value", "key": "investigation_progress", "delta": 1 }
+        ],
+        "result_text": "你终于接受了一件事：西井不是在等人调查，它是在主动把人拖进自己的节奏里。"
+      }
+    ]
+  },
+  {
+    "id": "morning_day_6_last_window",
+    "title": "晨间：最后准备窗口",
+    "description": "第六天，别院短暂恢复了表面平静。你知道这不是好事，而是终夜前最后的空窗。",
+    "trigger_conditions": [
+      { "type": "day_range", "min": 6, "max": 6 },
+      { "type": "phase_is", "value": "morning" }
+    ],
+    "weight": 100,
+    "priority": 100,
+    "repeatable": false,
+    "options": [
+      {
+        "id": "prepare_mind",
+        "text": "确认自己要走的方向",
+        "conditions": [],
+        "effects": [
+          { "type": "modify_world_value", "key": "anomaly_progress", "delta": 1 }
+        ],
+        "result_text": "你很清楚，今晚之后，所谓“再看看”这种拖延已经不会再有意义。"
+      }
+    ]
+  },
+  {
+    "id": "morning_day_7_final_stillness",
+    "title": "晨间：终夜前的安静",
+    "description": "第七天早上，西侧安静得反常。井口像什么都没发生过，越是这样，越像在等你靠近。",
+    "trigger_conditions": [
+      { "type": "day_range", "min": 7, "max": 7 },
+      { "type": "phase_is", "value": "morning" }
+    ],
+    "weight": 100,
+    "priority": 100,
+    "repeatable": false,
+    "options": [
+      {
+        "id": "accept_final_day",
+        "text": "接受今天就是终点",
+        "conditions": [],
+        "effects": [
+          { "type": "modify_world_value", "key": "anomaly_progress", "delta": 1 }
+        ],
+        "result_text": "你知道，这一天不再是普通调查的一天，而是要给整个七日循环一个答案。"
+      }
+    ]
+  },
+
+  {
+    "id": "location_west_well",
+    "title": "白天地点：西井",
+    "description": "白天的西井并不喧闹，但越靠近，越能听见井壁里回荡的细小水声。",
+    "trigger_conditions": [
+      { "type": "phase_is", "value": "day" }
+    ],
+    "weight": 100,
+    "priority": 80,
+    "repeatable": true,
+    "options": [
+      {
+        "id": "peer_into_well",
+        "text": "探头向井里看",
+        "conditions": [
+          { "type": "resource_gte", "scope": "player", "key": "blood_qi", "value": 2 }
+        ],
+        "effects": [
+          { "type": "add_tag", "scope": "player", "key": "visited_west_well" },
+          { "type": "modify_world_value", "key": "investigation_progress", "delta": 2 },
+          { "type": "modify_resource", "scope": "player", "key": "clue_fragments", "delta": 1 },
+          { "type": "modify_resource", "scope": "player", "key": "pollution", "delta": 1 },
+          { "type": "modify_resource", "scope": "player", "key": "exposure", "delta": 1 }
+        ],
+        "result_text": "你在井水倒影里看到的不是自己的脸，而是某种正在借你轮廓成形的东西。调查推进更快了，但它也看见了你。"
+      },
+      {
+        "id": "circle_well_edge",
+        "text": "绕井沿观察痕迹",
+        "conditions": [],
+        "effects": [
+          { "type": "add_tag", "scope": "player", "key": "visited_west_well" },
+          { "type": "modify_world_value", "key": "investigation_progress", "delta": 1 },
+          { "type": "modify_resource", "scope": "player", "key": "clue_fragments", "delta": 1 }
+        ],
+        "result_text": "你沿着井沿看见了新的潮痕和旧符残印，知道自己确实在一步步接近真相。"
+      }
+    ]
+  },
+  {
+    "id": "location_herb_room",
+    "title": "白天地点：药房",
+    "description": "药房永远带着药渣和潮气的味道。这里不靠近西井，却总能闻到和西井有关的旧事。",
+    "trigger_conditions": [
+      { "type": "phase_is", "value": "day" }
+    ],
+    "weight": 100,
+    "priority": 80,
+    "repeatable": true,
+    "options": [
+      {
+        "id": "check_old_ledgers",
+        "text": "翻旧药册与旧账",
+        "conditions": [
+          { "type": "resource_gte", "scope": "player", "key": "spirit_sense", "value": 2 }
+        ],
+        "effects": [
+          { "type": "modify_world_value", "key": "investigation_progress", "delta": 2 },
+          { "type": "modify_resource", "scope": "player", "key": "clue_fragments", "delta": 2 },
+          { "type": "add_knowledge", "key": "well_sealed_in_past" }
+        ],
+        "result_text": "你在旧账里翻到一段不合常理的药材调拨记录，确认西井的事曾被系统地压下去过。"
+      },
+      {
+        "id": "mix_suppressant",
+        "text": "配一份压制异兆的药",
+        "conditions": [],
+        "effects": [
+          { "type": "modify_resource", "scope": "player", "key": "pollution", "delta": -1 },
+          { "type": "modify_world_value", "key": "investigation_progress", "delta": 1 },
+          { "type": "modify_npc_relation", "npc_id": "herb_steward", "field": "favor", "delta": 1 }
+        ],
+        "result_text": "药房能给你的不是答案，而是继续查下去的余地。你没有推进太多，但至少没被异常追得更紧。"
+      }
+    ]
+  },
+  {
+    "id": "location_corridor",
+    "title": "白天地点：回廊",
+    "description": "回廊连接着别院的每一处流言和每一阵脚步声。很多消息不会明说，但会在这里漏出来。",
+    "trigger_conditions": [
+      { "type": "phase_is", "value": "day" }
+    ],
+    "weight": 100,
+    "priority": 80,
+    "repeatable": true,
+    "options": [
+      {
+        "id": "eavesdrop_quietly",
+        "text": "装作路过，偷听几句",
+        "conditions": [],
+        "effects": [
+          { "type": "modify_world_value", "key": "investigation_progress", "delta": 1 },
+          { "type": "modify_world_value", "key": "anomaly_progress", "delta": 1 },
+          { "type": "modify_resource", "scope": "player", "key": "clue_fragments", "delta": 1 },
+          { "type": "modify_resource", "scope": "player", "key": "exposure", "delta": 1 }
+        ],
+        "result_text": "你在碎片化的对话里拼出一部分真相，但也让自己越来越像一个爱追着禁忌跑的人。"
+      },
+      {
+        "id": "follow_patrol_route",
+        "text": "远远跟一段巡逻路线",
+        "conditions": [
+          { "type": "stat_gte", "key": "tact", "value": 2 }
+        ],
+        "effects": [
+          { "type": "modify_world_value", "key": "investigation_progress", "delta": 1 },
+          { "type": "modify_npc_relation", "npc_id": "night_patrol_disciple", "field": "favor", "delta": 1 },
+          { "type": "modify_resource", "scope": "player", "key": "clue_fragments", "delta": 1 }
+        ],
+        "result_text": "你没被发现，还从夜巡弟子的走位里看出了他们真正忌惮的方向。有人开始觉得你也许是站在自己这边的。"
+      }
+    ]
+  },
+  {
+    "id": "location_dormitory",
+    "title": "白天地点：寝舍",
+    "description": "寝舍是别院里少数还能喘口气的地方。这里无法直接逼近真相，却能让你把线索重新串起来。",
+    "trigger_conditions": [
+      { "type": "phase_is", "value": "day" }
+    ],
+    "weight": 100,
+    "priority": 80,
+    "repeatable": true,
+    "options": [
+      {
+        "id": "compare_notes",
+        "text": "整理线索碎片",
+        "conditions": [
+          { "type": "resource_gte", "scope": "player", "key": "clue_fragments", "value": 2 }
+        ],
+        "effects": [
+          { "type": "modify_world_value", "key": "investigation_progress", "delta": 1 },
+          { "type": "modify_resource", "scope": "player", "key": "spirit_sense", "delta": 1 },
+          { "type": "modify_npc_relation", "npc_id": "friendly_peer", "field": "favor", "delta": 1 }
+        ],
+        "result_text": "你把零散听来的东西重新排过，终于看出其中并非全是流言。寝舍给不了真相，但能给你方向。"
+      },
+      {
+        "id": "rest_quietly",
+        "text": "休息并压住异感",
+        "conditions": [],
+        "effects": [
+          { "type": "modify_resource", "scope": "player", "key": "blood_qi", "delta": 1 },
+          { "type": "modify_resource", "scope": "player", "key": "pollution", "delta": -1 }
+        ],
+        "result_text": "你让自己难得喘了口气。今天没查到太多，但至少没有让异变在你身上继续长出来。"
+      }
+    ]
+  },
+
+  {
+    "id": "night_day_1_voice",
+    "title": "夜间异常：第一次异声",
+    "description": "第一夜，风从西侧吹进窗缝，你第一次听见那道像从井底挤出来的低语。",
+    "trigger_conditions": [
+      { "type": "day_range", "min": 1, "max": 1 },
+      { "type": "phase_is", "value": "night" }
+    ],
+    "weight": 100,
+    "priority": 95,
+    "repeatable": false,
+    "options": [
+      {
+        "id": "listen",
+        "text": "认真去听",
+        "conditions": [],
+        "effects": [
+          { "type": "add_tag", "scope": "player", "key": "heard_west_well_voice" },
+          { "type": "add_knowledge", "key": "west_well_is_not_safe" },
+          { "type": "modify_world_value", "key": "anomaly_progress", "delta": 1 },
+          { "type": "modify_resource", "scope": "player", "key": "exposure", "delta": 1 }
+        ],
+        "result_text": "你终于确认，所谓“别靠近西井”不是老弟子吓唬人的规矩，而是一个已经开始向你伸手的事实。"
+      },
+      {
+        "id": "pretend_sleep",
+        "text": "假装没听见",
+        "conditions": [],
+        "effects": [
+          { "type": "add_tag", "scope": "player", "key": "heard_west_well_voice" },
+          { "type": "modify_world_value", "key": "anomaly_progress", "delta": 1 }
+        ],
+        "result_text": "你把头埋进被褥里，可第二天醒来时，你还是记得它喊你时那种近得过分的语气。"
+      }
+    ]
+  },
+  {
+    "id": "night_day_2_rumor",
+    "title": "夜间异常：回廊里的水声",
+    "description": "第二夜，回廊尽头传来像湿鞋拖地一样的声音，可那一头明明没人住。",
+    "trigger_conditions": [
+      { "type": "day_range", "min": 2, "max": 2 },
+      { "type": "phase_is", "value": "night" }
+    ],
+    "weight": 100,
+    "priority": 95,
+    "repeatable": false,
+    "options": [
+      {
+        "id": "follow_sound",
+        "text": "顺着水声走过去",
+        "conditions": [],
+        "effects": [
+          { "type": "modify_world_value", "key": "anomaly_progress", "delta": 1 },
+          { "type": "modify_resource", "scope": "player", "key": "pollution", "delta": 1 }
+        ],
+        "result_text": "你没找到人，却在地上看见一路潮痕通往西侧。异常已经不再只停留在井边。"
+      },
+      {
+        "id": "wake_peer",
+        "text": "叫醒同门作证",
+        "conditions": [],
+        "effects": [
+          { "type": "modify_world_value", "key": "anomaly_progress", "delta": 1 },
+          { "type": "modify_npc_relation", "npc_id": "friendly_peer", "field": "favor", "delta": 1 }
+        ],
+        "result_text": "同门虽然什么都没看见，但至少开始相信你不是在无端多疑。"
+      }
+    ]
+  },
+  {
+    "id": "night_day_3_mark",
+    "title": "夜间异常：它开始回应你",
+    "description": "第三夜，你白天在哪里停留得最久，夜里那声音就从哪里追过来。",
+    "trigger_conditions": [
+      { "type": "day_range", "min": 3, "max": 3 },
+      { "type": "phase_is", "value": "night" }
+    ],
+    "weight": 100,
+    "priority": 95,
+    "repeatable": false,
+    "options": [
+      {
+        "id": "answer_voice",
+        "text": "低声回应那句话",
+        "conditions": [],
+        "effects": [
+          { "type": "add_tag", "scope": "player", "key": "marked_by_well" },
+          { "type": "modify_world_value", "key": "anomaly_progress", "delta": 1 },
+          { "type": "modify_resource", "scope": "player", "key": "pollution", "delta": 1 }
+        ],
+        "result_text": "你一开口，就意识到那道回声像是早就在等你承认自己能听见它。"
+      },
+      {
+        "id": "stay_silent",
+        "text": "强迫自己沉默",
+        "conditions": [],
+        "effects": [
+          { "type": "modify_world_value", "key": "anomaly_progress", "delta": 1 },
+          { "type": "modify_resource", "scope": "player", "key": "blood_qi", "delta": -1 }
+        ],
+        "result_text": "你熬过了这一夜，但也知道沉默只能拖延，不会让它真的离开。"
+      }
+    ]
+  },
+  {
+    "id": "night_day_4_ritual",
+    "title": "夜间异常：封锁后的低语",
+    "description": "第四夜，西井被封之后，低语没有消失，反而像从整座别院的墙体里渗了出来。",
+    "trigger_conditions": [
+      { "type": "day_range", "min": 4, "max": 4 },
+      { "type": "phase_is", "value": "night" }
+    ],
+    "weight": 100,
+    "priority": 95,
+    "repeatable": false,
+    "options": [
+      {
+        "id": "trace_ritual",
+        "text": "顺着低语找规律",
+        "conditions": [
+          { "type": "resource_gte", "scope": "player", "key": "clue_fragments", "value": 3 }
+        ],
+        "effects": [
+          { "type": "modify_world_value", "key": "investigation_progress", "delta": 1 },
+          { "type": "modify_world_value", "key": "anomaly_progress", "delta": 1 },
+          { "type": "add_knowledge", "key": "well_sealed_in_past" }
+        ],
+        "result_text": "你终于看出这不是随机异响，而像一场被拖延了很久、却仍在缓慢完成的旧仪式。"
+      },
+      {
+        "id": "hide_under_blanket",
+        "text": "躲过去，先求稳",
+        "conditions": [],
+        "effects": [
+          { "type": "modify_world_value", "key": "anomaly_progress", "delta": 2 }
+        ],
+        "result_text": "你暂时避开了今晚的代价，但也把整件事往更糟的方向多放任了一步。"
+      }
+    ]
+  },
+  {
+    "id": "night_day_5_truth",
+    "title": "夜间异常：井下不是尸体",
+    "description": "第五夜，低语终于不再绕弯，它开始像试探一样向你重复白天查到的内容。",
+    "trigger_conditions": [
+      { "type": "day_range", "min": 5, "max": 5 },
+      { "type": "phase_is", "value": "night" }
+    ],
+    "weight": 100,
+    "priority": 95,
+    "repeatable": false,
+    "options": [
+      {
+        "id": "accept_truth",
+        "text": "承认自己已经猜到了",
+        "conditions": [
+          { "type": "resource_gte", "scope": "player", "key": "clue_fragments", "value": 4 }
+        ],
+        "effects": [
+          { "type": "add_knowledge", "key": "anomaly_source_identified" },
+          { "type": "modify_world_value", "key": "investigation_progress", "delta": 2 },
+          { "type": "modify_world_value", "key": "anomaly_progress", "delta": 1 }
+        ],
+        "result_text": "你终于确认井下封着的是会借人声蔓延的异常。知道真相的同时，你也知道时间已经不多了。"
+      },
+      {
+        "id": "refuse_to_name_it",
+        "text": "不去给它命名",
+        "conditions": [],
+        "effects": [
+          { "type": "modify_world_value", "key": "anomaly_progress", "delta": 2 },
+          { "type": "modify_resource", "scope": "player", "key": "pollution", "delta": 1 }
+        ],
+        "result_text": "你拒绝承认那份答案，可它已经开始顺着你的迟疑往现实里长出来。"
+      }
+    ]
+  },
+  {
+    "id": "night_day_6_preparation",
+    "title": "夜间异常：终夜前的选择",
+    "description": "第六夜，西井的声音不再藏着掖着。它像是在和你谈判，而不是单纯诱骗。",
+    "trigger_conditions": [
+      { "type": "day_range", "min": 6, "max": 6 },
+      { "type": "phase_is", "value": "night" }
+    ],
+    "weight": 100,
+    "priority": 95,
+    "repeatable": false,
+    "options": [
+      {
+        "id": "prepare_report",
+        "text": "明天协助夜巡封井",
+        "conditions": [],
+        "effects": [
+          { "type": "add_tag", "scope": "player", "key": "prepared_report" }
+        ],
+        "result_text": "你决定把自己摆在活下去的一边。若真相带不走，至少别让它先把你带走。"
+      },
+      {
+        "id": "prepare_descent",
+        "text": "明天亲自下井",
+        "conditions": [
+          { "type": "resource_gte", "scope": "player", "key": "clue_fragments", "value": 4 }
+        ],
+        "effects": [
+          { "type": "add_tag", "scope": "player", "key": "prepared_descent" }
+        ],
+        "result_text": "你知道自己掌握的碎片已经够多了，问题只剩你敢不敢为答案付最后一笔代价。"
+      },
+      {
+        "id": "accept_bargain",
+        "text": "接受它的低语条件",
+        "conditions": [
+          {
+            "type": "any_of",
+            "conditions": [
+              { "type": "tag_present", "scope": "player", "key": "marked_by_well" },
+              { "type": "resource_gte", "scope": "player", "key": "pollution", "value": 2 }
+            ]
+          }
+        ],
+        "effects": [
+          { "type": "add_tag", "scope": "player", "key": "accepted_whisper" },
+          { "type": "modify_resource", "scope": "player", "key": "pollution", "delta": 1 }
+        ],
+        "result_text": "你第一次没有把那道声音当成敌意，而是当成一条也许能让你活下来的路。"
+      }
+    ]
+  },
+  {
+    "id": "night_day_7_final_choice",
+    "title": "夜间异常：井口终夜",
+    "description": "第七夜，西井像一张终于张开的口。七天里你积攒的一切线索、代价和关系，都在此刻要求一个方向。",
+    "trigger_conditions": [
+      { "type": "day_range", "min": 7, "max": 7 },
+      { "type": "phase_is", "value": "night" }
+    ],
+    "weight": 100,
+    "priority": 100,
+    "repeatable": false,
+    "options": [
+      {
+        "id": "seal_with_patrol",
+        "text": "协助夜巡封井",
+        "conditions": [
+          { "type": "tag_present", "scope": "player", "key": "prepared_report" }
+        ],
+        "effects": [
+          { "type": "add_tag", "scope": "player", "key": "ending_report_route" },
+          { "type": "finish_run", "reason_id": "ending_resolution" }
+        ],
+        "result_text": "你选择和仍然站在人这边的秩序站到一起，把自己从西井的最深处抽了回来。"
+      },
+      {
+        "id": "descend_for_truth",
+        "text": "带着线索亲自下井",
+        "conditions": [
+          { "type": "tag_present", "scope": "player", "key": "prepared_descent" },
+          { "type": "resource_gte", "scope": "player", "key": "clue_fragments", "value": 5 },
+          { "type": "resource_lte", "scope": "player", "key": "pollution", "value": 4 }
+        ],
+        "effects": [
+          { "type": "add_tag", "scope": "player", "key": "ending_truth_route" },
+          { "type": "finish_run", "reason_id": "ending_resolution" }
+        ],
+        "result_text": "你不再满足于活着离开，而是带着七天拼起来的证据，走向那个真正会给出答案的地方。"
+      },
+      {
+        "id": "accept_the_whisper",
+        "text": "向井下之物低头",
+        "conditions": [
+          {
+            "type": "any_of",
+            "conditions": [
+              { "type": "tag_present", "scope": "player", "key": "accepted_whisper" },
+              { "type": "resource_gte", "scope": "player", "key": "pollution", "value": 3 }
+            ]
+          }
+        ],
+        "effects": [
+          { "type": "add_tag", "scope": "player", "key": "ending_corruption_route" },
+          { "type": "modify_resource", "scope": "player", "key": "pollution", "delta": 1 },
+          { "type": "finish_run", "reason_id": "ending_resolution" }
+        ],
+        "result_text": "你终于不再抵抗那道声音。它不再需要模仿别人的名字，因为接下来会直接借你的声音留下来。"
+      }
+    ]
+  },
+
+  {
+    "id": "closing_day_1_summary",
+    "title": "收束：第一天",
+    "description": "第一天结束了。你还不知道西井到底是什么，但已经知道它不是能够继续无视的东西。",
+    "trigger_conditions": [
+      { "type": "day_range", "min": 1, "max": 1 },
+      { "type": "phase_is", "value": "closing" }
+    ],
+    "weight": 100,
+    "priority": 70,
+    "repeatable": false,
+    "options": [
+      {
+        "id": "sleep_day_1",
+        "text": "带着不安睡下",
+        "conditions": [],
+        "effects": [],
+        "result_text": "你给这一天下了个结论：西井的故事已经开始，而你不可能像没听见一样退回去。"
+      }
+    ]
+  },
+  {
+    "id": "closing_day_2_summary",
+    "title": "收束：第二天",
+    "description": "第二天结束时，事情仍像流言，但你已经看出别院里真正紧张的并不是闲话，而是秩序本身。",
+    "trigger_conditions": [
+      { "type": "day_range", "min": 2, "max": 2 },
+      { "type": "phase_is", "value": "closing" }
+    ],
+    "weight": 100,
+    "priority": 70,
+    "repeatable": false,
+    "options": [
+      {
+        "id": "sleep_day_2",
+        "text": "记下今天的变化",
+        "conditions": [],
+        "effects": [],
+        "result_text": "你知道自己必须尽快在调查推进与异变推进之间抢出优势，否则后者迟早会先一步压过来。"
+      }
+    ]
+  },
+  {
+    "id": "closing_day_3_summary",
+    "title": "收束：第三天",
+    "description": "第三天结束时，你第一次感觉到异常已经开始“认识”你，而不是只是随机地发生在附近。",
+    "trigger_conditions": [
+      { "type": "day_range", "min": 3, "max": 3 },
+      { "type": "phase_is", "value": "closing" }
+    ],
+    "weight": 100,
+    "priority": 70,
+    "repeatable": false,
+    "options": [
+      {
+        "id": "sleep_day_3",
+        "text": "强迫自己整理思路",
+        "conditions": [],
+        "effects": [],
+        "result_text": "从今天开始，去哪里不再只是收集线索，而是在主动决定自己要不要继续被它看见。"
+      }
+    ]
+  },
+  {
+    "id": "closing_day_4_summary",
+    "title": "收束：第四天",
+    "description": "封锁和失踪把西井从传闻推成了现实危机。第四天之后，别院已经不再有真正的安全地带。",
+    "trigger_conditions": [
+      { "type": "day_range", "min": 4, "max": 4 },
+      { "type": "phase_is", "value": "closing" }
+    ],
+    "weight": 100,
+    "priority": 70,
+    "repeatable": false,
+    "options": [
+      {
+        "id": "sleep_day_4",
+        "text": "接受节奏升级",
+        "conditions": [],
+        "effects": [],
+        "result_text": "你知道中段已经结束。再往后，不会再有那种既能慢慢查、又能慢慢想的宽松日子。"
+      }
+    ]
+  },
+  {
+    "id": "closing_day_5_summary",
+    "title": "收束：第五天",
+    "description": "真相已经露出轮廓，但你也看见了另一面：知道得越多，就越难毫发无损地回头。",
+    "trigger_conditions": [
+      { "type": "day_range", "min": 5, "max": 5 },
+      { "type": "phase_is", "value": "closing" }
+    ],
+    "weight": 100,
+    "priority": 70,
+    "repeatable": false,
+    "options": [
+      {
+        "id": "sleep_day_5",
+        "text": "为最后两天做准备",
+        "conditions": [],
+        "effects": [],
+        "result_text": "你该开始决定自己想活着离开、想把真相带出去，还是已经离那道声音太近了。"
+      }
+    ]
+  },
+  {
+    "id": "closing_day_6_summary",
+    "title": "收束：第六天",
+    "description": "第六天收束时，一切都像被拉成一根快要断掉的弦。明天不是继续推进，而是终夜本身。",
+    "trigger_conditions": [
+      { "type": "day_range", "min": 6, "max": 6 },
+      { "type": "phase_is", "value": "closing" }
+    ],
+    "weight": 100,
+    "priority": 70,
+    "repeatable": false,
+    "options": [
+      {
+        "id": "sleep_day_6",
+        "text": "接受明天就是终点",
+        "conditions": [],
+        "effects": [],
+        "result_text": "你不会再有新的准备窗口了。第七夜会检验你这七天到底是在逼近真相，还是在逼近异化。"
+      }
+    ]
+  }
+]

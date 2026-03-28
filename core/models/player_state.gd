@@ -1,0 +1,27 @@
+class_name PlayerState
+extends RefCounted
+
+var stats: Dictionary = {}
+var resources: Dictionary = {}
+var tags: Array[String] = []
+var statuses: Array[String] = []
+var knowledge: Array[String] = []
+
+func to_dict() -> Dictionary:
+	return {
+		"stats": stats.duplicate(true),
+		"resources": resources.duplicate(true),
+		"tags": tags.duplicate(),
+		"statuses": statuses.duplicate(),
+		"knowledge": knowledge.duplicate()
+	}
+
+static func from_dict(data: Dictionary) -> PlayerState:
+	var state: PlayerState = PlayerState.new()
+	state.stats = data.get("stats", {}).duplicate(true)
+	state.resources = data.get("resources", {}).duplicate(true)
+	state.tags = Array(data.get("tags", []), TYPE_STRING, "", null)
+	state.statuses = Array(data.get("statuses", []), TYPE_STRING, "", null)
+	state.knowledge = Array(data.get("knowledge", []), TYPE_STRING, "", null)
+	return state
+

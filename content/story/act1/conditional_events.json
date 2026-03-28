@@ -1,0 +1,149 @@
+[
+  {
+    "id": "conditional_patrol_interrogation",
+    "story_id": "act1_well_whisper",
+    "event_class": "conditional_story",
+    "slot": "post_action",
+    "schedule_priority": 300,
+    "title": "夜巡盘问",
+    "description": "你最近在回廊和西井附近出现得太勤，夜巡终于拦住了你。",
+    "trigger_conditions": [
+      { "type": "phase_is", "value": "day" },
+      { "type": "day_gte", "value": 5 },
+      { "type": "resource_gte", "scope": "player", "key": "exposure", "value": 3 },
+      {
+        "type": "any_of",
+        "conditions": [
+          { "type": "last_action_is", "value": "west_well" },
+          { "type": "last_action_is", "value": "corridor" }
+        ]
+      }
+    ],
+    "repeatable": false,
+    "options": [
+      {
+        "id": "answer_carefully",
+        "text": "谨慎应对",
+        "conditions": [],
+        "effects": [
+          { "type": "modify_resource", "scope": "player", "key": "exposure", "delta": 1 },
+          { "type": "modify_npc_relation", "npc_id": "night_patrol_disciple", "field": "alert", "delta": 1 }
+        ],
+        "result_text": "你勉强把这次盘问应付过去了，但夜巡显然已经把你归进了“值得注意”的名单里。"
+      }
+    ]
+  },
+  {
+    "id": "conditional_record_discovery",
+    "story_id": "act1_well_whisper",
+    "event_class": "conditional_story",
+    "slot": "post_action",
+    "schedule_priority": 280,
+    "title": "旧账册的缺页",
+    "description": "你在药房里翻到了一本被撕过的旧账册，缺掉的那几页偏偏就是西井被封前后的记录。",
+    "trigger_conditions": [
+      { "type": "phase_is", "value": "day" },
+      { "type": "last_action_is", "value": "herb_room" },
+      { "type": "resource_gte", "scope": "player", "key": "clue_fragments", "value": 3 }
+    ],
+    "repeatable": false,
+    "options": [
+      {
+        "id": "keep_missing_page_in_mind",
+        "text": "记下这处被刻意抹掉的痕迹",
+        "conditions": [],
+        "effects": [
+          { "type": "add_tag", "scope": "player", "key": "records_are_tampered" },
+          { "type": "add_knowledge", "key": "well_sealed_in_past" },
+          { "type": "modify_world_value", "key": "investigation_progress", "delta": 1 },
+          { "type": "modify_resource", "scope": "player", "key": "clue_fragments", "delta": 1 }
+        ],
+        "result_text": "这不是普通的缺页，而是有人动手删掉了某段时间。西井的问题，显然曾经被人为处理过。"
+      }
+    ]
+  },
+  {
+    "id": "conditional_senior_test",
+    "story_id": "act1_well_whisper",
+    "event_class": "conditional_story",
+    "slot": "post_action",
+    "schedule_priority": 270,
+    "title": "师兄的试探",
+    "description": "你刚离开回廊不久，外门师兄像是随口提起一般问你最近是不是也对西边那口井起了兴趣。",
+    "trigger_conditions": [
+      { "type": "phase_is", "value": "day" },
+      { "type": "day_gte", "value": 4 },
+      { "type": "last_action_is", "value": "corridor" },
+      { "type": "tag_present", "scope": "player", "key": "route_seek_senior" }
+    ],
+    "repeatable": false,
+    "options": [
+      {
+        "id": "answer_with_half_truth",
+        "text": "说一半，藏一半",
+        "conditions": [],
+        "effects": [
+          { "type": "modify_npc_relation", "npc_id": "outer_senior_brother", "field": "favor", "delta": 1 },
+          { "type": "modify_resource", "scope": "player", "key": "exposure", "delta": 1 }
+        ],
+        "result_text": "他没有追问太多，但你看得出来，这不是单纯的关心，而是在确认你到底知道了多少。"
+      }
+    ]
+  },
+  {
+    "id": "conditional_whisper_deepens",
+    "story_id": "act1_well_whisper",
+    "event_class": "conditional_story",
+    "slot": "phase_entry",
+    "schedule_priority": 260,
+    "title": "低语加深",
+    "description": "污染积得太久后，低语不再只出现在井边，而开始在夜里顺着墙缝和门板渗进来。",
+    "trigger_conditions": [
+      { "type": "phase_is", "value": "night" },
+      { "type": "day_gte", "value": 4 },
+      { "type": "resource_gte", "scope": "player", "key": "pollution", "value": 2 }
+    ],
+    "repeatable": false,
+    "options": [
+      {
+        "id": "endure_whisper",
+        "text": "咬牙熬过去",
+        "conditions": [],
+        "effects": [
+          { "type": "add_tag", "scope": "player", "key": "marked_by_well" },
+          { "type": "modify_world_value", "key": "anomaly_progress", "delta": 1 },
+          { "type": "modify_resource", "scope": "player", "key": "pollution", "delta": 1 }
+        ],
+        "result_text": "你没有彻底回应它，但它也已经不再需要你的允许。西井开始把你当成会回头的人。"
+      }
+    ]
+  },
+  {
+    "id": "conditional_wrong_trust_payoff",
+    "story_id": "act1_well_whisper",
+    "event_class": "conditional_story",
+    "slot": "phase_entry",
+    "schedule_priority": 250,
+    "title": "误信的代价",
+    "description": "你在别人的沉默里寄托过太多安全感，到了夜里，那份信任反而开始显得像一层会反过来勒住你的绳子。",
+    "trigger_conditions": [
+      { "type": "phase_is", "value": "night" },
+      { "type": "day_gte", "value": 6 },
+      { "type": "tag_present", "scope": "player", "key": "route_seek_senior" },
+      { "type": "resource_gte", "scope": "player", "key": "exposure", "value": 2 }
+    ],
+    "repeatable": false,
+    "options": [
+      {
+        "id": "accept_doubt",
+        "text": "承认自己可能看错了人",
+        "conditions": [],
+        "effects": [
+          { "type": "modify_world_value", "key": "investigation_progress", "delta": 1 },
+          { "type": "modify_stat", "scope": "player", "key": "mind", "delta": -1 }
+        ],
+        "result_text": "你终于承认，外门里没有谁是真正可以无条件信任的。这个结论让你更清醒，也更孤独。"
+      }
+    ]
+  }
+]
