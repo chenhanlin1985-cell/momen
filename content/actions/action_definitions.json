@@ -1,87 +1,13 @@
 [
   {
-    "id": "west_well",
-    "display_name": "去西井",
-    "description": "调查推进最快，但最容易沾上异常与污染。偏冒险。",
-    "tags": ["location", "west_well", "high_risk"],
-    "availability_conditions": [
-      {
-        "type": "resource_gte",
-        "scope": "player",
-        "key": "blood_qi",
-        "value": 1
-      }
-    ],
-    "base_costs": {
-      "resources": {
-        "blood_qi": 1
-      },
-      "stats": {},
-      "tags": []
-    },
-    "base_rewards": {
-      "resources": {
-        "clue_fragments": 1
-      },
-      "stats": {},
-      "tags": []
-    },
-    "linked_event_pool": ["location_west_well"],
-    "risk_weight": 12,
-    "sort_order": 100,
-    "is_visible": true
-  },
-  {
-    "id": "herb_room",
-    "display_name": "去药房",
-    "description": "查药册、配药压污染，推进稍慢但更稳。偏保守调查。",
-    "tags": ["location", "herb_room", "support"],
-    "availability_conditions": [],
-    "base_costs": {
-      "resources": {},
-      "stats": {},
-      "tags": []
-    },
-    "base_rewards": {
-      "resources": {
-        "clue_fragments": 1
-      },
-      "stats": {},
-      "tags": []
-    },
-    "linked_event_pool": ["location_herb_room"],
-    "risk_weight": 4,
-    "sort_order": 200,
-    "is_visible": true
-  },
-  {
-    "id": "corridor",
-    "display_name": "去回廊",
-    "description": "打听流言、观察巡逻，容易涨暴露，但能摸清世界压力。偏信息与关系。",
-    "tags": ["location", "corridor", "social"],
-    "availability_conditions": [],
-    "base_costs": {
-      "resources": {},
-      "stats": {},
-      "tags": []
-    },
-    "base_rewards": {
-      "resources": {},
-      "stats": {
-        "tact": 1
-      },
-      "tags": []
-    },
-    "linked_event_pool": ["location_corridor"],
-    "risk_weight": 6,
-    "sort_order": 300,
-    "is_visible": true
-  },
-  {
-    "id": "dormitory",
-    "display_name": "回寝舍",
-    "description": "整理线索、恢复状态、与同门交谈。推进最慢，但最安全。偏恢复。",
-    "tags": ["location", "dormitory", "recovery"],
+    "id": "dormitory_rest",
+    "trigger_action_id": "dormitory",
+    "action_category": "rest",
+    "target_location_id": "dormitory",
+    "allowed_locations": ["dormitory"],
+    "display_name": "在寝舍休息",
+    "description": "恢复体力与心神，最安全，但对白天推进帮助有限。",
+    "tags": ["location_action", "dormitory", "rest"],
     "availability_conditions": [],
     "base_costs": {
       "resources": {},
@@ -99,7 +25,362 @@
     },
     "linked_event_pool": ["location_dormitory"],
     "risk_weight": 1,
-    "sort_order": 400,
+    "sort_order": 100,
     "is_visible": true
+  },
+  {
+    "id": "dormitory_sort_clues",
+    "trigger_action_id": "dormitory",
+    "action_category": "investigate",
+    "target_location_id": "dormitory",
+    "allowed_locations": ["dormitory"],
+    "display_name": "在寝舍整理线索",
+    "description": "把散碎见闻拼成可用判断，推进缓慢但稳。",
+    "tags": ["location_action", "dormitory", "investigate"],
+    "availability_conditions": [],
+    "base_costs": {
+      "resources": {},
+      "stats": {},
+      "tags": []
+    },
+    "base_rewards": {
+      "resources": {
+        "clue_fragments": 1
+      },
+      "stats": {
+        "mind": 1
+      },
+      "tags": []
+    },
+    "linked_event_pool": ["location_dormitory"],
+    "risk_weight": 1,
+    "sort_order": 110,
+    "is_visible": true
+  },
+  {
+    "id": "dormitory_peer_talk",
+    "trigger_action_id": "dormitory",
+    "action_category": "talk",
+    "target_location_id": "dormitory",
+    "allowed_locations": ["dormitory"],
+    "display_name": "在寝舍和同门闲谈",
+    "description": "从同门口风里试探消息，风险低，但信息质量不稳定。",
+    "tags": ["location_action", "dormitory", "talk"],
+    "availability_conditions": [],
+    "base_costs": {
+      "resources": {},
+      "stats": {},
+      "tags": []
+    },
+    "base_rewards": {
+      "resources": {},
+      "stats": {
+        "tact": 1
+      },
+      "tags": []
+    },
+    "linked_event_pool": ["location_dormitory"],
+    "risk_weight": 2,
+    "sort_order": 120,
+    "is_visible": true
+  },
+  {
+    "id": "corridor_inquire",
+    "trigger_action_id": "corridor",
+    "action_category": "talk",
+    "target_location_id": "corridor",
+    "allowed_locations": ["corridor"],
+    "display_name": "在回廊打听流言",
+    "description": "更容易知道别院里发生了什么，也更容易被别人记住。",
+    "tags": ["location_action", "corridor", "talk"],
+    "availability_conditions": [],
+    "base_costs": {
+      "resources": {},
+      "stats": {},
+      "tags": []
+    },
+    "base_rewards": {
+      "resources": {},
+      "stats": {
+        "tact": 1
+      },
+      "tags": []
+    },
+    "linked_event_pool": ["location_corridor"],
+    "risk_weight": 5,
+    "sort_order": 200,
+    "is_visible": false
+  },
+  {
+    "id": "corridor_observe",
+    "trigger_action_id": "corridor",
+    "action_category": "investigate",
+    "target_location_id": "corridor",
+    "allowed_locations": ["corridor"],
+    "display_name": "在回廊观察巡夜动向",
+    "description": "推进世界层面的判断，适合确认风声与巡查变化。",
+    "tags": ["location_action", "corridor", "investigate"],
+    "availability_conditions": [],
+    "base_costs": {
+      "resources": {},
+      "stats": {},
+      "tags": []
+    },
+    "base_rewards": {
+      "resources": {
+        "clue_fragments": 1
+      },
+      "stats": {},
+      "tags": []
+    },
+    "linked_event_pool": ["location_corridor"],
+    "risk_weight": 6,
+    "sort_order": 210,
+    "is_visible": false
+  },
+  {
+    "id": "corridor_errands",
+    "trigger_action_id": "corridor",
+    "action_category": "work",
+    "target_location_id": "corridor",
+    "allowed_locations": ["corridor"],
+    "display_name": "在回廊跑杂役",
+    "description": "能换来一点日常资源，也会让你更频繁出现在众人视线里。",
+    "tags": ["location_action", "corridor", "work"],
+    "availability_conditions": [],
+    "base_costs": {
+      "resources": {},
+      "stats": {},
+      "tags": []
+    },
+    "base_rewards": {
+      "resources": {
+        "spirit_stone": 1
+      },
+      "stats": {},
+      "tags": []
+    },
+    "linked_event_pool": ["location_corridor"],
+    "risk_weight": 4,
+    "sort_order": 220,
+    "is_visible": false
+  },
+  {
+    "id": "herb_front_work",
+    "trigger_action_id": "herb_room",
+    "action_category": "work",
+    "target_location_id": "herb_front",
+    "allowed_locations": ["herb_front"],
+    "display_name": "在药房外间打下手",
+    "description": "做杂役换取一些补给，也是接近药房账册最自然的方式。",
+    "tags": ["location_action", "herb_front", "work"],
+    "availability_conditions": [],
+    "base_costs": {
+      "resources": {},
+      "stats": {},
+      "tags": []
+    },
+    "base_rewards": {
+      "resources": {
+        "spirit_stone": 1
+      },
+      "stats": {},
+      "tags": []
+    },
+    "linked_event_pool": ["location_herb_room"],
+    "risk_weight": 3,
+    "sort_order": 300,
+    "is_visible": true
+  },
+  {
+    "id": "herb_front_observe",
+    "trigger_action_id": "herb_room",
+    "action_category": "investigate",
+    "target_location_id": "herb_front",
+    "allowed_locations": ["herb_front"],
+    "display_name": "在药房外间观察出入",
+    "description": "从出入药房的人和物里找线索，推进稳定。",
+    "tags": ["location_action", "herb_front", "investigate"],
+    "availability_conditions": [],
+    "base_costs": {
+      "resources": {},
+      "stats": {},
+      "tags": []
+    },
+    "base_rewards": {
+      "resources": {
+        "clue_fragments": 1
+      },
+      "stats": {},
+      "tags": []
+    },
+    "linked_event_pool": ["location_herb_room"],
+    "risk_weight": 3,
+    "sort_order": 310,
+    "is_visible": true
+  },
+  {
+    "id": "herb_front_steward_talk",
+    "trigger_action_id": "herb_room",
+    "action_category": "talk",
+    "target_location_id": "herb_front",
+    "allowed_locations": ["herb_front"],
+    "display_name": "在药房外间试探执事",
+    "description": "冒一点风险试探口风，可能得到药房线的额外信息。",
+    "tags": ["location_action", "herb_front", "talk"],
+    "availability_conditions": [],
+    "base_costs": {
+      "resources": {},
+      "stats": {},
+      "tags": []
+    },
+    "base_rewards": {
+      "resources": {},
+      "stats": {
+        "tact": 1
+      },
+      "tags": []
+    },
+    "linked_event_pool": ["location_herb_room"],
+    "risk_weight": 4,
+    "sort_order": 320,
+    "is_visible": true
+  },
+  {
+    "id": "herb_records_search",
+    "trigger_action_id": "herb_room",
+    "action_category": "investigate",
+    "target_location_id": "herb_records",
+    "allowed_locations": ["herb_records"],
+    "display_name": "在药房记录间翻旧账",
+    "description": "最接近关键记录，但如果被发现会很麻烦。",
+    "tags": ["location_action", "herb_records", "investigate"],
+    "availability_conditions": [],
+    "base_costs": {
+      "resources": {},
+      "stats": {},
+      "tags": []
+    },
+    "base_rewards": {
+      "resources": {
+        "clue_fragments": 2
+      },
+      "stats": {},
+      "tags": []
+    },
+    "linked_event_pool": ["location_herb_room"],
+    "risk_weight": 6,
+    "sort_order": 330,
+    "is_visible": true
+  },
+  {
+    "id": "west_well_listen",
+    "trigger_action_id": "west_well",
+    "action_category": "talk",
+    "target_location_id": "west_well_outer",
+    "allowed_locations": ["west_well_outer"],
+    "display_name": "在西井外围停下细听",
+    "description": "更像在回应井下之物，风险高，但异常反馈最直接。",
+    "tags": ["location_action", "west_well_outer", "talk"],
+    "availability_conditions": [
+      {
+        "type": "resource_gte",
+        "scope": "player",
+        "key": "blood_qi",
+        "value": 1
+      }
+    ],
+    "base_costs": {
+      "resources": {
+        "blood_qi": 1
+      },
+      "stats": {},
+      "tags": []
+    },
+    "base_rewards": {
+      "resources": {
+        "clue_fragments": 1,
+        "pollution": 1
+      },
+      "stats": {},
+      "tags": []
+    },
+    "linked_event_pool": ["location_west_well"],
+    "risk_weight": 10,
+    "sort_order": 400,
+    "is_visible": false
+  },
+  {
+    "id": "west_well_probe",
+    "trigger_action_id": "west_well",
+    "action_category": "investigate",
+    "target_location_id": "west_well_outer",
+    "allowed_locations": ["west_well_outer"],
+    "display_name": "在西井外围探查痕迹",
+    "description": "调查推进最快，但最容易沾上异常与暴露。",
+    "tags": ["location_action", "west_well_outer", "investigate"],
+    "availability_conditions": [
+      {
+        "type": "resource_gte",
+        "scope": "player",
+        "key": "blood_qi",
+        "value": 1
+      }
+    ],
+    "base_costs": {
+      "resources": {
+        "blood_qi": 1
+      },
+      "stats": {},
+      "tags": []
+    },
+    "base_rewards": {
+      "resources": {
+        "clue_fragments": 2
+      },
+      "stats": {},
+      "tags": []
+    },
+    "linked_event_pool": ["location_west_well"],
+    "risk_weight": 12,
+    "sort_order": 410,
+    "is_visible": false
+  },
+  {
+    "id": "west_well_inner_search",
+    "trigger_action_id": "west_well",
+    "action_category": "investigate",
+    "target_location_id": "west_well_inner",
+    "allowed_locations": ["west_well_inner"],
+    "display_name": "在井边禁区逼近真相",
+    "description": "最危险，但也最接近真正的答案。",
+    "tags": ["location_action", "west_well_inner", "investigate"],
+    "availability_conditions": [
+      {
+        "type": "resource_gte",
+        "scope": "player",
+        "key": "blood_qi",
+        "value": 1
+      }
+    ],
+    "base_costs": {
+      "resources": {
+        "blood_qi": 1
+      },
+      "stats": {},
+      "tags": []
+    },
+    "base_rewards": {
+      "resources": {
+        "clue_fragments": 2,
+        "pollution": 1
+      },
+      "stats": {},
+      "tags": []
+    },
+    "linked_event_pool": ["location_west_well"],
+    "risk_weight": 14,
+    "sort_order": 420,
+    "is_visible": false
   }
 ]

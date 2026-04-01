@@ -3,10 +3,6 @@ class_name StoryGraphBuilder
 extends RefCounted
 
 const RUNS_PATH: String = "res://content/runs/run_definitions.json"
-const LEGACY_EVENTS_PATH: String = "res://content/events/event_definitions.json"
-const STORY_EVENT_SOURCE_JSON: String = "json"
-const STORY_EVENT_SOURCE_CSV: String = "csv"
-
 const PHASE_ORDER: Dictionary = {
 	"morning": 0,
 	"day": 1,
@@ -39,7 +35,7 @@ func build_graph() -> Dictionary:
 func _load_story_event_definitions() -> Array[Dictionary]:
 	var run_definitions: Array[Dictionary] = _load_array_file(RUNS_PATH)
 	if run_definitions.is_empty():
-		return _load_array_file(LEGACY_EVENTS_PATH)
+		return []
 
 	var result: Array[Dictionary] = []
 	var seen_ids: Dictionary = {}
@@ -51,24 +47,16 @@ func _load_story_event_definitions() -> Array[Dictionary]:
 			seen_ids[event_id] = true
 			result.append(item)
 
-	if result.is_empty():
-		return _load_array_file(LEGACY_EVENTS_PATH)
 	return result
 
 func _load_run_story_events(run_definition: Dictionary) -> Array[Dictionary]:
-	var source: String = str(run_definition.get("story_event_source", STORY_EVENT_SOURCE_JSON))
-	if source == STORY_EVENT_SOURCE_CSV:
-		var csv_dir: String = str(run_definition.get("story_csv_dir", ""))
-		if not csv_dir.is_empty():
-			var importer: StoryCsvImporter = StoryCsvImporter.new()
-			var imported: Array[Dictionary] = importer.import_directory(csv_dir)
-			if not imported.is_empty():
-				return imported
-
 	var result: Array[Dictionary] = []
-	for path: String in run_definition.get("story_event_paths", []):
-		for item: Dictionary in _load_array_file(path):
-			result.append(item)
+	var csv_dir: String = str(run_definition.get("story_csv_dir", ""))
+	if not csv_dir.is_empty():
+		var importer: StoryCsvImporter = StoryCsvImporter.new()
+		var imported: Array[Dictionary] = importer.import_directory(csv_dir)
+		if not imported.is_empty():
+			result.append_array(imported)
 	return result
 
 func _load_array_file(path: String) -> Array[Dictionary]:

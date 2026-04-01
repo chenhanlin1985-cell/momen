@@ -13,6 +13,12 @@ var log_entries: Array[String] = []
 var queued_event_ids: Array[String] = []
 var triggered_event_ids: Array[String] = []
 var current_event_id: String = ""
+var current_event_result_text: String = ""
+var current_dialogue_mode: String = ""
+var current_dialogue_body_override_text: String = ""
+var current_dialogue_portrait_override_label: String = ""
+var current_dialogue_intrusion_tag: String = ""
+var current_dialogue_intrusion_used: bool = false
 var is_run_over: bool = false
 var end_reason: String = ""
 var ending_result = null
@@ -37,6 +43,12 @@ func to_dict() -> Dictionary:
 		"queued_event_ids": queued_event_ids.duplicate(),
 		"triggered_event_ids": triggered_event_ids.duplicate(),
 		"current_event_id": current_event_id,
+		"current_event_result_text": current_event_result_text,
+		"current_dialogue_mode": current_dialogue_mode,
+		"current_dialogue_body_override_text": current_dialogue_body_override_text,
+		"current_dialogue_portrait_override_label": current_dialogue_portrait_override_label,
+		"current_dialogue_intrusion_tag": current_dialogue_intrusion_tag,
+		"current_dialogue_intrusion_used": current_dialogue_intrusion_used,
 		"is_run_over": is_run_over,
 		"end_reason": end_reason,
 		"ending_result": {} if ending_result == null else ending_result.to_dict()
@@ -52,7 +64,13 @@ static func from_dict(data: Dictionary) -> RunState:
 	state.queued_event_ids = Array(data.get("queued_event_ids", []), TYPE_STRING, "", null)
 	state.triggered_event_ids = Array(data.get("triggered_event_ids", []), TYPE_STRING, "", null)
 	state.current_event_id = str(data.get("current_event_id", ""))
-	state.is_run_over = bool(data.get("is_run_over", false))
+	state.current_event_result_text = str(data.get("current_event_result_text", ""))
+	state.current_dialogue_mode = str(data.get("current_dialogue_mode", ""))
+	state.current_dialogue_body_override_text = str(data.get("current_dialogue_body_override_text", ""))
+	state.current_dialogue_portrait_override_label = str(data.get("current_dialogue_portrait_override_label", ""))
+	state.current_dialogue_intrusion_tag = str(data.get("current_dialogue_intrusion_tag", ""))
+	state.current_dialogue_intrusion_used = _to_bool(data.get("current_dialogue_intrusion_used", false))
+	state.is_run_over = _to_bool(data.get("is_run_over", false))
 	state.end_reason = str(data.get("end_reason", ""))
 	var ending_payload: Dictionary = data.get("ending_result", {})
 	if not ending_payload.is_empty():
@@ -65,3 +83,15 @@ static func from_dict(data: Dictionary) -> RunState:
 		state.active_goals.append(GoalProgress.from_dict(goal_data))
 
 	return state
+
+static func _to_bool(value: Variant) -> bool:
+	match typeof(value):
+		TYPE_BOOL:
+			return value
+		TYPE_INT, TYPE_FLOAT:
+			return value != 0
+		TYPE_STRING:
+			var normalized: String = str(value).strip_edges().to_lower()
+			return normalized == "true" or normalized == "1" or normalized == "yes"
+		_:
+			return value != null

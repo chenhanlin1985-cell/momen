@@ -1,0 +1,233 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://tools/story_mount/story_mount_browser.gd" id="1"]
+
+[node name="StoryMountBrowser" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Root" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+
+[node name="Toolbar" type="HBoxContainer" parent="MarginContainer/Root"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="RunLabel" type="Label" parent="MarginContainer/Root/Toolbar"]
+layout_mode = 2
+text = "剧本"
+
+[node name="RunSelector" type="OptionButton" parent="MarginContainer/Root/Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ReloadButton" type="Button" parent="MarginContainer/Root/Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "重新加载"
+
+[node name="CategoryLabel" type="Label" parent="MarginContainer/Root/Toolbar"]
+layout_mode = 2
+text = "内容筛选"
+
+[node name="CategoryFilter" type="OptionButton" parent="MarginContainer/Root/Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(160, 0)
+
+[node name="BodySplit" type="HSplitContainer" parent="MarginContainer/Root"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+split_offset = 300
+
+[node name="LeftColumn" type="VBoxContainer" parent="MarginContainer/Root/BodySplit"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="LocationPanel" type="PanelContainer" parent="MarginContainer/Root/BodySplit/LeftColumn"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="LocationPadding" type="MarginContainer" parent="MarginContainer/Root/BodySplit/LeftColumn/LocationPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="LocationContent" type="VBoxContainer" parent="MarginContainer/Root/BodySplit/LeftColumn/LocationPanel/LocationPadding"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="LocationTitle" type="Label" parent="MarginContainer/Root/BodySplit/LeftColumn/LocationPanel/LocationPadding/LocationContent"]
+layout_mode = 2
+text = "地点挂载"
+
+[node name="LocationList" type="ItemList" parent="MarginContainer/Root/BodySplit/LeftColumn/LocationPanel/LocationPadding/LocationContent"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="NpcPanel" type="PanelContainer" parent="MarginContainer/Root/BodySplit/LeftColumn"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="NpcPadding" type="MarginContainer" parent="MarginContainer/Root/BodySplit/LeftColumn/NpcPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="NpcContent" type="VBoxContainer" parent="MarginContainer/Root/BodySplit/LeftColumn/NpcPanel/NpcPadding"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="NpcTitle" type="Label" parent="MarginContainer/Root/BodySplit/LeftColumn/NpcPanel/NpcPadding/NpcContent"]
+layout_mode = 2
+text = "人物状态挂载"
+
+[node name="NpcList" type="ItemList" parent="MarginContainer/Root/BodySplit/LeftColumn/NpcPanel/NpcPadding/NpcContent"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="CenterPanel" type="PanelContainer" parent="MarginContainer/Root/BodySplit"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="CenterPadding" type="MarginContainer" parent="MarginContainer/Root/BodySplit/CenterPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="CenterTabs" type="TabContainer" parent="MarginContainer/Root/BodySplit/CenterPanel/CenterPadding"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="FlowTab" type="VBoxContainer" parent="MarginContainer/Root/BodySplit/CenterPanel/CenterPadding/CenterTabs"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="FlowHint" type="Label" parent="MarginContainer/Root/BodySplit/CenterPanel/CenterPadding/CenterTabs/FlowTab"]
+layout_mode = 2
+autowrap_mode = 2
+text = "主线流程视图：主线节点从头到尾串起来，连接条件写在详情里，支持内容会显示这个节点依赖哪些地点和人物内容。"
+
+[node name="FlowList" type="ItemList" parent="MarginContainer/Root/BodySplit/CenterPanel/CenterPadding/CenterTabs/FlowTab"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ExperienceTab" type="VBoxContainer" parent="MarginContainer/Root/BodySplit/CenterPanel/CenterPadding/CenterTabs"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="ExperienceHint" type="Label" parent="MarginContainer/Root/BodySplit/CenterPanel/CenterPadding/CenterTabs/ExperienceTab"]
+layout_mode = 2
+autowrap_mode = 2
+text = "体验总览：按 Day / 时间段 / 内容分类 / 地点重排当前剧本事件，帮助理解玩家大致会遇到什么。"
+
+[node name="ExperienceList" type="ItemList" parent="MarginContainer/Root/BodySplit/CenterPanel/CenterPadding/CenterTabs/ExperienceTab"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="FlagTab" type="VBoxContainer" parent="MarginContainer/Root/BodySplit/CenterPanel/CenterPadding/CenterTabs"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="FlagHint" type="Label" parent="MarginContainer/Root/BodySplit/CenterPanel/CenterPadding/CenterTabs/FlagTab"]
+layout_mode = 2
+autowrap_mode = 2
+text = "Flag 视图：查看全局标记由哪些内容设置、哪些内容需要它、又会阻断哪些内容。"
+
+[node name="FlagList" type="ItemList" parent="MarginContainer/Root/BodySplit/CenterPanel/CenterPadding/CenterTabs/FlagTab"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="RightPanel" type="PanelContainer" parent="MarginContainer/Root/BodySplit"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="RightPadding" type="MarginContainer" parent="MarginContainer/Root/BodySplit/RightPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="RightContent" type="VBoxContainer" parent="MarginContainer/Root/BodySplit/RightPanel/RightPadding"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="MountTitle" type="Label" parent="MarginContainer/Root/BodySplit/RightPanel/RightPadding/RightContent"]
+layout_mode = 2
+text = "当前挂载事件"
+
+[node name="MountList" type="ItemList" parent="MarginContainer/Root/BodySplit/RightPanel/RightPadding/RightContent"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_minimum_size = Vector2(0, 180)
+
+[node name="DetailTitle" type="Label" parent="MarginContainer/Root/BodySplit/RightPanel/RightPadding/RightContent"]
+layout_mode = 2
+text = "详情"
+
+[node name="DetailLabel" type="RichTextLabel" parent="MarginContainer/Root/BodySplit/RightPanel/RightPadding/RightContent"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+bbcode_enabled = true

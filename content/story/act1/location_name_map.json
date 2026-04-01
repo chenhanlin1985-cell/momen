@@ -1,0 +1,8 @@
+[
+  { "id": "dormitory", "title": "茅草屋", "aliases": ["住处"] },
+  { "id": "corridor", "title": "外门广场", "aliases": ["回廊", "广场"] },
+  { "id": "herb_front", "title": "炼丹房外间", "aliases": ["丹房外间", "炼丹房"] },
+  { "id": "herb_records", "title": "丹房旧账室", "aliases": ["旧账室", "账室"] },
+  { "id": "west_well_outer", "title": "化骨池外围", "aliases": ["化骨池", "西井外围"] },
+  { "id": "west_well_inner", "title": "丹炉内室", "aliases": ["内室", "试药内室"] }
+]

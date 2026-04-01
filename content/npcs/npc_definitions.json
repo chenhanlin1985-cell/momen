@@ -1,92 +1,143 @@
 [
   {
     "id": "outer_senior_brother",
-    "display_name": "外门师兄",
-    "role": "senior",
-    "faction_id": "outer_court",
-    "tags": ["strict"],
+    "story_id": "act1_well_whisper",
+    "display_name": "疯长老",
+    "role": "elder",
+    "faction_id": "alchemy_hall",
+    "tags": ["chaotic", "overwhelming", "pill_master"],
+    "default_location_id": "herb_front",
+    "portrait_path": "",
+    "portrait_placeholder": "疯长老\n半身像占位",
+    "available_interactions": ["talk", "seek_help"],
+    "availability_conditions": [],
     "initial_relation": {
       "favor": 0,
       "alert": 1
     },
+    "default_attitude": "喜怒无常",
+    "default_state": "试药前兆",
+    "state_event_ids": [
+      "dlg_outer_senior_guidance",
+      "conditional_senior_test",
+      "conditional_wrong_trust_payoff"
+    ],
     "initial_status_tags": [],
     "initial_flags": {
       "alive": true,
       "interactable": true
     },
-    "secrets": [],
-    "preferred_actions": ["cultivate", "work"]
+    "secrets": [
+      "blood_pill_test"
+    ],
+    "preferred_actions": [
+      "work"
+    ]
   },
   {
     "id": "herb_steward",
-    "display_name": "药房执事",
-    "role": "steward",
-    "faction_id": "herb_house",
-    "tags": ["greedy", "resource_gatekeeper"],
+    "story_id": "act1_well_whisper",
+    "display_name": "执事王麻子",
+    "role": "deacon",
+    "faction_id": "outer_gate",
+    "tags": ["greedy", "cowardly", "collector"],
+    "default_location_id": "corridor",
+    "portrait_path": "",
+    "portrait_placeholder": "王麻子\n半身像占位",
+    "available_interactions": ["talk", "ask_records"],
+    "availability_conditions": [],
     "initial_relation": {
       "favor": 0,
       "alert": 0
     },
+    "default_attitude": "贪婪",
+    "default_state": "四处摊派",
+    "state_event_ids": [
+      "dlg_herb_steward_probe",
+      "conditional_patrol_interrogation"
+    ],
     "initial_status_tags": [],
     "initial_flags": {
       "alive": true,
       "interactable": true
     },
-    "secrets": ["hidden_side_trade"],
-    "preferred_actions": ["work"]
-  },
-  {
-    "id": "black_market_broker",
-    "display_name": "黑市中间人",
-    "role": "broker",
-    "faction_id": "black_market",
-    "tags": ["risky"],
-    "initial_relation": {
-      "favor": 0,
-      "alert": 1
-    },
-    "initial_status_tags": [],
-    "initial_flags": {
-      "alive": true,
-      "interactable": true
-    },
-    "secrets": ["market_route"],
-    "preferred_actions": ["work", "rest"]
+    "secrets": [
+      "deacon_ledger"
+    ],
+    "preferred_actions": [
+      "work"
+    ]
   },
   {
     "id": "friendly_peer",
-    "display_name": "可结交同门",
+    "story_id": "act1_well_whisper",
+    "display_name": "柳飞霞",
     "role": "peer",
-    "faction_id": "outer_court",
-    "tags": ["curious", "hesitant"],
+    "faction_id": "outer_gate",
+    "tags": ["suspicious", "poisoner", "self_serving"],
+    "default_location_id": "dormitory",
+    "portrait_path": "res://assets/art/portraits/npcs/01/01_default.png",
+    "portrait_variants": {
+      "生气": "res://assets/art/portraits/npcs/01/01_ang.png",
+      "悲伤": "res://assets/art/portraits/npcs/01/01_sad.png"
+    },
+    "portrait_placeholder": "柳飞霞\n半身像占位",
+    "available_interactions": ["talk", "ask_rumor"],
+    "availability_conditions": [],
     "initial_relation": {
       "favor": 0,
       "alert": 0
     },
+    "default_attitude": "试探",
+    "default_state": "借旧情接近你",
+    "state_event_ids": [
+      "dlg_friendly_peer_well_warning",
+      "dlg_friendly_peer_shadow_contact",
+      "friendly_peer_md_2102"
+    ],
     "initial_status_tags": [],
     "initial_flags": {
       "alive": true,
       "interactable": true
     },
-    "secrets": ["heard_well_rumor"],
-    "preferred_actions": ["rest", "cultivate"]
+    "secrets": [
+      "cousin_relic_interest"
+    ],
+    "preferred_actions": [
+      "rest"
+    ]
   },
   {
     "id": "night_patrol_disciple",
-    "display_name": "夜巡弟子",
+    "story_id": "act1_well_whisper",
+    "display_name": "巡夜弟子",
     "role": "patrol",
     "faction_id": "discipline_hall",
     "tags": ["watchful", "duty_bound"],
+    "default_location_id": "corridor",
+    "portrait_path": "",
+    "portrait_placeholder": "巡夜弟子\n半身像占位",
+    "available_interactions": ["talk", "report"],
+    "availability_conditions": [],
     "initial_relation": {
       "favor": 0,
       "alert": 1
     },
+    "default_attitude": "警惕",
+    "default_state": "照例巡夜",
+    "state_event_ids": [
+      "dlg_patrol_report_anomaly"
+    ],
     "initial_status_tags": [],
     "initial_flags": {
       "alive": true,
       "interactable": true
     },
-    "secrets": ["well_lockdown_record"],
-    "preferred_actions": ["work"]
+    "secrets": [
+      "night_register"
+    ],
+    "preferred_actions": [
+      "work"
+    ]
   }
 ]

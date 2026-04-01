@@ -21,15 +21,24 @@ config/features=PackedStringArray("4.6")
 [autoload]
 
 AppState="*res://autoload/app_state.gd"
+DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 RunController="*res://autoload/run_controller.gd"
 SaveService="*res://autoload/save_service.gd"
 
 [display]
 
-window/size/viewport_width=1280
-window/size/viewport_height=720
+window/size/viewport_width=1600
+window/size/viewport_height=900
 window/stretch/mode="canvas_items"
 
 [dotnet]
 
 project/assembly_name="momen"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg", "res://addons/markdown_story_editor/plugin.cfg")
+
+[internationalization]
+
+locale/translations_pot_files=PackedStringArray("res://.tmp_dialogue_manager/tests/main.dialogue", "res://.tmp_dialogue_manager/tests/snippets.dialogue", "res://content/dialogue/act1/friendly_peer.dialogue", "res://content/dialogue/act1/herb_steward.dialogue", "res://content/dialogue/act1/night_patrol.dialogue", "res://content/dialogue/act1/outer_senior.dialogue")

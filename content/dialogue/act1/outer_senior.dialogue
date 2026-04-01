@@ -1,0 +1,31 @@
+~ elder_guidance
+疯长老: 藏得住修为，未必藏得住命。你若真想从这外门里活着爬出去，就别只盯着别人手上的刀，先学会让自己的气息消失。
+- 记下这句暗示，追问藏气的门道
+    疯长老: 真想学，就先别把自己活成一团明火。会藏的人，走到血雾里都像没来过。
+    do bridge.set_flag("met_mad_elder", true)
+    do bridge.set_flag("learned_blood_stealth", true)
+    do bridge.add_clue(1)
+    do bridge.modify_npc_favor("outer_senior_brother", 1)
+    => END
+
+- 不多问，只把这份注视记在心里
+    疯长老: 懂得少说的人，往往能多活几天。记住今天这句话，等你真用得上时再回来看。
+    do bridge.set_flag("met_mad_elder", true)
+    do bridge.add_clue(1)
+    => END
+
+~ senior_test
+疯长老: 我看你这几日已经学会了一点畏缩的本事。可光是会藏还不够。你得懂，什么该说，什么该留到别人自己去猜。
+- 说一半，把另一半继续藏在心里
+    疯长老: 这就对了。太笨的人在外门死得快，可太滑的人，有时反而值得别人先留一留。
+    do bridge.modify_npc_favor("outer_senior_brother", 1)
+    do bridge.add_exposure(1)
+    do bridge.add_clue(1)
+    => END
+
+- 认这句提醒，表示愿意继续学他的藏气法子
+    疯长老: 想活下来，就别怕学得像一点。等你下次还能站着来，我再看看你是不是真的学会了。
+    do bridge.set_flag("trusted_outer_senior", true)
+    do bridge.modify_npc_favor("outer_senior_brother", 1)
+    do bridge.add_clue(1)
+    => END

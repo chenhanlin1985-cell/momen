@@ -1,78 +1,71 @@
 [
   {
-    "id": "ending_well_mutation",
-    "title": "异化结局",
-    "description": "你没有赶在世界完成异变前厘清真相，反而在一次次靠近中成了仪式的一部分。等别人再看见你时，你已经开始替井下之物说话。",
-    "outcome_type": "corruption",
+    "id": "ending_death_used_by_liu",
+    "title": "死于柳飞霞之手",
+    "description": "你误判了柳飞霞真正的破绽，在她贪念彻底压过伪装的那一瞬间被当场灭口。黑暗再次吞没了宿主，你只能带着这次失败进入下一个轮回。",
+    "outcome_type": "death",
+    "priority": 100,
+    "conditions": [
+      {
+        "type": "flag_present",
+        "key": "death_used_by_liu"
+      }
+    ]
+  },
+  {
+    "id": "ending_shadow_assassination",
+    "title": "暗潮反杀",
+    "description": "你和柳飞霞把遗物秘密当成饵，借血雾和人心设局，终于在月考高台上反手做掉了王麻子。你没能离开魔门，但至少第一次不再只是任人宰割的蝼蚁。",
+    "outcome_type": "power",
     "priority": 40,
     "conditions": [
       {
         "type": "all_of",
         "conditions": [
-          { "type": "world_value_gte", "key": "anomaly_progress", "value": 6 },
-          { "type": "resource_gte", "scope": "player", "key": "pollution", "value": 4 },
-          {
-            "type": "any_of",
-            "conditions": [
-              { "type": "tag_present", "scope": "player", "key": "accepted_whisper" },
-              { "type": "tag_present", "scope": "player", "key": "ending_corruption_route" }
-            ]
-          },
-          { "type": "npc_relation_gte", "npc_id": "night_patrol_disciple", "field": "alert", "value": 2 }
+          { "type": "flag_present", "key": "knows_cousin_secret" },
+          { "type": "flag_present", "key": "learned_blood_stealth" },
+          { "type": "npc_relation_gte", "npc_id": "friendly_peer", "field": "favor", "value": 2 },
+          { "type": "npc_relation_gte", "npc_id": "herb_steward", "field": "alert", "value": 2 }
         ]
       }
     ]
   },
   {
-    "id": "ending_glimpse_truth",
-    "title": "真相结局",
-    "description": "你带着足够的线索碎片与代价冲进终夜，终于看清西井封着的是会借人声完成仪式的异常。你未能全身而退，但至少把真相带了出来。",
-    "outcome_type": "truth",
+    "id": "ending_elder_patronage",
+    "title": "长老庇护",
+    "description": "月考时王麻子正要按规矩把你压进化骨池，疯长老却先一步把你点成了自己的药材。你失去了普通弟子的未来，却以最危险的方式被保了下来。",
+    "outcome_type": "patronage",
     "priority": 30,
     "conditions": [
       {
         "type": "all_of",
         "conditions": [
-          { "type": "world_value_gte", "key": "investigation_progress", "value": 6 },
-          { "type": "resource_gte", "scope": "player", "key": "clue_fragments", "value": 5 },
-          { "type": "resource_lte", "scope": "player", "key": "pollution", "value": 4 },
-          { "type": "resource_lte", "scope": "player", "key": "exposure", "value": 4 },
-          { "type": "npc_relation_gte", "npc_id": "friendly_peer", "field": "favor", "value": 1 },
-          { "type": "tag_present", "scope": "player", "key": "prepared_descent" }
+          { "type": "flag_present", "key": "accepted_elder_patronage" }
         ]
       }
     ]
   },
   {
-    "id": "ending_lingering_survival",
-    "title": "苟活结局",
-    "description": "你在最后关头选择把自己放在第一位。西井之事暂时被压回去，别院恢复了表面的平静，而你也学会了什么事最好别看得太清楚。",
+    "id": "ending_outer_gate_survival",
+    "title": "苟全性命",
+    "description": "你咬牙交够了该交的份子，也学会了在不该出头的时候低头。月考过后你仍旧只是外门里的小人物，但至少还活着，还能把下一局赌下去。",
     "outcome_type": "survival",
     "priority": 20,
     "conditions": [
       {
         "type": "all_of",
         "conditions": [
-          { "type": "world_value_gte", "key": "investigation_progress", "value": 3 },
-          { "type": "resource_lte", "scope": "player", "key": "pollution", "value": 2 },
-          { "type": "resource_lte", "scope": "player", "key": "exposure", "value": 3 },
-          { "type": "npc_relation_gte", "npc_id": "night_patrol_disciple", "field": "favor", "value": 1 },
-          {
-            "type": "any_of",
-            "conditions": [
-              { "type": "tag_present", "scope": "player", "key": "prepared_report" },
-              { "type": "tag_present", "scope": "player", "key": "reported_to_patrol" }
-            ]
-          }
+          { "type": "flag_present", "key": "wang_extortion_paid" },
+          { "type": "resource_gte", "scope": "player", "key": "clue_fragments", "value": 4 }
         ]
       }
     ]
   },
   {
-    "id": "ending_unresolved",
-    "title": "未竟之夜",
-    "description": "你撑过了七天，但没能在调查推进与异变推进之间抢出明确结果。西井安静了一阵，像是在等你下一次犯错。",
-    "outcome_type": "fallback",
+    "id": "ending_bone_pool_death",
+    "title": "化骨池之痛",
+    "description": "你没有足够的线索，没有足够的关系，也没有足够强的靠山。月考结束时，化骨池只是多吞下一具没有名字的尸体。",
+    "outcome_type": "death",
     "priority": 0,
     "conditions": []
   }

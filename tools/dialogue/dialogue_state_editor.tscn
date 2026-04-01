@@ -1,0 +1,500 @@
+[gd_scene format=3 uid="uid://dy57a11xcawk6"]
+
+[ext_resource type="Script" uid="uid://cq603alt1u1w" path="res://tools/dialogue/dialogue_state_editor.gd" id="1"]
+
+[node name="DialogueStateEditor" type="Control" unique_id=1651597410]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 185.0
+offset_bottom = 266.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1411557959]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = -177.5
+offset_right = -12.0
+offset_bottom = 177.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Root" type="VBoxContainer" parent="MarginContainer" unique_id=2043512926]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="Toolbar" type="HBoxContainer" parent="MarginContainer/Root" unique_id=584424346]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="RunLabel" type="Label" parent="MarginContainer/Root/Toolbar" unique_id=217978971]
+layout_mode = 2
+text = "Run"
+
+[node name="RunSelector" type="OptionButton" parent="MarginContainer/Root/Toolbar" unique_id=1421586801]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 1
+popup/item_0/text = "血雾外门短篇"
+popup/item_0/id = 0
+
+[node name="NpcLabel" type="Label" parent="MarginContainer/Root/Toolbar" unique_id=799933774]
+layout_mode = 2
+text = "NPC"
+
+[node name="NpcSelector" type="OptionButton" parent="MarginContainer/Root/Toolbar" unique_id=1049449084]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 4
+popup/item_0/text = "巡夜弟子"
+popup/item_0/id = 0
+popup/item_1/text = "执事王麻子"
+popup/item_1/id = 1
+popup/item_2/text = "柳飞霞"
+popup/item_2/id = 2
+popup/item_3/text = "疯长老"
+popup/item_3/id = 3
+
+[node name="ReloadButton" type="Button" parent="MarginContainer/Root/Toolbar" unique_id=839035693]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Reload"
+
+[node name="BodySplit" type="HSplitContainer" parent="MarginContainer/Root" unique_id=560668365]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+split_offsets = PackedInt32Array(420, 0)
+split_offset = 420
+
+[node name="LeftPanel" type="PanelContainer" parent="MarginContainer/Root/BodySplit" unique_id=847673323]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="LeftPadding" type="MarginContainer" parent="MarginContainer/Root/BodySplit/LeftPanel" unique_id=1956545424]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="LeftContent" type="VBoxContainer" parent="MarginContainer/Root/BodySplit/LeftPanel/LeftPadding" unique_id=48724902]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="EventTitle" type="Label" parent="MarginContainer/Root/BodySplit/LeftPanel/LeftPadding/LeftContent" unique_id=1911943518]
+layout_mode = 2
+text = "Dialogue Events"
+
+[node name="EventList" type="ItemList" parent="MarginContainer/Root/BodySplit/LeftPanel/LeftPadding/LeftContent" unique_id=1122209015]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 180)
+layout_mode = 2
+size_flags_horizontal = 3
+item_count = 2
+item_0/text = "Day 1 / 广场盯梢"
+item_1/text = "Day 1 / 巡夜弟子的只言片语"
+
+[node name="WriterScroll" type="ScrollContainer" parent="MarginContainer/Root/BodySplit/LeftPanel/LeftPadding/LeftContent" unique_id=1576992117]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="WriterContent" type="VBoxContainer" parent="MarginContainer/Root/BodySplit/LeftPanel/LeftPadding/LeftContent/WriterScroll" unique_id=1727049531]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="ScaffoldTitle" type="Label" parent="MarginContainer/Root/BodySplit/LeftPanel/LeftPadding/LeftContent/WriterScroll/WriterContent" unique_id=1930185032]
+layout_mode = 2
+text = "Writer Draft"
+
+[node name="ScaffoldHint" type="Label" parent="MarginContainer/Root/BodySplit/LeftPanel/LeftPadding/LeftContent/WriterScroll/WriterContent" unique_id=2007718042]
+layout_mode = 2
+text = "Write the next scene in plain author language first. The editor will spread it into event rows, logic ids, and text ids."
+autowrap_mode = 2
+
+[node name="ScaffoldGrid" type="GridContainer" parent="MarginContainer/Root/BodySplit/LeftPanel/LeftPadding/LeftContent/WriterScroll/WriterContent" unique_id=2098796663]
+layout_mode = 2
+columns = 2
+
+[node name="ScaffoldEventIdLabel" type="Label" parent="MarginContainer/Root/BodySplit/LeftPanel/LeftPadding/LeftContent/WriterScroll/WriterContent/ScaffoldGrid" unique_id=1584795997]
+layout_mode = 2
+text = "New Event ID"
+
+[node name="ScaffoldEventIdEdit" type="LineEdit" parent="MarginContainer/Root/BodySplit/LeftPanel/LeftPadding/LeftContent/WriterScroll/WriterContent/ScaffoldGrid" unique_id=1577825165]
+unique_name_in_owner = true
+layout_mode = 2
+text = "conditional_patrol_interrogation_followup"
+placeholder_text = "dlg_friendly_peer_next_contact"
+
+[node name="ScaffoldDayLabel" type="Label" parent="MarginContainer/Root/BodySplit/LeftPanel/LeftPadding/LeftContent/WriterScroll/WriterContent/ScaffoldGrid" unique_id=924668112]
+layout_mode = 2
+text = "Day >="
+
+[node name="ScaffoldDaySpin" type="SpinBox" parent="MarginContainer/Root/BodySplit/LeftPanel/LeftPadding/LeftContent/WriterScroll/WriterContent/ScaffoldGrid" unique_id=1178075531]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 1.0
+max_value = 99.0
+value = 2.0
+
+[node name="ScaffoldTitleLabel" type="Label" parent="MarginContainer/Root/BodySplit/LeftPanel/LeftPadding/LeftContent/WriterScroll/WriterContent/ScaffoldGrid" unique_id=1360362527]
+layout_mode = 2
+text = "Title"
+
+[node name="ScaffoldTitleEdit" type="LineEdit" parent="MarginContainer/Root/BodySplit/LeftPanel/LeftPadding/LeftContent/WriterScroll/WriterContent/ScaffoldGrid" unique_id=58831473]
+unique_name_in_owner = true
+layout_mode = 2
+text = "广场盯梢 后续"
+placeholder_text = "柳飞霞第三次来找你"
+
+[node name="ScaffoldRequiredFlagsLabel" type="Label" parent="MarginContainer/Root/BodySplit/LeftPanel/LeftPadding/LeftContent/WriterScroll/WriterContent/ScaffoldGrid" unique_id=159013973]
+layout_mode = 2
+text = "Required Flags"
+
+[node name="ScaffoldRequiredFlagsEdit" type="LineEdit" parent="MarginContainer/Root/BodySplit/LeftPanel/LeftPadding/LeftContent/WriterScroll/WriterContent/ScaffoldGrid" unique_id=324464894]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "liu_informant_active|liu_betrayal_risk"
+
+[node name="ScaffoldSetFlagsLabel" type="Label" parent="MarginContainer/Root/BodySplit/LeftPanel/LeftPadding/LeftContent/WriterScroll/WriterContent/ScaffoldGrid" unique_id=488160380]
+layout_mode = 2
+text = "Set Flags"
+
+[node name="ScaffoldSetFlagsEdit" type="LineEdit" parent="MarginContainer/Root/BodySplit/LeftPanel/LeftPadding/LeftContent/WriterScroll/WriterContent/ScaffoldGrid" unique_id=416647205]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "liu_final_choice_ready"
+
+[node name="ScaffoldClearFlagsLabel" type="Label" parent="MarginContainer/Root/BodySplit/LeftPanel/LeftPadding/LeftContent/WriterScroll/WriterContent/ScaffoldGrid" unique_id=2040098033]
+layout_mode = 2
+text = "Clear Flags"
+
+[node name="ScaffoldClearFlagsEdit" type="LineEdit" parent="MarginContainer/Root/BodySplit/LeftPanel/LeftPadding/LeftContent/WriterScroll/WriterContent/ScaffoldGrid" unique_id=1982982329]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "liu_informant_active"
+
+[node name="ScaffoldNotesLabel" type="Label" parent="MarginContainer/Root/BodySplit/LeftPanel/LeftPadding/LeftContent/WriterScroll/WriterContent/ScaffoldGrid" unique_id=1046969988]
+layout_mode = 2
+text = "Design Note"
+
+[node name="ScaffoldNotesEdit" type="LineEdit" parent="MarginContainer/Root/BodySplit/LeftPanel/LeftPadding/LeftContent/WriterScroll/WriterContent/ScaffoldGrid" unique_id=223096846]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "她可能背叛，也可能被你逼着彻底站队"
+
+[node name="DraftOpeningLabel" type="Label" parent="MarginContainer/Root/BodySplit/LeftPanel/LeftPadding/LeftContent/WriterScroll/WriterContent" unique_id=272434531]
+layout_mode = 2
+text = "Opening Text"
+
+[node name="DraftOpeningEdit" type="TextEdit" parent="MarginContainer/Root/BodySplit/LeftPanel/LeftPadding/LeftContent/WriterScroll/WriterContent" unique_id=1544610983]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 2
+text = "在这里写下一段剧情的开场。先按写作直觉描述人物、时机和氛围。"
+
+[node name="DraftObserveLabel" type="Label" parent="MarginContainer/Root/BodySplit/LeftPanel/LeftPadding/LeftContent/WriterScroll/WriterContent" unique_id=245224682]
+layout_mode = 2
+text = "Observe Text"
+
+[node name="DraftObserveEdit" type="TextEdit" parent="MarginContainer/Root/BodySplit/LeftPanel/LeftPadding/LeftContent/WriterScroll/WriterContent" unique_id=2119715515]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 2
+text = "在这里写观察阶段看到的情绪、细节和漏洞。"
+
+[node name="DraftOptionATitle" type="Label" parent="MarginContainer/Root/BodySplit/LeftPanel/LeftPadding/LeftContent/WriterScroll/WriterContent" unique_id=1628489006]
+layout_mode = 2
+text = "Base Option A"
+
+[node name="DraftOptionATextEdit" type="LineEdit" parent="MarginContainer/Root/BodySplit/LeftPanel/LeftPadding/LeftContent/WriterScroll/WriterContent" unique_id=1404835923]
+unique_name_in_owner = true
+layout_mode = 2
+text = "先稳住她，继续听下去"
+placeholder_text = "鍏堢ǔ浣忓ス锛岀户缁惉涓嬪幓"
+
+[node name="DraftOptionAResultEdit" type="TextEdit" parent="MarginContainer/Root/BodySplit/LeftPanel/LeftPadding/LeftContent/WriterScroll/WriterContent" unique_id=1236835842]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+text = "这条路线的基础结果写在这里。"
+
+[node name="DraftOptionBTitle" type="Label" parent="MarginContainer/Root/BodySplit/LeftPanel/LeftPadding/LeftContent/WriterScroll/WriterContent" unique_id=213168604]
+layout_mode = 2
+text = "Base Option B"
+
+[node name="DraftOptionBTextEdit" type="LineEdit" parent="MarginContainer/Root/BodySplit/LeftPanel/LeftPadding/LeftContent/WriterScroll/WriterContent" unique_id=1136575408]
+unique_name_in_owner = true
+layout_mode = 2
+text = "逼她现在就表态"
+placeholder_text = "閫间粬鐜板湪灏辫〃鎬?"
+
+[node name="DraftOptionBResultEdit" type="TextEdit" parent="MarginContainer/Root/BodySplit/LeftPanel/LeftPadding/LeftContent/WriterScroll/WriterContent" unique_id=1255213438]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+text = "另一条路线的基础结果写在这里。"
+
+[node name="DraftIntrusionTitle" type="Label" parent="MarginContainer/Root/BodySplit/LeftPanel/LeftPadding/LeftContent/WriterScroll/WriterContent" unique_id=1821000618]
+layout_mode = 2
+text = "Intrusion Notes"
+
+[node name="DraftIntrusionHint" type="Label" parent="MarginContainer/Root/BodySplit/LeftPanel/LeftPadding/LeftContent/WriterScroll/WriterContent" unique_id=1613317159]
+layout_mode = 2
+text = "鐢ㄤ綔鑰呰瑷€绠€鍗曞啓涓嬭繖涓€杞?璐?鍡?鐥?鐨勮蛋鍚戯紝鐢熸垚鍣ㄤ細鏇夸綘鍑篢ODO 鍧?key 鍜岄€昏緫浣嶇疆銆?"
+autowrap_mode = 2
+
+[node name="DraftIntrusionGreedEdit" type="LineEdit" parent="MarginContainer/Root/BodySplit/LeftPanel/LeftPadding/LeftContent/WriterScroll/WriterContent" unique_id=1971228337]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "璐細濂瑰紑濮嬭绠椾唬浠凤紝鍚堜綔鍍忎氦鏄?"
+
+[node name="DraftIntrusionWrathEdit" type="LineEdit" parent="MarginContainer/Root/BodySplit/LeftPanel/LeftPadding/LeftContent/WriterScroll/WriterContent" unique_id=1601935184]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "鍡旓細濂规妸鐭涘ご褰诲簳杞悜鐜嬮夯瀛?"
+
+[node name="DraftIntrusionDelusionEdit" type="LineEdit" parent="MarginContainer/Root/BodySplit/LeftPanel/LeftPadding/LeftContent/WriterScroll/WriterContent" unique_id=1985102823]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "鐥达細濂规殏鏃跺悜浣犻潬杩戯紝浣嗚繕鐣欏悗鎵?"
+
+[node name="ScaffoldActions" type="HBoxContainer" parent="MarginContainer/Root/BodySplit/LeftPanel/LeftPadding/LeftContent/WriterScroll/WriterContent" unique_id=941955374]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="GenerateScaffoldButton" type="Button" parent="MarginContainer/Root/BodySplit/LeftPanel/LeftPadding/LeftContent/WriterScroll/WriterContent/ScaffoldActions" unique_id=2045473910]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Refresh Draft"
+
+[node name="CopyScaffoldButton" type="Button" parent="MarginContainer/Root/BodySplit/LeftPanel/LeftPadding/LeftContent/WriterScroll/WriterContent/ScaffoldActions" unique_id=185916257]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Copy Draft"
+
+[node name="ScaffoldOutput" type="TextEdit" parent="MarginContainer/Root/BodySplit/LeftPanel/LeftPadding/LeftContent/WriterScroll/WriterContent" unique_id=1771936908]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 220)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "# Writer Draft
+NPC: 巡夜弟子
+Event ID: conditional_patrol_interrogation_followup
+Unlock Day: 2
+Required Flags: -
+Set Flags: -
+Clear Flags: -
+Design Note: -
+
+# Author Scene
+title = 广场盯梢 后续
+opening = 在这里写下一段剧情的开场。先按写作直觉描述人物、时机和氛围。
+observe = 在这里写观察阶段看到的情绪、细节和漏洞。
+talk.option_a.text = 先稳住她，继续听下去
+talk.option_a.result = 这条路线的基础结果写在这里。
+talk.option_b.text = 逼她现在就表态
+talk.option_b.result = 另一条路线的基础结果写在这里。
+intrusion.greed = TODO
+intrusion.wrath = TODO
+intrusion.delusion = TODO
+
+# Text File Draft
+# content/dialogue/texts/night_patrol_disciple_texts.json
+{
+  \"conditional_patrol_interrogation_followup.opening\": \"在这里写下一段剧情的开场。先按写作直觉描述人物、时机和氛围。\",
+  \"conditional_patrol_interrogation_followup.observe\": \"在这里写观察阶段看到的情绪、细节和漏洞。\",
+  \"conditional_patrol_interrogation_followup.greed.desc\": \"TODO: write greed route note\",
+  \"conditional_patrol_interrogation_followup.wrath.desc\": \"TODO: write wrath route note\",
+  \"conditional_patrol_interrogation_followup.delusion.desc\": \"TODO: write delusion route note\",
+  \"conditional_patrol_interrogation_followup.base.option_a.text\": \"先稳住她，继续听下去\",
+  \"conditional_patrol_interrogation_followup.base.option_a.result\": \"这条路线的基础结果写在这里。\",
+  \"conditional_patrol_interrogation_followup.base.option_b.text\": \"逼她现在就表态\",
+  \"conditional_patrol_interrogation_followup.base.option_b.result\": \"另一条路线的基础结果写在这里。\"
+}
+
+# Logic File Draft
+# content/dialogue/encounters/night_patrol_disciple_logic.json
+{
+  \"event_id\": \"conditional_patrol_interrogation_followup\",
+  \"opening_text_id\": \"conditional_patrol_interrogation_followup.opening\",
+  \"observation_text_id\": \"conditional_patrol_interrogation_followup.observe\",
+  \"intrusions\": [
+    { \"id\": \"greed\", \"label_id\": \"conditional_patrol_interrogation_followup.greed.label\", \"description_id\": \"conditional_patrol_interrogation_followup.greed.desc\" },
+    { \"id\": \"wrath\", \"label_id\": \"conditional_patrol_interrogation_followup.wrath.label\", \"description_id\": \"conditional_patrol_interrogation_followup.wrath.desc\" },
+    { \"id\": \"delusion\", \"label_id\": \"conditional_patrol_interrogation_followup.delusion.label\", \"description_id\": \"conditional_patrol_interrogation_followup.delusion.desc\" }
+  ],
+  \"notes\": \"replace base option text/result ids and add real option_overrides/effects for the intrusions that should branch\"
+}
+
+# CSV Draft
+# events.csv
+conditional_patrol_interrogation_followup,act1_well_whisper,conditional_story,npc_state,afternoon,player|night_patrol_disciple,,dialogue_event,night_patrol_disciple,night_patrol_disciple_half,res://content/dialogue/act1/night_patrol_disciple.dialogue,,phase_entry,,corridor,,300,1,false,evt.conditional_patrol_interrogation_followup.title,evt.conditional_patrol_interrogation_followup.desc,generated_by_dialogue_state_editor,,,,,,,,
+
+# event_triggers.csv
+conditional_patrol_interrogation_followup,main,1,phase_is,,,day,,,
+conditional_patrol_interrogation_followup,main,2,day_gte,,,2,,,
+
+# event_options.csv
+conditional_patrol_interrogation_followup_option_a,conditional_patrol_interrogation_followup,1,opt.conditional_patrol_interrogation_followup_option_a.text,opt.conditional_patrol_interrogation_followup_option_a.result,
+conditional_patrol_interrogation_followup_option_b,conditional_patrol_interrogation_followup,2,opt.conditional_patrol_interrogation_followup_option_b.text,opt.conditional_patrol_interrogation_followup_option_b.result,
+
+# option_effects.csv
+conditional_patrol_interrogation_followup_option_a,1,modify_resource,player,clue_fragments,1,,,
+conditional_patrol_interrogation_followup_option_b,1,modify_npc_relation,,,1,night_patrol_disciple,favor,
+
+# localization.csv
+evt.conditional_patrol_interrogation_followup.title,广场盯梢 后续
+evt.conditional_patrol_interrogation_followup.desc,Add follow-up dialogue body here.
+opt.conditional_patrol_interrogation_followup_option_a.text,先稳住她，继续听下去
+opt.conditional_patrol_interrogation_followup_option_a.result,这条路线的基础结果写在这里。
+opt.conditional_patrol_interrogation_followup_option_b.text,逼她现在就表态
+opt.conditional_patrol_interrogation_followup_option_b.result,另一条路线的基础结果写在这里。
+
+# Wiring Reminder
+- link event in content/npcs/npc_interactions.json
+- usually append event id into content/npcs/npc_definitions.json -> state_event_ids
+- then replace the TODO intrusion stubs with real option_overrides / effects"
+
+[node name="CenterPanel" type="PanelContainer" parent="MarginContainer/Root/BodySplit" unique_id=528560360]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="CenterPadding" type="MarginContainer" parent="MarginContainer/Root/BodySplit/CenterPanel" unique_id=45144346]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="CenterContent" type="VBoxContainer" parent="MarginContainer/Root/BodySplit/CenterPanel/CenterPadding" unique_id=1151352264]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="FlowTitle" type="Label" parent="MarginContainer/Root/BodySplit/CenterPanel/CenterPadding/CenterContent" unique_id=816758467]
+layout_mode = 2
+text = "State Flow"
+
+[node name="FlowHint" type="Label" parent="MarginContainer/Root/BodySplit/CenterPanel/CenterPadding/CenterContent" unique_id=2042012747]
+layout_mode = 2
+text = "This view shows which flags unlock an NPC dialogue, and which flags the dialogue sets or clears."
+autowrap_mode = 2
+
+[node name="FlowScroll" type="ScrollContainer" parent="MarginContainer/Root/BodySplit/CenterPanel/CenterPadding/CenterContent" unique_id=1888563761]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="StateFlow" type="VBoxContainer" parent="MarginContainer/Root/BodySplit/CenterPanel/CenterPadding/CenterContent/FlowScroll" unique_id=906450428]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="RightPanel" type="PanelContainer" parent="MarginContainer/Root/BodySplit" unique_id=1322202670]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="RightPadding" type="MarginContainer" parent="MarginContainer/Root/BodySplit/RightPanel" unique_id=2134007284]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="RightContent" type="VBoxContainer" parent="MarginContainer/Root/BodySplit/RightPanel/RightPadding" unique_id=508562186]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="SummaryTitle" type="Label" parent="MarginContainer/Root/BodySplit/RightPanel/RightPadding/RightContent" unique_id=958744104]
+layout_mode = 2
+text = "Editor Summary"
+
+[node name="SummaryLabel" type="RichTextLabel" parent="MarginContainer/Root/BodySplit/RightPanel/RightPadding/RightContent" unique_id=109561712]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 260)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 2
+bbcode_enabled = true
+text = "[b]巡夜弟子[/b]
+dialogue events: 2
+
+[b]Core files[/b]
+- story events: [code]content/story/act1/csv/events.csv[/code]
+- event triggers: [code]content/story/act1/csv/event_triggers.csv[/code]
+- event options: [code]content/story/act1/csv/event_options.csv[/code]
+- option effects: [code]content/story/act1/csv/option_effects.csv[/code]
+- localization: [code]content/story/act1/csv/localization.csv[/code]
+- logic: [code]content/dialogue/encounters/night_patrol_disciple_logic.json[/code]
+- texts: [code]content/dialogue/texts/night_patrol_disciple_texts.json[/code]
+- npc interactions: [code]content/npcs/npc_interactions.json[/code]
+- npc state ids: [code]content/npcs/npc_definitions.json[/code]
+
+[b]What this view shows[/b]
+- which flags unlock each dialogue event
+- which flags each event sets or clears
+- which intrusion overrides are already consuming option ids
+- how one writer draft fans out into csv rows, logic ids, and text ids"
+
+[node name="DetailTitle" type="Label" parent="MarginContainer/Root/BodySplit/RightPanel/RightPadding/RightContent" unique_id=1141796598]
+layout_mode = 2
+text = "Selected Event"
+
+[node name="DetailLabel" type="RichTextLabel" parent="MarginContainer/Root/BodySplit/RightPanel/RightPadding/RightContent" unique_id=1102023296]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 260)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 2
+bbcode_enabled = true
+text = "[b]广场盯梢[/b]
+event_id: [code]conditional_patrol_interrogation[/code]
+time_slot: [code]afternoon[/code]
+phase conditions: [code]any_of(all_of(phase_is, day_gte, resource_gte, last_action_is), all_of(phase_is, day_gte, resource_gte, last_action_is))[/code]
+
+[b]Required flags[/b]
+- -
+
+[b]Set flags[/b]
+- -
+
+[b]Clear flags[/b]
+- -
+
+[b]Encounter structure[/b]
+- opening text: no
+- observation text: yes
+- intrusions: greed, wrath, delusion
+
+[b]Writer-first workflow[/b]
+1. write opening / observe / two base talk choices
+2. jot the greed / wrath / delusion hook in plain language
+3. let the editor generate text ids, logic stub, and csv draft
+4. replace generated TODO effects with the real state changes
+5. wire the event into [code]npc_interactions.json[/code] and usually [code]npc_definitions.json[/code]"

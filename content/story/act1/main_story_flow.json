@@ -1,0 +1,272 @@
+{
+  "flow_id": "act1_main_story_flow",
+  "story_id": "act1_well_whisper",
+  "act_id": "act1_blood_mist_outer_gate",
+  "entry_node_id": "outer_gate_arrival",
+  "nodes": [
+    {
+      "id": "outer_gate_arrival",
+      "title": "初入血雾外门",
+      "event_id": "act1_day1_arrival",
+      "day": 1,
+      "hub_type": "exploration",
+      "time_slot": "morning",
+      "location_id": "dormitory",
+      "required_flags": ["has_cousin_relic"],
+      "description": "主角带着族兄留下的黑色玉简进入外门，先要在不暴露遗物的前提下活过最初几天。",
+      "gate_requirements": [
+        "至少拿到 1 点线索，说明玩家已经意识到族兄之死和外门秩序之间存在问题。"
+      ],
+      "structured_requirements": {
+        "clues": ["clue_fragments >= 1"],
+        "tags": ["has_cousin_relic"],
+        "relations": ["柳飞霞是否开始接近你"],
+        "risks": ["前期风险不高，重点是建立调查动机并藏好遗物。"]
+      },
+      "gate_check": {
+        "type": "resource_gte",
+        "scope": "player",
+        "key": "clue_fragments",
+        "value": 1,
+        "label": "线索数量"
+      },
+      "supports_from": [
+        "dlg_friendly_peer_well_warning",
+        "act1_res_hidden_stash"
+      ]
+    },
+    {
+      "id": "deacon_extortion",
+      "title": "执事的剥削",
+      "event_id": "act1_day2_missing_rumor",
+      "day": 2,
+      "hub_type": "exploration",
+      "time_slot": "morning",
+      "location_id": "corridor",
+      "required_flags": [],
+      "description": "王麻子开始按月敲榨，玩家第一次必须在资源、屈辱和暴露之间做取舍。",
+      "gate_requirements": [
+        "至少拿到 2 点线索，说明玩家已经把苟活压力和族兄死因联系起来。"
+      ],
+      "structured_requirements": {
+        "clues": ["clue_fragments >= 2"],
+        "tags": ["wang_extortion_paid 或 执事怒气上升"],
+        "relations": ["王麻子的警惕会影响后续月考收束"],
+        "risks": ["资源不足会逼迫玩家走更危险的路线。"]
+      },
+      "gate_check": {
+        "type": "resource_gte",
+        "scope": "player",
+        "key": "clue_fragments",
+        "value": 2,
+        "label": "线索数量"
+      },
+      "supports_from": [
+        "dlg_herb_steward_probe",
+        "act1_rel_peer_small_talk",
+        "act1_risk_patrol_question"
+      ]
+    },
+    {
+      "id": "midnight_visit",
+      "title": "深夜祭药",
+      "event_id": "act1_day4_first_choice",
+      "day": 4,
+      "hub_type": "branching",
+      "time_slot": "night",
+      "location_id": "dormitory",
+      "required_flags": ["has_cousin_relic"],
+      "description": "柳飞霞在深夜带着药和试探而来。玩家要决定是否拿族兄遗物反试她，并确认自己更接近谁的局。",
+      "gate_requirements": [
+        "至少拿到 3 点线索，才能分辨柳飞霞靠近你究竟是旧情、利用还是谋杀。"
+      ],
+      "structured_requirements": {
+        "clues": ["clue_fragments >= 3"],
+        "tags": ["knows_cousin_secret"],
+        "relations": ["柳飞霞好感会影响反杀路线是否成立"],
+        "risks": ["过早暴露遗物会让高层和执事同时注意到你。"]
+      },
+      "gate_check": {
+        "type": "resource_gte",
+        "scope": "player",
+        "key": "clue_fragments",
+        "value": 3,
+        "label": "线索数量"
+      },
+      "supports_from": [
+        "dlg_friendly_peer_well_warning",
+        "conditional_record_discovery",
+        "act1_ano_wrong_name_whisper"
+      ]
+    },
+    {
+      "id": "pill_trial",
+      "title": "丹房惨叫",
+      "event_id": "act1_day5_lockdown",
+      "day": 5,
+      "hub_type": "branching",
+      "time_slot": "night",
+      "location_id": "herb_front",
+      "required_flags": [],
+      "description": "疯长老开始用活人试药。玩家若被盯上，就必须靠气血硬挺，或拿族兄遗物的秘密换一线生机。",
+      "gate_requirements": [
+        "至少拿到 4 点线索，才能在被逼到丹房时明白自己手里真正能换命的筹码是什么。"
+      ],
+      "structured_requirements": {
+        "clues": ["clue_fragments >= 4"],
+        "tags": ["survived_pill_test"],
+        "relations": ["疯长老是否把你记住，将直接改变终局出路"],
+        "risks": ["这里是真正的生死节点，失败就会失去进入月考收束的资格。"]
+      },
+      "gate_check": {
+        "type": "resource_gte",
+        "scope": "player",
+        "key": "clue_fragments",
+        "value": 4,
+        "label": "线索数量"
+      },
+      "supports_from": [
+        "dlg_outer_senior_guidance",
+        "conditional_senior_test",
+        "act1_ano_hear_well_echo"
+      ]
+    },
+    {
+      "id": "exam_eve",
+      "title": "月考前夜",
+      "event_id": "act1_day6_truth_reversal",
+      "day": 6,
+      "hub_type": "resolution",
+      "time_slot": "night",
+      "location_id": "corridor",
+      "required_flags": [],
+      "description": "月考前夜不再继续发散探索，而是逼迫玩家把前面拿到的线索、关系和 flags 收束成一条求生路线。",
+      "gate_requirements": [
+        "至少拿到 5 点线索，才能有资格决定是和柳飞霞设局、借疯长老保命，还是咬牙交钱苟过去。"
+      ],
+      "structured_requirements": {
+        "clues": ["clue_fragments >= 5"],
+        "tags": ["knows_cousin_secret / survived_pill_test / wang_extortion_paid"],
+        "relations": ["柳飞霞 favor 与王麻子 alert 会决定反杀是否可信"],
+        "risks": ["前面吃下的暴露和污染，会把一些保命路线变得更窄。"]
+      },
+      "gate_check": {
+        "type": "resource_gte",
+        "scope": "player",
+        "key": "clue_fragments",
+        "value": 5,
+        "label": "线索数量"
+      },
+      "supports_from": [
+        "conditional_wrong_trust_payoff",
+        "dlg_patrol_report_anomaly",
+        "act1_risk_followed_in_dark"
+      ]
+    },
+    {
+      "id": "outer_gate_assessment",
+      "title": "外门月考",
+      "event_id": "act1_day7_final_judgement",
+      "day": 7,
+      "hub_type": "resolution",
+      "time_slot": "morning",
+      "location_id": "corridor",
+      "required_flags": [],
+      "description": "所有支线在这里收束。系统不再回溯玩家完整走法，而是只检查你现在身上带着什么状态和筹码。",
+      "gate_requirements": [
+        "至少拿到 6 点线索，说明你已经足够接近真相，可以在月考时把某条路走到底。"
+      ],
+      "structured_requirements": {
+        "clues": ["clue_fragments >= 6"],
+        "tags": ["knows_cousin_secret", "survived_pill_test", "wang_extortion_paid", "learned_blood_stealth"],
+        "relations": ["柳飞霞 favor / 王麻子 alert 是反杀路线的关键支撑"],
+        "risks": ["如果以上状态都不足，月考就会直接收束为化骨池死亡结局。"]
+      },
+      "gate_check": {
+        "type": "resource_gte",
+        "scope": "player",
+        "key": "clue_fragments",
+        "value": 6,
+        "label": "线索数量"
+      },
+      "resolution_checks": [
+        {
+          "label": "暗潮反杀",
+          "ending_id": "ending_shadow_assassination",
+          "requires_flags": ["knows_cousin_secret", "learned_blood_stealth"]
+        },
+        {
+          "label": "长老庇护",
+          "ending_id": "ending_elder_patronage",
+          "requires_flags": ["accepted_elder_patronage"]
+        },
+        {
+          "label": "苟全性命",
+          "ending_id": "ending_outer_gate_survival",
+          "requires_flags": ["wang_extortion_paid"]
+        }
+      ],
+      "fallback_ending_id": "ending_bone_pool_death",
+      "supports_from": [
+        "dlg_friendly_peer_well_warning",
+        "dlg_herb_steward_probe",
+        "dlg_outer_senior_guidance",
+        "act1_day6_truth_reversal"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "from": "outer_gate_arrival",
+      "to": "deacon_extortion",
+      "condition_summary": "开始感到外门求生压力，并确认族兄遗物必须藏好。",
+      "failure_fallback": "death_outer_gate_waste"
+    },
+    {
+      "from": "deacon_extortion",
+      "to": "midnight_visit",
+      "condition_summary": "在王麻子的剥削下仍然活了下来，并把注意力继续拉回族兄之死。",
+      "failure_fallback": "death_outer_gate_waste"
+    },
+    {
+      "from": "midnight_visit",
+      "to": "pill_trial",
+      "condition_summary": "柳飞霞的接近已经让你知道，黑色玉简和值得下注的人都不止一层含义。",
+      "failure_fallback": "death_used_by_liu"
+    },
+    {
+      "from": "pill_trial",
+      "to": "exam_eve",
+      "condition_summary": "你必须先活过疯长老这一关，才有资格在月考前夜谈选择。",
+      "failure_fallback": "death_pill_cauldron"
+    },
+    {
+      "from": "exam_eve",
+      "to": "outer_gate_assessment",
+      "condition_summary": "把线索、关系和旗标收束成一条明确路线。",
+      "failure_fallback": "death_bone_pool"
+    }
+  ],
+  "fallback_endings": [
+    {
+      "id": "death_outer_gate_waste",
+      "label": "死于外门法则",
+      "description": "你还没来得及摸到真相，就先被外门的剥削和饥毒磨成了废料。"
+    },
+    {
+      "id": "death_used_by_liu",
+      "label": "死于误信",
+      "description": "你以为柳飞霞给的是旧情，最后却发现自己只是她试探遗物和秘密的踏脚石。"
+    },
+    {
+      "id": "death_pill_cauldron",
+      "label": "死于试药",
+      "description": "疯长老把你当成一味不够硬的丹材，丹房里多了一声没人会记住的惨叫。"
+    },
+    {
+      "id": "death_bone_pool",
+      "label": "化骨池结局",
+      "description": "月考时你身上没有足够筹码，最后只配被扔进化骨池里消失。"
+    }
+  ]
+}

@@ -1,0 +1,448 @@
+﻿[gd_scene format=3 uid="uid://cd4e6mydj1wjg"]
+
+[ext_resource type="Script" uid="uid://d4bsby0kpnxo0" path="res://tools/story_compiler/markdown_story_editor.gd" id="1"]
+
+[node name="MarkdownStoryEditor" type="Control" unique_id=1627336693]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 345.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1765754554]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Root" type="VBoxContainer" parent="MarginContainer" unique_id=517079275]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="Toolbar" type="HBoxContainer" parent="MarginContainer/Root" unique_id=1348366918]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="CompileButton" type="Button" parent="MarginContainer/Root/Toolbar" unique_id=222481292]
+unique_name_in_owner = true
+layout_mode = 2
+text = "缂栬瘧 Markdown"
+
+[node name="ValidateButton" type="Button" parent="MarginContainer/Root/Toolbar" unique_id=296212113]
+unique_name_in_owner = true
+layout_mode = 2
+text = "浠呮牎楠?
+
+[node name="ScanButton" type="Button" parent="MarginContainer/Root/Toolbar" unique_id=2004366000]
+unique_name_in_owner = true
+layout_mode = 2
+text = "鎵弿闂"
+
+[node name="PreviewDiffButton" type="Button" parent="MarginContainer/Root/Toolbar" unique_id=1454649367]
+unique_name_in_owner = true
+layout_mode = 2
+text = "棰勮鍙樺寲"
+
+[node name="RefreshButton" type="Button" parent="MarginContainer/Root/Toolbar" unique_id=2047630289]
+unique_name_in_owner = true
+layout_mode = 2
+text = "鍒锋柊鍒楄〃"
+
+[node name="OpenOutputButton" type="Button" parent="MarginContainer/Root/Toolbar" unique_id=127126902]
+unique_name_in_owner = true
+layout_mode = 2
+text = "瀹氫綅浜х墿"
+
+[node name="ExportWriterDraftsButton" type="Button" parent="MarginContainer/Root/Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "瀵煎嚭褰撳墠椤圭洰鑽夌鍖?
+
+[node name="OpenWriterDraftsButton" type="Button" parent="MarginContainer/Root/Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "瀹氫綅鑽夌鍖?
+
+[node name="ApplyDialogueAssetsButton" type="Button" parent="MarginContainer/Root/Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "閸愭瑥娲?encounters / texts"
+
+[node name="ApplyCsvAssetsButton" type="Button" parent="MarginContainer/Root/Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "閸愭瑥娲?CSV"
+
+[node name="ApplyProjectAssetsButton" type="Button" parent="MarginContainer/Root/Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "娑撯偓闁款喖鍟撻崶鐐茬秼閸撳秳瀵岀紒鎾寸€?
+
+[node name="OpenSyntaxButton" type="Button" parent="MarginContainer/Root/Toolbar" unique_id=1575228226]
+unique_name_in_owner = true
+layout_mode = 2
+text = "璇硶鏂囨。"
+
+[node name="MapsToolbar" type="HBoxContainer" parent="MarginContainer/Root" unique_id=362174083]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="OpenEventMapButton" type="Button" parent="MarginContainer/Root/MapsToolbar" unique_id=510401404]
+unique_name_in_owner = true
+layout_mode = 2
+text = "浜嬩欢 ID 琛?
+
+[node name="OpenNpcMapButton" type="Button" parent="MarginContainer/Root/MapsToolbar" unique_id=1935787289]
+unique_name_in_owner = true
+layout_mode = 2
+text = "NPC 琛?
+
+[node name="OpenLocationMapButton" type="Button" parent="MarginContainer/Root/MapsToolbar" unique_id=125479164]
+unique_name_in_owner = true
+layout_mode = 2
+text = "鍦扮偣琛?
+
+[node name="OpenStatusMapButton" type="Button" parent="MarginContainer/Root/MapsToolbar" unique_id=611014975]
+unique_name_in_owner = true
+layout_mode = 2
+text = "鐘舵€佽〃"
+
+[node name="Body" type="HSplitContainer" parent="MarginContainer/Root" unique_id=1749430333]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+split_offsets = PackedInt32Array(320)
+split_offset = 320
+
+[node name="LeftPanel" type="PanelContainer" parent="MarginContainer/Root/Body" unique_id=1696642422]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="LeftPadding" type="MarginContainer" parent="MarginContainer/Root/Body/LeftPanel" unique_id=912523140]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="LeftContent" type="VBoxContainer" parent="MarginContainer/Root/Body/LeftPanel/LeftPadding" unique_id=5760598]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="SourceTitle" type="Label" parent="MarginContainer/Root/Body/LeftPanel/LeftPadding/LeftContent" unique_id=158353188]
+layout_mode = 2
+text = "鍙紪璇?Markdown 婧愭枃浠?
+
+[node name="SourceHint" type="Label" parent="MarginContainer/Root/Body/LeftPanel/LeftPadding/LeftContent" unique_id=2023836887]
+layout_mode = 2
+text = "鍙屽嚮鍙湪鏂囦欢绯荤粺涓畾浣嶃€傚弽缂栬瘧鍙傝€冪浼氳嚜鍔ㄨ烦杩囥€?
+autowrap_mode = 2
+
+[node name="SourceList" type="ItemList" parent="MarginContainer/Root/Body/LeftPanel/LeftPadding/LeftContent" unique_id=1936241118]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+item_count = 1
+item_0/text = "md / liu_probe.md"
+
+[node name="RightPanel" type="PanelContainer" parent="MarginContainer/Root/Body" unique_id=539308167]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="RightPadding" type="MarginContainer" parent="MarginContainer/Root/Body/RightPanel" unique_id=700353920]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="RightContent" type="VBoxContainer" parent="MarginContainer/Root/Body/RightPanel/RightPadding" unique_id=502493053]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="DraftTitle" type="Label" parent="MarginContainer/Root/Body/RightPanel/RightPadding/RightContent" unique_id=1643051649]
+layout_mode = 2
+text = "鏂板缓浜嬩欢鑽夌"
+
+[node name="DraftHint" type="Label" parent="MarginContainer/Root/Body/RightPanel/RightPadding/RightContent" unique_id=824191878]
+layout_mode = 2
+text = "鍏堝～鍐欎腑鏂囦簨浠跺悕锛屽啀涓€閿櫥璁版槧灏勫苟鍒涘缓妯℃澘鏂囦欢銆?
+autowrap_mode = 2
+
+[node name="DraftGrid" type="GridContainer" parent="MarginContainer/Root/Body/RightPanel/RightPadding/RightContent" unique_id=2010400988]
+layout_mode = 2
+columns = 2
+
+[node name="NewEventTitleLabel" type="Label" parent="MarginContainer/Root/Body/RightPanel/RightPadding/RightContent/DraftGrid" unique_id=1700379745]
+layout_mode = 2
+text = "涓枃浜嬩欢鍚?
+
+[node name="NewEventTitleEdit" type="LineEdit" parent="MarginContainer/Root/Body/RightPanel/RightPadding/RightContent/DraftGrid" unique_id=764068763]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "渚嬪锛氭煶椋為湠鍐嶆鐧婚棬"
+
+[node name="NewFileStemLabel" type="Label" parent="MarginContainer/Root/Body/RightPanel/RightPadding/RightContent/DraftGrid" unique_id=1346495916]
+layout_mode = 2
+text = "鏂囦欢鍚?
+
+[node name="NewFileStemEdit" type="LineEdit" parent="MarginContainer/Root/Body/RightPanel/RightPadding/RightContent/DraftGrid" unique_id=264316430]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "鐣欑┖鍒欒嚜鍔ㄧ敓鎴?
+
+[node name="NpcSelectorLabel" type="Label" parent="MarginContainer/Root/Body/RightPanel/RightPadding/RightContent/DraftGrid" unique_id=962508337]
+layout_mode = 2
+text = "鍏宠仈浜虹墿"
+
+[node name="NpcSelector" type="OptionButton" parent="MarginContainer/Root/Body/RightPanel/RightPadding/RightContent/DraftGrid" unique_id=1869438240]
+unique_name_in_owner = true
+layout_mode = 2
+selected = 0
+item_count = 5
+popup/item_0/text = "鏈寚瀹氫汉鐗?
+popup/item_0/id = 0
+popup/item_1/text = "宸″寮熷瓙"
+popup/item_1/id = 1
+popup/item_2/text = "鎵т簨鐜嬮夯瀛?
+popup/item_2/id = 2
+popup/item_3/text = "鏌抽闇?
+popup/item_3/id = 3
+popup/item_4/text = "鐤暱鑰?
+popup/item_4/id = 4
+
+[node name="LocationSelectorLabel" type="Label" parent="MarginContainer/Root/Body/RightPanel/RightPadding/RightContent/DraftGrid" unique_id=1661750933]
+layout_mode = 2
+text = "榛樿鍦扮偣"
+
+[node name="LocationSelector" type="OptionButton" parent="MarginContainer/Root/Body/RightPanel/RightPadding/RightContent/DraftGrid" unique_id=1633624889]
+unique_name_in_owner = true
+layout_mode = 2
+selected = 0
+item_count = 7
+popup/item_0/text = "鏈寚瀹氬湴鐐?
+popup/item_0/id = 0
+popup/item_1/text = "涓规埧鏃ц处瀹?
+popup/item_1/id = 1
+popup/item_2/text = "涓圭倝鍐呭"
+popup/item_2/id = 2
+popup/item_3/text = "鍖栭姹犲鍥?
+popup/item_3/id = 3
+popup/item_4/text = "澶栭棬骞垮満"
+popup/item_4/id = 4
+popup/item_5/text = "鐐间腹鎴垮闂?
+popup/item_5/id = 5
+popup/item_6/text = "鑼呰崏灞?
+popup/item_6/id = 6
+
+[node name="ClassSelectorLabel" type="Label" parent="MarginContainer/Root/Body/RightPanel/RightPadding/RightContent/DraftGrid" unique_id=662092279]
+layout_mode = 2
+text = "鍓ф儏鍒嗙被"
+
+[node name="ClassSelector" type="OptionButton" parent="MarginContainer/Root/Body/RightPanel/RightPadding/RightContent/DraftGrid" unique_id=256313686]
+unique_name_in_owner = true
+layout_mode = 2
+selected = 0
+item_count = 3
+popup/item_0/text = "鏉′欢鍓ф儏浜嬩欢"
+popup/item_0/id = 0
+popup/item_1/text = "鍥哄畾鍓ф儏浜嬩欢"
+popup/item_1/id = 1
+popup/item_2/text = "闅忔満鎵板姩浜嬩欢"
+popup/item_2/id = 2
+
+[node name="StageSelectorLabel" type="Label" parent="MarginContainer/Root/Body/RightPanel/RightPadding/RightContent/DraftGrid" unique_id=1952898253]
+layout_mode = 2
+text = "瑙﹀彂闃舵"
+
+[node name="StageSelector" type="OptionButton" parent="MarginContainer/Root/Body/RightPanel/RightPadding/RightContent/DraftGrid" unique_id=1822686893]
+unique_name_in_owner = true
+layout_mode = 2
+selected = 0
+item_count = 2
+popup/item_0/text = "琛屽姩鍚?
+popup/item_0/id = 0
+popup/item_1/text = "闃舵寮€濮嬫椂"
+popup/item_1/id = 1
+
+[node name="TimeSelectorLabel" type="Label" parent="MarginContainer/Root/Body/RightPanel/RightPadding/RightContent/DraftGrid" unique_id=279729554]
+layout_mode = 2
+text = "瑙﹀彂鏃堕棿"
+
+[node name="TimeSelector" type="OptionButton" parent="MarginContainer/Root/Body/RightPanel/RightPadding/RightContent/DraftGrid" unique_id=1865219523]
+unique_name_in_owner = true
+layout_mode = 2
+selected = 0
+item_count = 3
+popup/item_0/text = "鐧藉ぉ"
+popup/item_0/id = 0
+popup/item_1/text = "鏅ㄩ棿"
+popup/item_1/id = 1
+popup/item_2/text = "澶滈棿"
+popup/item_2/id = 2
+
+[node name="NextIdLabel" type="Label" parent="MarginContainer/Root/Body/RightPanel/RightPadding/RightContent" unique_id=1792117977]
+unique_name_in_owner = true
+layout_mode = 2
+text = "寤鸿鏂颁簨浠?ID锛?102"
+
+[node name="DraftToolbar" type="HBoxContainer" parent="MarginContainer/Root/Body/RightPanel/RightPadding/RightContent" unique_id=849149078]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="PreviewButton" type="Button" parent="MarginContainer/Root/Body/RightPanel/RightPadding/RightContent/DraftToolbar" unique_id=17542481]
+unique_name_in_owner = true
+layout_mode = 2
+text = "鍒锋柊妯℃澘"
+
+[node name="CopyTemplateButton" type="Button" parent="MarginContainer/Root/Body/RightPanel/RightPadding/RightContent/DraftToolbar" unique_id=631141678]
+unique_name_in_owner = true
+layout_mode = 2
+text = "澶嶅埗妯℃澘"
+
+[node name="CreateDraftButton" type="Button" parent="MarginContainer/Root/Body/RightPanel/RightPadding/RightContent/DraftToolbar" unique_id=1629949199]
+unique_name_in_owner = true
+layout_mode = 2
+text = "鍒涘缓鑽夌骞剁櫥璁?
+
+[node name="TemplateOutput" type="TextEdit" parent="MarginContainer/Root/Body/RightPanel/RightPadding/RightContent" unique_id=1559702969]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 220)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "# [浜嬩欢] 鏂颁簨浠舵爣棰?@鍓ф儏鍒嗙被: 鏉′欢鍓ф儏浜嬩欢
+@琛ㄧ幇褰㈠紡: 鏅€氫簨浠?@瑙﹀彂闃舵: 琛屽姩鍚?@瑙﹀彂鏃堕棿: 鐧藉ぉ
+
+鍦ㄨ繖閲屽啓浜嬩欢姝ｆ枃銆?
+=> [閫夐」涓€]
+杩欓噷鍐欓€夐」涓€鐨勭粨鏋溿€?$ 澧炲姞鏍囪: 鏂扮姸鎬佸悕 $
+
+=> [閫夐」浜宂
+杩欓噷鍐欓€夐」浜岀殑缁撴灉銆?
+
+[node name="MappingTitle" type="Label" parent="MarginContainer/Root/Body/RightPanel/RightPadding/RightContent" unique_id=826113405]
+layout_mode = 2
+text = "蹇€熸柊澧炴槧灏?
+
+[node name="MappingHint" type="Label" parent="MarginContainer/Root/Body/RightPanel/RightPadding/RightContent" unique_id=820776072]
+layout_mode = 2
+text = "褰撶紪璇戣鍛婃彁绀虹己澶辨槧灏勬椂锛屽彲浠ョ洿鎺ュ湪杩欓噷琛ヨ〃銆?
+autowrap_mode = 2
+
+[node name="MappingGrid" type="GridContainer" parent="MarginContainer/Root/Body/RightPanel/RightPadding/RightContent" unique_id=674391533]
+layout_mode = 2
+columns = 2
+
+[node name="MappingKindLabel" type="Label" parent="MarginContainer/Root/Body/RightPanel/RightPadding/RightContent/MappingGrid" unique_id=1270137636]
+layout_mode = 2
+text = "鏄犲皠绫诲瀷"
+
+[node name="MappingKindSelector" type="OptionButton" parent="MarginContainer/Root/Body/RightPanel/RightPadding/RightContent/MappingGrid" unique_id=1920770165]
+unique_name_in_owner = true
+layout_mode = 2
+selected = 0
+item_count = 3
+popup/item_0/text = "浜嬩欢鏄犲皠"
+popup/item_0/id = 0
+popup/item_1/text = "NPC 鏄犲皠"
+popup/item_1/id = 1
+popup/item_2/text = "鍦扮偣鏄犲皠"
+popup/item_2/id = 2
+popup/item_3/text = "鐘舵€佹槧灏?
+popup/item_3/id = 3
+
+[node name="MappingScopeLabel" type="Label" parent="MarginContainer/Root/Body/RightPanel/RightPadding/RightContent/MappingGrid" unique_id=594327957]
+layout_mode = 2
+text = "鐘舵€佽寖鍥?
+
+[node name="MappingScopeSelector" type="OptionButton" parent="MarginContainer/Root/Body/RightPanel/RightPadding/RightContent/MappingGrid" unique_id=1607458299]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+selected = 0
+item_count = 3
+popup/item_0/text = "鍏ㄥ眬鐘舵€?
+popup/item_0/id = 0
+popup/item_1/text = "鐜╁鏍囪"
+popup/item_1/id = 1
+popup/item_2/text = "浜虹墿鐘舵€?
+popup/item_2/id = 2
+
+[node name="MappingTitleLabel" type="Label" parent="MarginContainer/Root/Body/RightPanel/RightPadding/RightContent/MappingGrid" unique_id=477362981]
+layout_mode = 2
+text = "涓枃鍚?
+
+[node name="MappingTitleEdit" type="LineEdit" parent="MarginContainer/Root/Body/RightPanel/RightPadding/RightContent/MappingGrid" unique_id=1926781244]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "渚嬪锛氭煶椋為湠鍐嶆璧风枒"
+
+[node name="MappingKeyLabel" type="Label" parent="MarginContainer/Root/Body/RightPanel/RightPadding/RightContent/MappingGrid" unique_id=602049927]
+layout_mode = 2
+text = "鍐呴儴鍊?
+
+[node name="MappingKeyEdit" type="LineEdit" parent="MarginContainer/Root/Body/RightPanel/RightPadding/RightContent/MappingGrid" unique_id=1317570720]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "鏁板瓧 ID"
+
+[node name="AddMappingButton" type="Button" parent="MarginContainer/Root/Body/RightPanel/RightPadding/RightContent" unique_id=766595263]
+unique_name_in_owner = true
+layout_mode = 2
+text = "鏂板鏄犲皠"
+
+[node name="SummaryTitle" type="Label" parent="MarginContainer/Root/Body/RightPanel/RightPadding/RightContent" unique_id=1676715496]
+layout_mode = 2
+text = "缂栬瘧姒傝"
+
+[node name="SummaryLabel" type="RichTextLabel" parent="MarginContainer/Root/Body/RightPanel/RightPadding/RightContent" unique_id=115740525]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 180)
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "[b]Markdown 鍓ф湰缂栬瘧鍣╗/b]
+婧愭枃浠舵暟閲忥細1
+涓嬩竴涓缓璁簨浠?ID锛?102
+杈撳嚭鏂囦欢锛歳es://content/story/act1/md/generated_writer_drafts.md
+浜嬩欢鏄犲皠锛歳es://content/story/act1/event_id_map.json
+NPC 鏄犲皠锛歳es://content/story/act1/npc_name_map.json
+鍦扮偣鏄犲皠锛歳es://content/story/act1/location_name_map.json
+鐘舵€佹槧灏勶細res://content/story/act1/status_key_map.json"
+fit_content = true
+scroll_active = false
+
+[node name="LogTitle" type="Label" parent="MarginContainer/Root/Body/RightPanel/RightPadding/RightContent" unique_id=1317320463]
+layout_mode = 2
+text = "缂栬瘧鏃ュ織"
+
+[node name="LogLabel" type="RichTextLabel" parent="MarginContainer/Root/Body/RightPanel/RightPadding/RightContent" unique_id=209700813]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "[b]褰撳墠婧愭枃浠禰/b]
+res://content/story/act1/md/liu_probe.md
+
+鍙屽嚮鍒楄〃鍙湪鏂囦欢绯荤粺闈㈡澘涓畾浣嶃€?
+

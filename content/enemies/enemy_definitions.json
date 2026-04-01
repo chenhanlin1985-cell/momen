@@ -1,0 +1,14 @@
+[
+  {
+    "id": "blood_runner",
+    "display_name": "催命血役",
+    "story_id": "act1_well_whisper",
+    "role": "enforcer",
+    "tags": ["humanoid", "outer_gate", "combat"],
+    "guard": 12,
+    "damage": 2,
+    "hp": 4,
+    "escape_target": 11,
+    "notes": "Act 1 最小战斗样本，用来验证体魄、手腕、诡感三类不同战斗解法。"
+  }
+]

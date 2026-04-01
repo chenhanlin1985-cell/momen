@@ -1,12 +1,157 @@
-[
+﻿[
   {
     "id": "default_run",
     "story_id": "act1_well_whisper",
-    "display_name": "西井异声 Demo",
+    "display_name": "血雾外门短篇",
+    "opening_title": "血雾外门",
+    "opening_lines": [
+      "你带着族兄留下的遗物，被迫留在血雾弥漫的外门。月考将近，所有人都在抢一条能活下去的路。",
+      "执事、疯长老、巡夜弟子和同门都可能成为你的线索来源，也可能把你推向更深的泥潭。",
+      "第一章的目标很简单：在最后的外门考核到来前，为自己积累足够的线索、筹码和立场。"
+    ],
+    "opening_sequence": [
+      {
+        "id": "zero_life_intro",
+        "style": "intro",
+        "title": "魔念初醒",
+        "lines": [
+          "茅草屋里只有纸灰和血腥味。你跪在族兄的草席前，手里攥着他临死前塞来的黑色玉简，却不知道自己还能活多久。",
+          "门外脚步轻响。柳飞霞掀开门帘，眼眶泛红，手里捧着一瓶金疮药，语气却温柔得过分。",
+          "“师弟，你兄长走得急，可曾留下什么只言片语，或是什么要紧物件？”"
+        ],
+        "buttons": [
+          {
+            "text": "继续",
+            "action": "goto",
+            "target_step_id": "zero_life_choice"
+          }
+        ]
+      },
+      {
+        "id": "zero_life_choice",
+        "style": "choice",
+        "title": "最后一次凡人抉择",
+        "lines": [
+          "你还只是一个会害怕、会犹豫、会把希望寄托在别人善意上的凡人。",
+          "此刻你只能像过去一样，在恐惧里做出一个笨拙的选择。"
+        ],
+        "buttons": [
+          {
+            "text": "藏下遗物",
+            "action": "goto",
+            "target_step_id": "zero_life_death_hide"
+          },
+          {
+            "text": "交出遗物",
+            "action": "goto",
+            "target_step_id": "zero_life_death_surrender"
+          }
+        ]
+      },
+      {
+        "id": "zero_life_death_hide",
+        "style": "death",
+        "title": "死于隐瞒",
+        "lines": [
+          "你咬牙否认，柳飞霞脸上的悲色却一下子淡了。",
+          "她像是终于确认了什么，指尖暗红色粉末一扬，喉咙里瞬间烧开一股腥甜。",
+          "你死了。这就是魔门蝼蚁的结局。"
+        ],
+        "buttons": [
+          {
+            "text": "坠入黑暗",
+            "action": "goto",
+            "target_step_id": "awakening_bind_1"
+          }
+        ]
+      },
+      {
+        "id": "zero_life_death_surrender",
+        "style": "death",
+        "title": "死于误信",
+        "lines": [
+          "你把玉简交出去的那一瞬间，柳飞霞的手比蛇还快。",
+          "她抢过遗物，另一只手已经扣住你的喉骨，像处理一个会说话的麻烦。",
+          "你死了。这就是魔门蝼蚁的结局。"
+        ],
+        "buttons": [
+          {
+            "text": "坠入黑暗",
+            "action": "goto",
+            "target_step_id": "awakening_bind_1"
+          }
+        ]
+      },
+      {
+        "id": "awakening_bind_1",
+        "style": "awakening",
+        "title": "天魔降临",
+        "lines": [
+          "鲜红的死亡景象像裂开的薄膜一样崩碎，黑暗里有某种东西正顺着你的怨恨缓慢苏醒。",
+          "你听见一个并不属于凡间的声音，从尸体深处、从识海尽头、从另一个维度同时响起。"
+        ],
+        "buttons": [
+          {
+            "text": "聆听",
+            "action": "goto",
+            "target_step_id": "awakening_bind_2"
+          }
+        ]
+      },
+      {
+        "id": "awakening_bind_2",
+        "style": "awakening",
+        "title": "绑定完成",
+        "lines": [
+          "检测到极端怨念。维度锚点已锁定。",
+          "域外天魔绑定成功。肉身容器重置中。",
+          "解锁核心天赋：魔念植入。看透虚妄，操纵人心。你，才是他们真正的天劫。"
+        ],
+        "buttons": [
+          {
+            "text": "回到原点",
+            "action": "goto",
+            "target_step_id": "act1_opening"
+          }
+        ]
+      },
+      {
+        "id": "act1_opening",
+        "style": "opening",
+        "title": "血雾外门",
+        "lines": [
+          "你带着族兄留下的遗物，被迫留在血雾弥漫的外门。月考将近，所有人都在抢一条能活下去的路。",
+          "执事、疯长老、巡夜弟子和同门都可能成为你的线索来源，也可能把你推向更深的泥潭。",
+          "这一次，你不再只是会被碾死的外门杂役。"
+        ],
+        "goal_summary": "主目标：活过第一章最后的外门考核。\n开局目标：借柳飞霞之口确认族兄死亡背后的阴谋，并在第一天内拿到第一条可用线索。",
+        "buttons": [
+          {
+            "text": "以天魔之身重开",
+            "action": "start_run"
+          }
+        ]
+      }
+    ],
+    "opening_goal_summary": "主目标：活过第一章最后的外门考核。\n当前要做的事：在不同地点移动，通过探索、交涉与对抗不断积累线索和状态。",
+    "opening_start_button_text": "进入外门",
     "starting_day": 1,
     "max_day": 7,
     "actions_per_day": 1,
+    "starting_location_id": "dormitory",
+    "starting_unlocked_locations": [
+      "dormitory",
+      "corridor",
+      "herb_front"
+    ],
     "player_init": {
+      "attribute_roles": {
+        "physique": "硬抗、搏斗、强顶、冲撞",
+        "mind": "意志、抗压、忍耐、稳住心神",
+        "insight": "观察、推理、识破、拼线索",
+        "occult": "异常感知、邪门理解、承受污染",
+        "tact": "交涉、欺瞒、脱身、圆话"
+      },
       "stats": {
         "physique": 2,
         "mind": 2,
@@ -15,6 +160,8 @@
         "tact": 1
       },
       "resources": {
+        "level": 1,
+        "experience": 0,
         "blood_qi": 4,
         "spirit_stone": 3,
         "spirit_sense": 1,
@@ -27,13 +174,24 @@
       ]
     },
     "world_init": {
+      "global_flags": {
+        "has_cousin_relic": true,
+        "knows_cousin_secret": false,
+        "wang_extortion_paid": false,
+        "survived_pill_test": false,
+        "accepted_elder_patronage": false,
+        "learned_blood_stealth": false,
+        "met_wang_deacon": false,
+        "met_mad_elder": false,
+        "cousin_death_linked": false
+      },
       "values": {
         "patrol_level": 1,
         "investigation_progress": 0,
         "anomaly_progress": 0
       },
       "tags": [
-        "west_well_open"
+        "outer_gate_exam_pending"
       ]
     },
     "starting_npcs": [
@@ -42,15 +200,11 @@
       "night_patrol_disciple",
       "herb_steward"
     ],
-    "story_event_source": "csv",
     "story_csv_dir": "res://content/story/act1/csv",
-    "story_event_paths": [
-      "res://content/story/act1/fixed_events.json",
-      "res://content/story/act1/conditional_events.json",
-      "res://content/story/act1/random_event_pools.json"
-    ],
+    "main_story_flow_path": "res://content/story/act1/main_story_flow.json",
     "starting_goal_pool": [
-      "resolve_west_well"
+      "survive_outer_gate_exam",
+      "task_find_first_lead"
     ]
   }
 ]

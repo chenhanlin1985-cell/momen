@@ -1,0 +1,559 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://tools/story_mount/story_event_builder.gd" id="1"]
+
+[node name="StoryEventBuilder" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Root" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="Header" type="HBoxContainer" parent="MarginContainer/Root"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="RunLabel" type="Label" parent="MarginContainer/Root/Header"]
+layout_mode = 2
+text = "剧本"
+
+[node name="RunSelector" type="OptionButton" parent="MarginContainer/Root/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ReloadButton" type="Button" parent="MarginContainer/Root/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "重新加载"
+
+[node name="Split" type="HSplitContainer" parent="MarginContainer/Root"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+split_offset = 640
+
+[node name="FormPanel" type="PanelContainer" parent="MarginContainer/Root/Split"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="FormPadding" type="MarginContainer" parent="MarginContainer/Root/Split/FormPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="FormScroll" type="ScrollContainer" parent="MarginContainer/Root/Split/FormPanel/FormPadding"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="FormContent" type="VBoxContainer" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="HintLabel" type="Label" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent"]
+layout_mode = 2
+autowrap_mode = 2
+text = "最小事件块生成器：先填核心字段，右侧会自动生成可粘贴进 CSV 的草案。当前重点是帮你快速补结构，不是直接写回文件。"
+
+[node name="EventIdLabel" type="Label" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent"]
+layout_mode = 2
+text = "事件 ID"
+
+[node name="EventIdEdit" type="LineEdit" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "例如 act1_new_corridor_clue"
+
+[node name="TitleLabel" type="Label" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent"]
+layout_mode = 2
+text = "标题"
+
+[node name="TitleEdit" type="LineEdit" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="DescriptionLabel" type="Label" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent"]
+layout_mode = 2
+text = "事件文本"
+
+[node name="DescriptionEdit" type="TextEdit" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 110)
+layout_mode = 2
+
+[node name="BasicsGrid" type="GridContainer" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent"]
+layout_mode = 2
+columns = 2
+
+[node name="EventClassLabel" type="Label" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/BasicsGrid"]
+layout_mode = 2
+text = "运行时分类"
+
+[node name="EventClassSelector" type="OptionButton" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/BasicsGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ContentCategoryLabel" type="Label" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/BasicsGrid"]
+layout_mode = 2
+text = "内容分类"
+
+[node name="ContentCategorySelector" type="OptionButton" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/BasicsGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="TimeSlotLabel" type="Label" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/BasicsGrid"]
+layout_mode = 2
+text = "时间槽"
+
+[node name="TimeSlotSelector" type="OptionButton" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/BasicsGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="PresentationLabel" type="Label" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/BasicsGrid"]
+layout_mode = 2
+text = "显示方式"
+
+[node name="PresentationSelector" type="OptionButton" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/BasicsGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="LocationLabel" type="Label" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/BasicsGrid"]
+layout_mode = 2
+text = "绑定地点"
+
+[node name="LocationSelector" type="OptionButton" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/BasicsGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="SpeakerLabel" type="Label" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/BasicsGrid"]
+layout_mode = 2
+text = "说话人"
+
+[node name="SpeakerSelector" type="OptionButton" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/BasicsGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="FlowNodeLabel" type="Label" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/BasicsGrid"]
+layout_mode = 2
+text = "支持主线节点"
+
+[node name="FlowNodeSelector" type="OptionButton" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/BasicsGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="PrefillFlowButton" type="Button" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "按主线节点预填基础字段"
+
+[node name="FlowGateHintLabel" type="Label" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent"]
+unique_name_in_owner = true
+layout_mode = 2
+autowrap_mode = 2
+text = "当前未选择主线节点"
+
+[node name="ParticipantsLabel" type="Label" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent"]
+layout_mode = 2
+text = "参与者（用 | 分隔）"
+
+[node name="ParticipantsEdit" type="LineEdit" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "例如 player|friendly_peer"
+
+[node name="NextHooksLabel" type="Label" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent"]
+layout_mode = 2
+text = "后续挂载点（用 | 分隔）"
+
+[node name="NextHooksEdit" type="LineEdit" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "例如 clue_opened|peer_warning_seen"
+
+[node name="ReqFlagsLabel" type="Label" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent"]
+layout_mode = 2
+text = "需要 Flags（用 | 分隔）"
+
+[node name="ReqFlagsEdit" type="LineEdit" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "例如 has_cousin_relic|knows_cousin_secret"
+
+[node name="NumbersGrid" type="GridContainer" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent"]
+layout_mode = 2
+columns = 2
+
+[node name="PriorityLabel" type="Label" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/NumbersGrid"]
+layout_mode = 2
+text = "优先级"
+
+[node name="PrioritySpin" type="SpinBox" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/NumbersGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 2000.0
+value = 100.0
+
+[node name="RandomWeightLabel" type="Label" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/NumbersGrid"]
+layout_mode = 2
+text = "随机权重"
+
+[node name="RandomWeightSpin" type="SpinBox" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/NumbersGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 100.0
+value = 1.0
+
+[node name="RepeatableCheck" type="CheckBox" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "可重复触发"
+
+[node name="DayGrid" type="GridContainer" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent"]
+layout_mode = 2
+columns = 2
+
+[node name="DayMinLabel" type="Label" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/DayGrid"]
+layout_mode = 2
+text = "最小天数"
+
+[node name="DayMinSpin" type="SpinBox" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/DayGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 99.0
+value = 1.0
+
+[node name="DayMaxLabel" type="Label" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/DayGrid"]
+layout_mode = 2
+text = "最大天数"
+
+[node name="DayMaxSpin" type="SpinBox" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/DayGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 99.0
+value = 1.0
+
+[node name="BlockTitle" type="Label" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent"]
+layout_mode = 2
+text = "最小阻断条件"
+
+[node name="BlockGrid" type="GridContainer" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent"]
+layout_mode = 2
+columns = 2
+
+[node name="BlockTypeLabel" type="Label" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/BlockGrid"]
+layout_mode = 2
+text = "阻断类型"
+
+[node name="BlockTypeSelector" type="OptionButton" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/BlockGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="BlockTagLabel" type="Label" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/BlockGrid"]
+layout_mode = 2
+text = "阻断标签"
+
+[node name="BlockTagEdit" type="LineEdit" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/BlockGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "例如 accepted_whisper"
+
+[node name="BlockNpcLabel" type="Label" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/BlockGrid"]
+layout_mode = 2
+text = "阻断 NPC"
+
+[node name="BlockNpcSelector" type="OptionButton" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/BlockGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="BlockRelationFieldLabel" type="Label" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/BlockGrid"]
+layout_mode = 2
+text = "阻断关系字段"
+
+[node name="BlockRelationFieldSelector" type="OptionButton" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/BlockGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="BlockRelationValueLabel" type="Label" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/BlockGrid"]
+layout_mode = 2
+text = "阻断关系阈值"
+
+[node name="BlockRelationValueSpin" type="SpinBox" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/BlockGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 10.0
+value = 1.0
+
+[node name="OptionTitle" type="Label" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent"]
+layout_mode = 2
+text = "最小选项草案"
+
+[node name="OptionIdLabel" type="Label" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent"]
+layout_mode = 2
+text = "选项 ID"
+
+[node name="OptionIdEdit" type="LineEdit" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "例如 accept_warning"
+
+[node name="OptionTextLabel" type="Label" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent"]
+layout_mode = 2
+text = "选项文本"
+
+[node name="OptionTextEdit" type="LineEdit" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ResultTextLabel" type="Label" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent"]
+layout_mode = 2
+text = "结果文本"
+
+[node name="ResultTextEdit" type="TextEdit" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 2
+
+[node name="EffectGrid" type="GridContainer" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent"]
+layout_mode = 2
+columns = 2
+
+[node name="ClueGainLabel" type="Label" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/EffectGrid"]
+layout_mode = 2
+text = "线索产出"
+
+[node name="ClueGainSpin" type="SpinBox" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/EffectGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+step = 1.0
+
+[node name="TagGainLabel" type="Label" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/EffectGrid"]
+layout_mode = 2
+text = "新增标签"
+
+[node name="TagGainEdit" type="LineEdit" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/EffectGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "例如 outer_gate_exam_pending"
+
+[node name="SetFlagLabel" type="Label" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/EffectGrid"]
+layout_mode = 2
+text = "设置 Flags"
+
+[node name="SetFlagEdit" type="LineEdit" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/EffectGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "例如 met_wang_deacon|reported_to_patrol"
+
+[node name="ClearFlagLabel" type="Label" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/EffectGrid"]
+layout_mode = 2
+text = "清除 Flags"
+
+[node name="ClearFlagEdit" type="LineEdit" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/EffectGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "例如 trusted_outer_senior"
+
+[node name="RelationNpcLabel" type="Label" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/EffectGrid"]
+layout_mode = 2
+text = "关系变化 NPC"
+
+[node name="RelationNpcSelector" type="OptionButton" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/EffectGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="RelationFieldLabel" type="Label" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/EffectGrid"]
+layout_mode = 2
+text = "关系变化字段"
+
+[node name="RelationFieldSelector" type="OptionButton" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/EffectGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="RelationDeltaLabel" type="Label" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/EffectGrid"]
+layout_mode = 2
+text = "关系变化值"
+
+[node name="RelationDeltaSpin" type="SpinBox" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/EffectGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+step = 1.0
+
+[node name="Option2EnabledCheck" type="CheckBox" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "启用第二个选项"
+
+[node name="Option2Title" type="Label" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent"]
+layout_mode = 2
+text = "第二个选项草案"
+
+[node name="Option2IdLabel" type="Label" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent"]
+layout_mode = 2
+text = "第二选项 ID"
+
+[node name="Option2IdEdit" type="LineEdit" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "例如 keep_distance"
+
+[node name="Option2TextLabel" type="Label" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent"]
+layout_mode = 2
+text = "第二选项文本"
+
+[node name="Option2TextEdit" type="LineEdit" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Option2ResultTextLabel" type="Label" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent"]
+layout_mode = 2
+text = "第二结果文本"
+
+[node name="Option2ResultTextEdit" type="TextEdit" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 2
+
+[node name="Option2EffectGrid" type="GridContainer" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent"]
+layout_mode = 2
+columns = 2
+
+[node name="Option2ClueGainLabel" type="Label" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/Option2EffectGrid"]
+layout_mode = 2
+text = "第二线索产出"
+
+[node name="Option2ClueGainSpin" type="SpinBox" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/Option2EffectGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+step = 1.0
+
+[node name="Option2TagGainLabel" type="Label" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/Option2EffectGrid"]
+layout_mode = 2
+text = "第二新增标签"
+
+[node name="Option2TagGainEdit" type="LineEdit" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/Option2EffectGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "例如 avoid_well_for_now"
+
+[node name="Option2SetFlagLabel" type="Label" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/Option2EffectGrid"]
+layout_mode = 2
+text = "第二设置 Flags"
+
+[node name="Option2SetFlagEdit" type="LineEdit" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/Option2EffectGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "例如 prepared_report"
+
+[node name="Option2ClearFlagLabel" type="Label" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/Option2EffectGrid"]
+layout_mode = 2
+text = "第二清除 Flags"
+
+[node name="Option2ClearFlagEdit" type="LineEdit" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/Option2EffectGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "例如 accepted_whisper"
+
+[node name="Option2RelationNpcLabel" type="Label" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/Option2EffectGrid"]
+layout_mode = 2
+text = "第二关系变化 NPC"
+
+[node name="Option2RelationNpcSelector" type="OptionButton" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/Option2EffectGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Option2RelationFieldLabel" type="Label" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/Option2EffectGrid"]
+layout_mode = 2
+text = "第二关系变化字段"
+
+[node name="Option2RelationFieldSelector" type="OptionButton" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/Option2EffectGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Option2RelationDeltaLabel" type="Label" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/Option2EffectGrid"]
+layout_mode = 2
+text = "第二关系变化值"
+
+[node name="Option2RelationDeltaSpin" type="SpinBox" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/Option2EffectGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+step = 1.0
+
+[node name="ActionsRow" type="HBoxContainer" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="GenerateButton" type="Button" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/ActionsRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "生成草案"
+
+[node name="CopyButton" type="Button" parent="MarginContainer/Root/Split/FormPanel/FormPadding/FormScroll/FormContent/ActionsRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "复制结果"
+
+[node name="OutputPanel" type="PanelContainer" parent="MarginContainer/Root/Split"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="OutputPadding" type="MarginContainer" parent="MarginContainer/Root/Split/OutputPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="OutputContent" type="VBoxContainer" parent="MarginContainer/Root/Split/OutputPanel/OutputPadding"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="OutputTitle" type="Label" parent="MarginContainer/Root/Split/OutputPanel/OutputPadding/OutputContent"]
+layout_mode = 2
+text = "CSV 草案输出"
+
+[node name="OutputHint" type="Label" parent="MarginContainer/Root/Split/OutputPanel/OutputPadding/OutputContent"]
+layout_mode = 2
+autowrap_mode = 2
+text = "右侧会生成可直接粘贴到对应 CSV 文件的草案。当前是最小模板，适合先快速补一个事件块。"
+
+[node name="OutputEdit" type="TextEdit" parent="MarginContainer/Root/Split/OutputPanel/OutputPadding/OutputContent"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3

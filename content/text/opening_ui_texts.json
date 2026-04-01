@@ -1,0 +1,9 @@
+{
+  "main_screen": {
+    "opening": {
+      "goal_title": "当前主目标",
+      "button_start": "开始",
+      "button_continue": "继续"
+    }
+  }
+}

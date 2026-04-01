@@ -2,3 +2,7 @@
 Godot/
 *.import
 *.translation
+.trae/
+.tmp_dialogue_manager/
+tmp_writer_drafts_stdout.txt
+tmp_writer_drafts_stderr.txt

@@ -1,0 +1,118 @@
+[
+	{
+		"event_id": "dlg_patrol_report_anomaly",
+		"intrusions": [
+			{
+				"description_id": "patrol_report_anomaly.greed.desc",
+				"domain_label_id": "patrol_report_anomaly.greed.domain",
+				"id": "greed",
+				"label_id": "patrol_report_anomaly.greed.label",
+				"selected_hint_text_id": "patrol_report_anomaly.greed.hint"
+			},
+			{
+				"description_id": "patrol_report_anomaly.wrath.desc",
+				"domain_label_id": "patrol_report_anomaly.wrath.domain",
+				"id": "wrath",
+				"label_id": "patrol_report_anomaly.wrath.label",
+				"selected_hint_text_id": "patrol_report_anomaly.wrath.hint"
+			},
+			{
+				"description_id": "patrol_report_anomaly.delusion.desc",
+				"domain_label_id": "patrol_report_anomaly.delusion.domain",
+				"id": "delusion",
+				"label_id": "patrol_report_anomaly.delusion.label",
+				"selected_hint_text_id": "patrol_report_anomaly.delusion.hint"
+			}
+		],
+		"observation_text_id": "patrol_report_anomaly.observe"
+	},
+	{
+		"event_id": "conditional_patrol_interrogation",
+		"intrusions": [
+			{
+				"description_id": "patrol_interrogation.greed.desc",
+				"domain_label_id": "patrol_interrogation.greed.domain",
+				"id": "greed",
+				"label_id": "patrol_interrogation.greed.label",
+				"selected_hint_text_id": "patrol_interrogation.greed.hint"
+			},
+			{
+				"description_id": "patrol_interrogation.wrath.desc",
+				"domain_label_id": "patrol_interrogation.wrath.domain",
+				"id": "wrath",
+				"label_id": "patrol_interrogation.wrath.label",
+				"selected_hint_text_id": "patrol_interrogation.wrath.hint"
+			},
+			{
+				"description_id": "patrol_interrogation.delusion.desc",
+				"domain_label_id": "patrol_interrogation.delusion.domain",
+				"id": "delusion",
+				"label_id": "patrol_interrogation.delusion.label",
+				"selected_hint_text_id": "patrol_interrogation.delusion.hint"
+			}
+		],
+		"observation_text_id": "patrol_interrogation.observe"
+	},
+	{
+		"event_id": "2005",
+		"intrusions": [
+			{
+				"apply_log_text_id": "2005.greed.log",
+				"description_id": "2005.greed.desc",
+				"domain_label_id": "2005.greed.domain",
+				"id": "greed",
+				"label_id": "2005.greed.label",
+				"selected_hint_text_id": "2005.greed.hint"
+			},
+			{
+				"apply_log_text_id": "2005.wrath.log",
+				"description_id": "2005.wrath.desc",
+				"domain_label_id": "2005.wrath.domain",
+				"id": "wrath",
+				"label_id": "2005.wrath.label",
+				"selected_hint_text_id": "2005.wrath.hint"
+			},
+			{
+				"apply_log_text_id": "2005.delusion.log",
+				"description_id": "2005.delusion.desc",
+				"domain_label_id": "2005.delusion.domain",
+				"id": "delusion",
+				"label_id": "2005.delusion.label",
+				"selected_hint_text_id": "2005.delusion.hint"
+			}
+		],
+		"observation_text_id": "2005.observe",
+		"opening_text_id": "2005.opening"
+	},
+	{
+		"event_id": "2008",
+		"intrusions": [
+			{
+				"apply_log_text_id": "2008.greed.log",
+				"description_id": "2008.greed.desc",
+				"domain_label_id": "2008.greed.domain",
+				"id": "greed",
+				"label_id": "2008.greed.label",
+				"selected_hint_text_id": "2008.greed.hint"
+			},
+			{
+				"apply_log_text_id": "2008.wrath.log",
+				"description_id": "2008.wrath.desc",
+				"domain_label_id": "2008.wrath.domain",
+				"id": "wrath",
+				"label_id": "2008.wrath.label",
+				"selected_hint_text_id": "2008.wrath.hint"
+			},
+			{
+				"apply_log_text_id": "2008.delusion.log",
+				"description_id": "2008.delusion.desc",
+				"domain_label_id": "2008.delusion.domain",
+				"id": "delusion",
+				"label_id": "2008.delusion.label",
+				"selected_hint_text_id": "2008.delusion.hint"
+			}
+		],
+		"observation_text_id": "2008.observe",
+		"opening_text_id": "2008.opening"
+	}
+]

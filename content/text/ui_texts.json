@@ -1,0 +1,436 @@
+{
+  "main_screen": {
+    "action_titles": {
+      "dialogue": "对话选项",
+      "event": "事件选项",
+      "ending": "后续操作",
+      "scene": "场景行动",
+      "combat": "战斗行动"
+    },
+    "menu_buttons": {
+      "dialogue": "回应",
+      "event": "抉择",
+      "ending": "继续",
+      "scene": "行动",
+      "combat": "战斗"
+    },
+    "backdrop": {
+      "generic_note": "背景图占位：后续可替换成正式场景图。",
+      "ending_title": "本局已结束",
+      "ending_subtitle": "场景区后续可切换为结局插图或终局背景。",
+      "ending_note": "背景图占位：后续可替换成结局画面。",
+      "dialogue_title": "人物对话中",
+      "dialogue_subtitle": "当前界面已切入对话表现，后续可替换成半身像与专用对话背景。",
+      "dialogue_note": "背景图占位：后续可替换成对话专属背景。",
+      "event_title": "事件发生中",
+      "event_subtitle": "当前场景已被事件接管，底层背景只保留氛围占位。",
+      "event_note": "背景图占位：后续可替换成事件专属背景。"
+    },
+    "npc_roles": {
+      "friendly_peer": "同门",
+      "outer_senior_brother": "师兄",
+      "night_patrol_disciple": "夜巡",
+      "herb_steward": "执事",
+      "default": "人物"
+    },
+    "current_location_prefix": "当前地点\n",
+    "popup_titles": {
+      "locations": "前往其他地点"
+    },
+    "npc_popup": {
+      "select_hint": "请在场景中直接点击人物。",
+      "no_interactions": "这个人物当前没有可进行的互动。"
+    },
+    "buttons": {
+      "restart": "开始下一局",
+      "npc_tooltip": "点击直接与此人物互动",
+      "npc_hotspot_role_hint": "%s · 点击直接交互",
+      "npc_picker": "%s\n好感 %d / 警惕 %d\n点击查看可互动内容",
+      "npc_interaction": "%s · %s",
+      "event_option_continue_dialogue": "继续对话",
+      "event_option_execute": "可以立即执行",
+      "event_option_unmet_dialogue": "当前无法这样回应",
+      "event_option_unmet_default": "条件不足"
+    },
+    "action_category_tags": {
+      "investigate": "【探索】",
+      "talk": "【交涉】",
+      "work": "【杂役】",
+      "rest": "【休整】",
+      "combat": "【战斗】"
+    }
+  },
+  "dialogue_panel": {
+    "portrait_placeholder": "半身像占位",
+    "responses_hint": "请直接在下方选择你的回应。",
+    "responses_title": "可选回应",
+    "continue_hint": "当前没有分支回应，点击下方按钮继续。",
+    "continue_title": "继续对话",
+    "continue_button": "继续",
+    "default_speaker": "人物",
+    "dialogue_type": "人物对话",
+    "option_available": "继续对话",
+    "option_unmet": "当前无法这样回应"
+  },
+  "view_model": {
+    "categories": {
+      "main_story": "主线骨架",
+      "npc_state": "人物状态",
+      "location_content": "地点内容",
+      "random_disturbance": "随机扰动"
+    },
+    "goal_states": {
+      "in_progress": "进行中",
+      "completed": "已完成",
+      "failed": "已失败"
+    },
+    "location_current_prefix": "当前：%s",
+    "npc_relation_line": "%s  好感 %d / 警惕 %d",
+    "interaction_line": "%s · %s",
+    "current_event_title": "当前事件",
+    "portrait_placeholder": "%s\n半身像占位",
+    "stats_line": "等级 %d  经验 %d/%d  体魄 %d  心智 %d  悟性 %d  诡感 %d  手腕 %d",
+    "default_hint": "暂时还没有新的线索提示。",
+    "default_location_scene": "这里暂时没有更多环境描述。",
+    "stage_titles": {
+      "location": "地点场景",
+      "ending": "本局结束"
+    },
+    "ending_body_fallback": "这一局已经结束。",
+    "status": {
+      "available_actions": "可执行行动：%s",
+      "none": "无",
+      "run_over": "本局结束：%s",
+      "dialogue": "正在与 %s 交谈。",
+      "combat": "正在战斗对抗：%s"
+    },
+    "hud": {
+      "day": "第 %d / %d 天",
+      "resources": "血气 %d    灵石 %d    神识 %d    线索 %d    污染 %d    暴露 %d",
+      "track": "调查推进 %d    异变推进 %d",
+      "location": "当前地点：%s"
+    },
+    "empty": {
+      "npc_text": "这里暂时没有可以接触的人。",
+      "goal_text": "当前没有主目标。",
+      "attribute_roles": "当前未配置属性职责说明。",
+      "location_mount": "当前地点尚未配置内容挂载槽。",
+      "npc_state_event": "当前地点没有可追踪的人物状态事件。"
+    },
+    "attribute_labels": {
+      "physique": "体魄",
+      "mind": "心智",
+      "insight": "悟性",
+      "occult": "诡感",
+      "tact": "手腕"
+    },
+    "combat": {
+      "opponent": "对手：%s",
+      "stats": "守御 %d    伤害 %d    体力 %d",
+      "escape": "脱离难度 %d"
+    },
+    "mount_summary": {
+      "resident_npcs": "常驻人物：%d",
+      "fixed_events": "固定事件：%d",
+      "investigation_events": "调查事件：%d",
+      "random_events": "随机事件：%d",
+      "category_trace": "按分类追踪：",
+      "npc_category_trace": "按人物状态分类："
+    },
+    "trace_status": {
+      "ready": "可触发",
+      "blocked": "已阻断",
+      "resolved": "已触发",
+      "pending": "待满足"
+    },
+    "story_text": {
+      "run_over": "本轮故事已经收束，你此前积累的线索、关系和风险共同决定了结局。",
+      "day": "当前是白天自由行动阶段。你可以在不同地点移动，通过探索、交涉和战斗选择积累通过主线所需的能力与资源。",
+      "night": "白天的行动会在夜间发酵。你收集到的线索和打上的状态，会在夜间事件里被进一步读取。",
+      "default": "主线正在按阶段推进。白天负责积累，夜间负责收束与反馈。"
+    },
+    "phase_labels": {
+      "morning": "晨间阶段",
+      "day": "白天自由行动",
+      "night": "夜间推进",
+      "closing": "收束阶段"
+    },
+    "activity_labels": {
+      "day": "白天自由行动：不限制次数，可手动进入夜间",
+      "morning": "晨间剧情推进中",
+      "night": "夜间剧情推进中",
+      "closing": "当日收束中",
+      "default": "当前阶段推进中"
+    }
+  },
+  "run_controller": {
+    "errors": {
+      "no_run": "当前没有运行中的周目。",
+      "handle_event_first": "请先处理当前事件。",
+      "not_day_phase": "当前不是白天行动阶段。",
+      "action_not_found": "未找到行动定义: %s",
+      "action_failed": "行动执行失败。",
+      "interaction_failed": "互动执行失败。",
+      "cannot_move_phase": "当前不是可以切换地点的阶段。",
+      "move_failed": "地点切换失败。",
+      "cannot_end_day_phase": "当前不在白天自由行动阶段。",
+      "event_resolution_failed": "事件结算失败。"
+    },
+    "logs": {
+      "ending_reached": "结局达成: %s",
+      "inheritance_count": "可选遗产数量: %d",
+      "end_day": "你主动结束了白天行动，夜间流程开始推进。"
+    },
+    "trace_reasons": {
+      "resolved": "已触发",
+      "blocked": "被阻断条件拦截",
+      "ready": "当前可触发"
+    }
+  },
+  "condition_evaluator": {
+    "any_of_prefix": "满足其一: ",
+    "description_templates": {
+      "flag_present": "全局标记成立: %s",
+      "flag_not_present": "全局标记未成立: %s",
+      "npc_relation_gte": "%s%s >= %d",
+      "npc_available": "%s当前可互动",
+      "npc_at_location": "%s位于%s",
+      "npc_tag_present": "%s具有状态: %s",
+      "day_range": "天数在第 %d~%d 天",
+      "day_gte": "天数 >= %d",
+      "phase_is": "处于%s阶段",
+      "last_action_is": "上一行动是%s",
+      "last_action_category_is": "上一行动类型是%s",
+      "current_location_is": "当前地点是%s",
+      "location_unlocked": "%s已开放",
+      "location_blocked": "%s处于封锁状态",
+      "location_tag_present": "%s具有地点标记: %s",
+      "location_value_gte": "%s的%s >= %d",
+      "hidden": "满足隐藏条件"
+    },
+    "relation_labels": {
+      "favor": "好感",
+      "alert": "警惕"
+    },
+    "key_labels": {
+      "blood_qi": "血气",
+      "spirit_stone": "灵石",
+      "spirit_sense": "神识",
+      "pollution": "污染",
+      "exposure": "暴露",
+      "physique": "体魄",
+      "mind": "心智",
+      "insight": "悟性",
+      "occult": "诡感",
+      "tact": "手腕",
+      "west_well_investigation_progress": "调查推进",
+      "investigation_progress": "调查推进",
+      "anomaly_progress": "异变推进",
+      "clue_fragments": "线索",
+      "patrol_level": "巡查等级"
+    },
+    "tag_labels": {
+      "heard_west_well_voice": "已听见西井异声",
+      "heard_of_west_well": "已经听过西井禁令",
+      "missing_is_not_random": "认定失踪并非偶然",
+      "records_are_tampered": "发现账册被动过手脚",
+      "marked_by_well": "已被西井标记",
+      "accepted_whisper": "接受过井下低语"
+    },
+    "tag_fallback": "获得标记: %s",
+    "flag_labels": {
+      "heard_well_warning": "已听闻西井警告",
+      "missing_rumor_confirmed": "已确认失踪传闻",
+      "met_outer_senior": "已接触外门师兄",
+      "met_herb_steward": "已接触药房执事",
+      "entered_records_room": "已进入记录间",
+      "records_tampered_confirmed": "已确认账册被篡改",
+      "approached_inner_well": "已靠近井边禁区",
+      "marked_by_well": "已被西井标记",
+      "reported_to_patrol": "已向夜巡上报",
+      "trusted_outer_senior": "已信任外门师兄",
+      "prepared_report": "已准备上报",
+      "prepared_descent": "已准备深入",
+      "accepted_whisper": "已接受低语"
+    },
+    "knowledge_labels": {
+      "west_well_is_not_safe": "确认西井异声并非错觉",
+      "well_sealed_in_past": "得知西井曾被封过",
+      "anomaly_source_identified": "查明西井异常源头"
+    },
+    "knowledge_fallback": "获得情报: %s",
+    "npc_labels": {
+      "outer_senior_brother": "外门师兄",
+      "friendly_peer": "同门",
+      "night_patrol_disciple": "夜巡弟子",
+      "herb_steward": "药房执事"
+    },
+    "action_labels": {
+      "west_well": "去西井",
+      "herb_room": "去药房",
+      "corridor": "去回廊",
+      "dormitory": "回寝舍"
+    },
+    "action_category_labels": {
+      "investigate": "调查",
+      "talk": "交谈",
+      "work": "杂役",
+      "rest": "休息"
+    },
+    "location_labels": {
+      "dormitory": "寝舍",
+      "corridor": "外门回廊",
+      "herb_front": "药房外间",
+      "herb_records": "药房内库",
+      "west_well_outer": "西井外围",
+      "west_well_inner": "西井禁区"
+    },
+    "phase_labels": {
+      "morning": "晨间",
+      "day": "白天行动",
+      "night": "夜间异常",
+      "closing": "收束"
+    }
+  },
+  "action_service": {
+    "errors": {
+      "run_over": "本局已经结束。",
+      "unavailable": "当前不满足该行动条件。"
+    },
+    "logs": {
+      "execute": "执行行动: %s",
+      "feedback_prefix": "行动反馈: "
+    },
+    "key_labels": {
+      "blood_qi": "血气",
+      "spirit_stone": "灵石",
+      "spirit_sense": "神识",
+      "clue_fragments": "线索",
+      "pollution": "污染",
+      "exposure": "暴露",
+      "mind": "心智",
+      "tact": "手腕",
+      "insight": "悟性"
+    }
+  },
+  "npc_service": {
+    "errors": {
+      "run_over": "本局已经结束。",
+      "interaction_missing": "未找到人物互动定义。",
+      "interaction_unavailable": "当前无法进行这项互动。"
+    },
+    "logs": {
+      "interact": "与 %s 接触：%s"
+    },
+    "npc_labels": {
+      "outer_senior_brother": "外门师兄",
+      "friendly_peer": "同门",
+      "night_patrol_disciple": "夜巡弟子",
+      "herb_steward": "药房执事",
+      "default": "人物"
+    }
+  },
+  "location_service": {
+    "errors": {
+      "missing": "未找到该地点。",
+      "arrive": "你来到%s。",
+      "locked_default": "这个地点暂时还无法进入。",
+      "blocked_default": "这个地点当前已被封锁。",
+      "cannot_enter_default": "当前无法进入这个地点。"
+    }
+  },
+  "day_flow_service": {
+    "logs": {
+      "day_start": "白天开始，你可以自由在各区域活动。",
+      "night_end": "夜间告一段落，你回到住处整理今日收获。",
+      "final_resolution": "当前剧本时限已到，故事进入最终结算。",
+      "next_day": "进入第 %d 天。"
+    }
+  },
+  "run_initializer": {
+    "logs": {
+      "new_run": "新周目开始。",
+      "day_start": "第 %d 天开始。"
+    }
+  },
+  "run_state_mutator": {
+    "logs": {
+      "goal_completed": "目标完成: %s",
+      "goal_failed": "目标失败: %s",
+      "level_up": "你突破到了 %d 级。",
+      "level_progress": "当前经验 %d / %d"
+    }
+  },
+  "inheritance_service": {
+    "placeholder_name": "残缺记忆",
+    "placeholder_description": "这是周目继承系统的占位实现，用于后续接入正式遗产数据。"
+  },
+  "story_csv_importer": {
+    "errors": {
+      "read_csv_failed": "无法读取 CSV：%s"
+    }
+  },
+  "content_repository": {
+    "errors": {
+      "read_content_failed": "无法读取内容文件: %s",
+      "invalid_content_format": "内容文件格式错误: %s"
+    }
+  },
+  "event_service": {
+    "logs": {
+      "risk_up": "事件张力上升：风险权重 +%d。"
+    },
+    "errors": {
+      "no_current_event": "当前没有可结算的事件。",
+      "option_missing": "未找到事件选项。",
+      "option_unavailable": "当前不满足该选项条件。"
+    },
+    "speaker_portrait_placeholder": "%s\n半身像占位",
+    "unmet_prefix": "需要：",
+    "critical": {
+      "success_d20": "大成功：你在这次对抗中额外夺得了一丝优势。",
+      "failure_d20": "大失败：你的失手让局面变得更糟。",
+      "success_d100": "大成功：你从混乱与异样中额外抓住了更多线索。",
+      "failure_d100": "大失败：异常反噬了你，留下了更深的污染。"
+    },
+    "check_logs": {
+      "d20": "检定：1d20=%d，修正 %+d，总计 %d，对抗难度 %d，%s。",
+      "d100": "检定：1d100=%d，目标值 %d，%s。"
+    },
+    "result_labels": {
+      "success": "成功",
+      "failure": "失败"
+    },
+    "check_descriptions": {
+      "d20": "检定：1d20 + %s×2 %+d >= %d（自然20大成功，1大失败）",
+      "d100": "检定：1d100 <= %d + %s×15 %+d（01-05大成功，96-00大失败）"
+    },
+    "check_tags": {
+      "d20": "【%s检定】",
+      "d100": "【%s对抗】"
+    },
+    "difficulty_labels": {
+      "normal": "难度：普通",
+      "risky": "难度：有风险",
+      "hard": "难度：困难",
+      "desperate": "难度：搏命"
+    },
+    "source_labels": {
+      "physique": "体魄",
+      "mind": "心智",
+      "insight": "悟性",
+      "occult": "诡感",
+      "tact": "手腕",
+      "blood_qi": "血气",
+      "spirit_stone": "灵石",
+      "spirit_sense": "神识",
+      "clue_fragments": "线索",
+      "pollution": "污染",
+      "exposure": "暴露"
+    },
+    "relation_labels": {
+      "favor": "好感",
+      "alert": "警惕"
+    }
+  }
+}

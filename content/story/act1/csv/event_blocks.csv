@@ -1,0 +1,4 @@
+event_id,group_id,order,condition_type,scope,key,op_value,target_id,field,extra_json
+dlg_patrol_report_anomaly,main,1,flag_present,,reported_to_patrol,,,
+conditional_record_discovery,main,1,flag_present,,entered_records_room,,,
+conditional_whisper_deepens,main,1,flag_present,,accepted_whisper,,,

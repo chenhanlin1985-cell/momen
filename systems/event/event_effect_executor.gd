@@ -30,6 +30,17 @@ func _apply_effect(run_state: RunState, effect: Dictionary) -> void:
 				_run_state_mutator.add_world_tag(run_state, str(effect.get("key", "")))
 			else:
 				_run_state_mutator.add_player_tag(run_state, str(effect.get("key", "")))
+		"set_flag":
+			_run_state_mutator.set_global_flag(
+				run_state,
+				str(effect.get("key", "")),
+				effect.get("value", true)
+			)
+		"clear_flag":
+			_run_state_mutator.clear_global_flag(
+				run_state,
+				str(effect.get("key", ""))
+			)
 		"remove_tag":
 			if str(effect.get("scope", "player")) == "world":
 				_run_state_mutator.remove_world_tag(run_state, str(effect.get("key", "")))
@@ -50,6 +61,30 @@ func _apply_effect(run_state: RunState, effect: Dictionary) -> void:
 				str(effect.get("field", "favor")),
 				int(effect.get("delta", 0))
 			)
+		"add_npc_tag":
+			_run_state_mutator.add_npc_tag(
+				run_state,
+				str(effect.get("npc_id", "")),
+				str(effect.get("key", ""))
+			)
+		"remove_npc_tag":
+			_run_state_mutator.remove_npc_tag(
+				run_state,
+				str(effect.get("npc_id", "")),
+				str(effect.get("key", ""))
+			)
+		"set_npc_available":
+			_run_state_mutator.set_npc_available(
+				run_state,
+				str(effect.get("npc_id", "")),
+				_to_bool(effect.get("value", true))
+			)
+		"unlock_location":
+			_run_state_mutator.unlock_location(run_state, str(effect.get("target_id", effect.get("key", ""))))
+		"block_location":
+			_run_state_mutator.block_location(run_state, str(effect.get("target_id", effect.get("key", ""))))
+		"unblock_location":
+			_run_state_mutator.unblock_location(run_state, str(effect.get("target_id", effect.get("key", ""))))
 		"add_followup_event":
 			_run_state_mutator.queue_followup_event(run_state, str(effect.get("key", "")))
 		"finish_run":
@@ -57,3 +92,14 @@ func _apply_effect(run_state: RunState, effect: Dictionary) -> void:
 		_:
 			pass
 
+func _to_bool(value: Variant) -> bool:
+	match typeof(value):
+		TYPE_BOOL:
+			return value
+		TYPE_INT, TYPE_FLOAT:
+			return value != 0
+		TYPE_STRING:
+			var normalized: String = str(value).strip_edges().to_lower()
+			return normalized == "true" or normalized == "1" or normalized == "yes"
+		_:
+			return value != null

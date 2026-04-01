@@ -1,0 +1,15 @@
+~ steward_probe
+王麻子: 交不交灵石是一回事，懂不懂规矩是另一回事。你族兄死得快，不是因为命不好，是因为有人不懂什么时候该闭嘴。
+
+- 交钱，但顺手试探账册和你族兄的事
+    王麻子: 账册不是你该看的东西，死人也不是你该追的名字。可你既然提了，就说明你确实听到过点什么。
+    do bridge.set_flag("met_wang_deacon", true)
+    do bridge.modify_npc_alert("herb_steward", 1)
+    do bridge.add_clue(1)
+    => END
+
+- 先把怒气压下去，不在这里翻脸
+    王麻子: 识相就好。你今天吞下去的这口气，以后总有地方会让你连本带利吐出来。
+    do bridge.set_flag("met_wang_deacon", true)
+    do bridge.modify_npc_alert("herb_steward", 1)
+    => END

@@ -1,0 +1,18 @@
+[
+  {
+    "logic_path": "res://content/dialogue/encounters/friendly_peer_logic.json",
+    "text_path": "res://content/dialogue/texts/friendly_peer_texts.json"
+  },
+  {
+    "logic_path": "res://content/dialogue/encounters/herb_steward_logic.json",
+    "text_path": "res://content/dialogue/texts/herb_steward_texts.json"
+  },
+  {
+    "logic_path": "res://content/dialogue/encounters/night_patrol_logic.json",
+    "text_path": "res://content/dialogue/texts/night_patrol_texts.json"
+  },
+  {
+    "logic_path": "res://content/dialogue/encounters/outer_senior_logic.json",
+    "text_path": "res://content/dialogue/texts/outer_senior_texts.json"
+  }
+]

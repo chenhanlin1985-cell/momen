@@ -1,0 +1,753 @@
+[
+	{
+		"event_id": "dlg_friendly_peer_well_warning",
+		"intrusions": [
+			{
+				"apply_log_text_id": "friendly_peer_well_warning.greed.log",
+				"description_id": "friendly_peer_well_warning.greed.desc",
+				"domain_label_id": "friendly_peer_well_warning.greed.domain",
+				"id": "greed",
+				"label_id": "friendly_peer_well_warning.greed.label",
+				"option_overrides": {
+					"accept_warning": {
+						"effects": [
+							{
+								"key": "death_used_by_liu",
+								"type": "set_flag",
+								"value": true
+							},
+							{
+								"key": "knows_cousin_secret",
+								"type": "set_flag",
+								"value": true
+							},
+							{
+								"key": "cousin_death_linked",
+								"type": "set_flag",
+								"value": true
+							},
+							{
+								"delta": 2.0,
+								"key": "clue_fragments",
+								"scope": "player",
+								"type": "modify_resource"
+							},
+							{
+								"delta": 3.0,
+								"field": "alert",
+								"npc_id": "friendly_peer",
+								"type": "modify_npc_relation"
+							},
+							{
+								"reason_id": "death_used_by_liu",
+								"type": "finish_run"
+							}
+						],
+						"result_text_id": "friendly_peer_well_warning.greed.accept_warning.result",
+						"text_id": "friendly_peer_well_warning.greed.accept_warning.text"
+					},
+					"ask_what_heard": {
+						"effects": [
+							{
+								"key": "cousin_death_linked",
+								"type": "set_flag",
+								"value": true
+							},
+							{
+								"delta": 2.0,
+								"key": "clue_fragments",
+								"scope": "player",
+								"type": "modify_resource"
+							},
+							{
+								"delta": 2.0,
+								"field": "alert",
+								"npc_id": "friendly_peer",
+								"type": "modify_npc_relation"
+							}
+						],
+						"result_text_id": "friendly_peer_well_warning.greed.ask_what_heard.result",
+						"text_id": "friendly_peer_well_warning.greed.ask_what_heard.text"
+					}
+				},
+				"selected_hint_text_id": "friendly_peer_well_warning.greed.hint",
+				"selected_portrait_label": "生气"
+			},
+			{
+				"apply_log_text_id": "friendly_peer_well_warning.wrath.log",
+				"description_id": "friendly_peer_well_warning.wrath.desc",
+				"domain_label_id": "friendly_peer_well_warning.wrath.domain",
+				"id": "wrath",
+				"label_id": "friendly_peer_well_warning.wrath.label",
+				"option_overrides": {
+					"accept_warning": {
+						"effects": [
+							{
+								"key": "knows_cousin_secret",
+								"type": "set_flag",
+								"value": true
+							},
+							{
+								"key": "liu_suspicion_seeded",
+								"type": "set_flag",
+								"value": true
+							},
+							{
+								"key": "cousin_death_linked",
+								"type": "set_flag",
+								"value": true
+							},
+							{
+								"delta": 2.0,
+								"key": "clue_fragments",
+								"scope": "player",
+								"type": "modify_resource"
+							},
+							{
+								"delta": 1.0,
+								"field": "favor",
+								"npc_id": "friendly_peer",
+								"type": "modify_npc_relation"
+							},
+							{
+								"delta": 1.0,
+								"field": "alert",
+								"npc_id": "friendly_peer",
+								"type": "modify_npc_relation"
+							}
+						],
+						"result_text_id": "friendly_peer_well_warning.wrath.accept_warning.result"
+					},
+					"ask_what_heard": {
+						"effects": [
+							{
+								"key": "knows_cousin_secret",
+								"type": "set_flag",
+								"value": true
+							},
+							{
+								"key": "liu_suspicion_seeded",
+								"type": "set_flag",
+								"value": true
+							},
+							{
+								"key": "cousin_death_linked",
+								"type": "set_flag",
+								"value": true
+							},
+							{
+								"delta": 2.0,
+								"key": "clue_fragments",
+								"scope": "player",
+								"type": "modify_resource"
+							},
+							{
+								"delta": 2.0,
+								"field": "favor",
+								"npc_id": "friendly_peer",
+								"type": "modify_npc_relation"
+							},
+							{
+								"delta": 1.0,
+								"field": "alert",
+								"npc_id": "friendly_peer",
+								"type": "modify_npc_relation"
+							}
+						],
+						"result_text_id": "friendly_peer_well_warning.wrath.ask_what_heard.result"
+					}
+				},
+				"selected_hint_text_id": "friendly_peer_well_warning.wrath.hint",
+				"selected_portrait_label": "生气"
+			},
+			{
+				"apply_log_text_id": "friendly_peer_well_warning.delusion.log",
+				"description_id": "friendly_peer_well_warning.delusion.desc",
+				"domain_label_id": "friendly_peer_well_warning.delusion.domain",
+				"fallback_option_override": {
+					"effects": [
+						{
+							"delta": -1.0,
+							"field": "favor",
+							"npc_id": "friendly_peer",
+							"type": "modify_npc_relation"
+						},
+						{
+							"delta": 1.0,
+							"key": "exposure",
+							"scope": "player",
+							"type": "modify_resource"
+						}
+					],
+					"result_text_id": "friendly_peer_well_warning.delusion.fallback.result"
+				},
+				"id": "delusion",
+				"label_id": "friendly_peer_well_warning.delusion.label",
+				"selected_hint_text_id": "friendly_peer_well_warning.delusion.hint",
+				"selected_portrait_label": "悲伤"
+			}
+		],
+		"observation_portrait_label": "悲伤",
+		"observation_text_id": "friendly_peer_well_warning.observe",
+		"opening_portrait_label": "悲伤",
+		"opening_text_id": "friendly_peer_well_warning.opening"
+	},
+	{
+		"event_id": "dlg_friendly_peer_shadow_contact",
+		"intrusions": [
+			{
+				"apply_log_text_id": "dlg_friendly_peer_shadow_contact.greed.log",
+				"description_id": "dlg_friendly_peer_shadow_contact.greed.desc",
+				"domain_label_id": "dlg_friendly_peer_shadow_contact.greed.domain",
+				"id": "greed",
+				"label_id": "dlg_friendly_peer_shadow_contact.greed.label",
+				"option_overrides": {
+					"dlg_friendly_peer_shadow_contact_opt_01": {
+						"effects": [
+							{
+								"key": "liu_suspicion_seeded",
+								"type": "clear_flag"
+							},
+							{
+								"key": "liu_contact_established",
+								"type": "set_flag",
+								"value": true
+							},
+							{
+								"key": "liu_betrayal_risk",
+								"type": "set_flag",
+								"value": true
+							},
+							{
+								"delta": 1.0,
+								"key": "clue_fragments",
+								"scope": "player",
+								"type": "modify_resource"
+							}
+						],
+						"result_text_id": "dlg_friendly_peer_shadow_contact.greed.opt_01.result",
+						"text_id": "dlg_friendly_peer_shadow_contact.greed.opt_01.text"
+					},
+					"dlg_friendly_peer_shadow_contact_opt_02": {
+						"effects": [
+							{
+								"key": "liu_suspicion_seeded",
+								"type": "clear_flag"
+							},
+							{
+								"key": "liu_contact_established",
+								"type": "set_flag",
+								"value": true
+							},
+							{
+								"key": "liu_betrayal_risk",
+								"type": "set_flag",
+								"value": true
+							}
+						],
+						"result_text_id": "dlg_friendly_peer_shadow_contact.greed.opt_02.result",
+						"text_id": "dlg_friendly_peer_shadow_contact.greed.opt_02.text"
+					}
+				},
+				"selected_hint_text_id": "dlg_friendly_peer_shadow_contact.greed.hint",
+				"selected_portrait_label": "生气"
+			},
+			{
+				"apply_log_text_id": "dlg_friendly_peer_shadow_contact.wrath.log",
+				"description_id": "dlg_friendly_peer_shadow_contact.wrath.desc",
+				"domain_label_id": "dlg_friendly_peer_shadow_contact.wrath.domain",
+				"id": "wrath",
+				"label_id": "dlg_friendly_peer_shadow_contact.wrath.label",
+				"option_overrides": {
+					"dlg_friendly_peer_shadow_contact_opt_01": {
+						"effects": [
+							{
+								"key": "liu_suspicion_seeded",
+								"type": "clear_flag"
+							},
+							{
+								"key": "liu_contact_established",
+								"type": "set_flag",
+								"value": true
+							},
+							{
+								"key": "liu_informant_active",
+								"type": "set_flag",
+								"value": true
+							},
+							{
+								"key": "liu_betrayal_risk",
+								"type": "set_flag",
+								"value": true
+							},
+							{
+								"key": "liu_against_wang",
+								"type": "set_flag",
+								"value": true
+							},
+							{
+								"delta": 2.0,
+								"key": "clue_fragments",
+								"scope": "player",
+								"type": "modify_resource"
+							}
+						],
+						"result_text_id": "dlg_friendly_peer_shadow_contact.wrath.opt_01.result",
+						"text_id": "dlg_friendly_peer_shadow_contact.wrath.opt_01.text"
+					},
+					"dlg_friendly_peer_shadow_contact_opt_02": {
+						"effects": [
+							{
+								"key": "liu_suspicion_seeded",
+								"type": "clear_flag"
+							},
+							{
+								"key": "liu_contact_established",
+								"type": "set_flag",
+								"value": true
+							},
+							{
+								"key": "liu_informant_active",
+								"type": "set_flag",
+								"value": true
+							},
+							{
+								"key": "liu_betrayal_risk",
+								"type": "set_flag",
+								"value": true
+							},
+							{
+								"key": "liu_against_wang",
+								"type": "set_flag",
+								"value": true
+							},
+							{
+								"key": "wang_secret_channel_exposed",
+								"type": "set_flag",
+								"value": true
+							},
+							{
+								"delta": 3.0,
+								"key": "clue_fragments",
+								"scope": "player",
+								"type": "modify_resource"
+							}
+						],
+						"result_text_id": "dlg_friendly_peer_shadow_contact.wrath.opt_02.result",
+						"text_id": "dlg_friendly_peer_shadow_contact.wrath.opt_02.text"
+					}
+				},
+				"selected_hint_text_id": "dlg_friendly_peer_shadow_contact.wrath.hint",
+				"selected_portrait_label": "生气"
+			},
+			{
+				"apply_log_text_id": "dlg_friendly_peer_shadow_contact.delusion.log",
+				"description_id": "dlg_friendly_peer_shadow_contact.delusion.desc",
+				"domain_label_id": "dlg_friendly_peer_shadow_contact.delusion.domain",
+				"fallback_option_override": {
+					"effects": [
+						{
+							"key": "liu_suspicion_seeded",
+							"type": "clear_flag"
+						},
+						{
+							"key": "liu_contact_established",
+							"type": "set_flag",
+							"value": true
+						},
+						{
+							"key": "liu_betrayal_risk",
+							"type": "set_flag",
+							"value": true
+						},
+						{
+							"delta": 1.0,
+							"field": "favor",
+							"npc_id": "friendly_peer",
+							"type": "modify_npc_relation"
+						},
+						{
+							"delta": 1.0,
+							"field": "alert",
+							"npc_id": "friendly_peer",
+							"type": "modify_npc_relation"
+						}
+					],
+					"result_text_id": "friendly_peer_shadow_contact.delusion.fallback.result"
+				},
+				"id": "delusion",
+				"label_id": "dlg_friendly_peer_shadow_contact.delusion.label",
+				"selected_hint_text_id": "dlg_friendly_peer_shadow_contact.delusion.hint",
+				"selected_portrait_label": "悲伤"
+			}
+		],
+		"observation_portrait_label": "悲伤",
+		"observation_text_id": "dlg_friendly_peer_shadow_contact.observe",
+		"opening_portrait_label": "悲伤",
+		"opening_text_id": "dlg_friendly_peer_shadow_contact.opening"
+	},
+	{
+		"event_id": "friendly_peer_md_2101",
+		"intrusions": [
+			{
+				"apply_log_text_id": "friendly_peer_md_2101.greed.log",
+				"description_id": "friendly_peer_md_2101.greed.desc",
+				"domain_label_id": "friendly_peer_md_2101.greed.domain",
+				"id": "greed",
+				"label_id": "friendly_peer_md_2101.greed.label",
+				"option_overrides": {
+					"friendly_peer_md_2101_opt_01": {
+						"effects": [
+							{
+								"delta": 1.0,
+								"key": "clue_fragments",
+								"scope": "player",
+								"type": "modify_resource"
+							}
+						],
+						"result_text_id": "friendly_peer_md_2101.greed.opt_01.result",
+						"text_id": "friendly_peer_md_2101.greed.opt_01.text"
+					},
+					"friendly_peer_md_2101_opt_02": {
+						"effects": [
+							{
+								"key": "death_used_by_liu",
+								"type": "set_flag",
+								"value": true
+							},
+							{
+								"reason_id": "event_resolution",
+								"type": "finish_run"
+							}
+						],
+						"result_text_id": "friendly_peer_md_2101.greed.opt_02.result",
+						"text_id": "friendly_peer_md_2101.greed.opt_02.text"
+					}
+				},
+				"selected_hint_text_id": "friendly_peer_md_2101.greed.hint"
+			},
+			{
+				"apply_log_text_id": "friendly_peer_md_2101.wrath.log",
+				"description_id": "friendly_peer_md_2101.wrath.desc",
+				"domain_label_id": "friendly_peer_md_2101.wrath.domain",
+				"id": "wrath",
+				"label_id": "friendly_peer_md_2101.wrath.label",
+				"option_overrides": {
+					"friendly_peer_md_2101_opt_01": {
+						"effects": [
+							{
+								"key": "liu_suspicion_seeded",
+								"type": "set_flag",
+								"value": true
+							},
+							{
+								"key": "knows_cousin_secret",
+								"type": "set_flag",
+								"value": true
+							}
+						],
+						"result_text_id": "friendly_peer_md_2101.wrath.opt_01.result",
+						"text_id": "friendly_peer_md_2101.wrath.opt_01.text"
+					},
+					"friendly_peer_md_2101_opt_02": {
+						"effects": [
+							{
+								"key": "liu_suspicion_seeded",
+								"type": "set_flag",
+								"value": true
+							},
+							{
+								"key": "knows_truth_wang_murder",
+								"scope": "player",
+								"type": "add_tag"
+							},
+							{
+								"delta": 2.0,
+								"key": "clue_fragments",
+								"scope": "player",
+								"type": "modify_resource"
+							}
+						],
+						"result_text_id": "friendly_peer_md_2101.wrath.opt_02.result",
+						"text_id": "friendly_peer_md_2101.wrath.opt_02.text"
+					}
+				},
+				"selected_hint_text_id": "friendly_peer_md_2101.wrath.hint"
+			},
+			{
+				"apply_log_text_id": "friendly_peer_md_2101.delusion.log",
+				"description_id": "friendly_peer_md_2101.delusion.desc",
+				"domain_label_id": "friendly_peer_md_2101.delusion.domain",
+				"id": "delusion",
+				"label_id": "friendly_peer_md_2101.delusion.label",
+				"selected_hint_text_id": "friendly_peer_md_2101.delusion.hint"
+			}
+		],
+		"observation_text_id": "friendly_peer_md_2101.observe",
+		"opening_text_id": "friendly_peer_md_2101.opening"
+	},
+	{
+		"event_id": "friendly_peer_md_2102",
+		"intrusions": [
+			{
+				"apply_log_text_id": "friendly_peer_md_2102.greed.log",
+				"description_id": "friendly_peer_md_2102.greed.desc",
+				"domain_label_id": "friendly_peer_md_2102.greed.domain",
+				"id": "greed",
+				"label_id": "friendly_peer_md_2102.greed.label",
+				"option_overrides": {
+					"friendly_peer_md_2102_opt_01": {
+						"effects": [
+							{
+								"key": "liu_shared_drop_established",
+								"type": "set_flag",
+								"value": true
+							},
+							{
+								"delta": 1,
+								"key": "clue_fragments",
+								"scope": "player",
+								"type": "modify_resource"
+							}
+						],
+						"result_text_id": "friendly_peer_md_2102.greed.opt_01.result",
+						"text_id": "friendly_peer_md_2102.greed.opt_01.text"
+					},
+					"friendly_peer_md_2102_opt_02": {
+						"effects": [
+							{
+								"key": "liu_shared_drop_established",
+								"type": "set_flag",
+								"value": true
+							},
+							{
+								"key": "liu_betrayal_risk",
+								"type": "set_flag",
+								"value": true
+							}
+						],
+						"result_text_id": "friendly_peer_md_2102.greed.opt_02.result",
+						"text_id": "friendly_peer_md_2102.greed.opt_02.text"
+					}
+				},
+				"selected_hint_text_id": "friendly_peer_md_2102.greed.hint",
+				"selected_portrait_label": "生气"
+			},
+			{
+				"apply_log_text_id": "friendly_peer_md_2102.wrath.log",
+				"description_id": "friendly_peer_md_2102.wrath.desc",
+				"domain_label_id": "friendly_peer_md_2102.wrath.domain",
+				"id": "wrath",
+				"label_id": "friendly_peer_md_2102.wrath.label",
+				"option_overrides": {
+					"friendly_peer_md_2102_opt_01": {
+						"effects": [
+							{
+								"key": "wang_schedule_exposed",
+								"type": "set_flag",
+								"value": true
+							},
+							{
+								"key": "liu_shared_drop_established",
+								"type": "set_flag",
+								"value": true
+							},
+							{
+								"delta": 2,
+								"key": "clue_fragments",
+								"scope": "player",
+								"type": "modify_resource"
+							}
+						],
+						"result_text_id": "friendly_peer_md_2102.wrath.opt_01.result",
+						"text_id": "friendly_peer_md_2102.wrath.opt_01.text"
+					},
+					"friendly_peer_md_2102_opt_02": {
+						"effects": [
+							{
+								"key": "wang_schedule_exposed",
+								"type": "set_flag",
+								"value": true
+							},
+							{
+								"key": "liu_shared_drop_established",
+								"type": "set_flag",
+								"value": true
+							},
+							{
+								"key": "wang_secret_channel_exposed",
+								"type": "set_flag",
+								"value": true
+							},
+							{
+								"delta": 3,
+								"key": "clue_fragments",
+								"scope": "player",
+								"type": "modify_resource"
+							}
+						],
+						"result_text_id": "friendly_peer_md_2102.wrath.opt_02.result",
+						"text_id": "friendly_peer_md_2102.wrath.opt_02.text"
+					}
+				},
+				"selected_hint_text_id": "friendly_peer_md_2102.wrath.hint",
+				"selected_portrait_label": "生气"
+			},
+			{
+				"apply_log_text_id": "friendly_peer_md_2102.delusion.log",
+				"description_id": "friendly_peer_md_2102.delusion.desc",
+				"domain_label_id": "friendly_peer_md_2102.delusion.domain",
+				"id": "delusion",
+				"label_id": "friendly_peer_md_2102.delusion.label",
+				"selected_hint_text_id": "friendly_peer_md_2102.delusion.hint",
+				"selected_portrait_label": "悲伤"
+			}
+		],
+		"observation_portrait_label": "悲伤",
+		"observation_text_id": "friendly_peer_md_2102.observe",
+		"opening_portrait_label": "悲伤",
+		"opening_text_id": "friendly_peer_md_2102.opening"
+	},
+	{
+		"event_id": "2001",
+		"intrusions": [
+			{
+				"apply_log_text_id": "2001.greed.log",
+				"description_id": "2001.greed.desc",
+				"domain_label_id": "2001.greed.domain",
+				"id": "greed",
+				"label_id": "2001.greed.label",
+				"option_overrides": {
+					"2001_opt_01": {
+						"effects": [
+							{
+								"key": "cousin_death_linked",
+								"type": "set_flag",
+								"value": true
+							},
+							{
+								"delta": 2.0,
+								"key": "clue_fragments",
+								"scope": "player",
+								"type": "modify_resource"
+							}
+						],
+						"result_text_id": "2001.greed.opt_01.result",
+						"text_id": "2001.greed.opt_01.text"
+					},
+					"2001_opt_02": {
+						"effects": [
+							{
+								"key": "death_used_by_liu",
+								"type": "set_flag",
+								"value": true
+							},
+							{
+								"key": "knows_cousin_secret",
+								"type": "set_flag",
+								"value": true
+							},
+							{
+								"key": "cousin_death_linked",
+								"type": "set_flag",
+								"value": true
+							},
+							{
+								"delta": 2.0,
+								"key": "clue_fragments",
+								"scope": "player",
+								"type": "modify_resource"
+							},
+							{
+								"reason_id": "death_used_by_liu",
+								"type": "finish_run"
+							}
+						],
+						"result_text_id": "2001.greed.opt_02.result",
+						"text_id": "2001.greed.opt_02.text"
+					}
+				},
+				"selected_hint_text_id": "2001.greed.hint",
+				"selected_portrait_label": "生气"
+			},
+			{
+				"apply_log_text_id": "2001.wrath.log",
+				"description_id": "2001.wrath.desc",
+				"domain_label_id": "2001.wrath.domain",
+				"id": "wrath",
+				"label_id": "2001.wrath.label",
+				"option_overrides": {
+					"2001_opt_01": {
+						"effects": [
+							{
+								"key": "knows_cousin_secret",
+								"type": "set_flag",
+								"value": true
+							},
+							{
+								"key": "liu_suspicion_seeded",
+								"type": "set_flag",
+								"value": true
+							},
+							{
+								"key": "cousin_death_linked",
+								"type": "set_flag",
+								"value": true
+							},
+							{
+								"delta": 2.0,
+								"key": "clue_fragments",
+								"scope": "player",
+								"type": "modify_resource"
+							}
+						],
+						"result_text_id": "2001.wrath.opt_01.result",
+						"text_id": "2001.wrath.opt_01.text"
+					},
+					"2001_opt_02": {
+						"effects": [
+							{
+								"key": "knows_cousin_secret",
+								"type": "set_flag",
+								"value": true
+							},
+							{
+								"key": "liu_suspicion_seeded",
+								"type": "set_flag",
+								"value": true
+							},
+							{
+								"key": "cousin_death_linked",
+								"type": "set_flag",
+								"value": true
+							},
+							{
+								"delta": 2.0,
+								"key": "clue_fragments",
+								"scope": "player",
+								"type": "modify_resource"
+							}
+						],
+						"result_text_id": "2001.wrath.opt_02.result",
+						"text_id": "2001.wrath.opt_02.text"
+					}
+				},
+				"selected_hint_text_id": "2001.wrath.hint",
+				"selected_portrait_label": "生气"
+			},
+			{
+				"apply_log_text_id": "2001.delusion.log",
+				"description_id": "2001.delusion.desc",
+				"domain_label_id": "2001.delusion.domain",
+				"id": "delusion",
+				"label_id": "2001.delusion.label",
+				"selected_hint_text_id": "2001.delusion.hint",
+				"selected_portrait_label": "悲伤"
+			}
+		],
+		"observation_portrait_label": "悲伤",
+		"observation_text_id": "2001.observe",
+		"opening_portrait_label": "悲伤",
+		"opening_text_id": "2001.opening"
+	}
+]

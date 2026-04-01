@@ -1,16 +1,108 @@
 [
   {
-    "id": "resolve_west_well",
-    "display_name": "查明西井异声",
-    "description": "在第七夜之前确认西井异声的真相，并决定如何面对它。",
+    "id": "survive_outer_gate_exam",
+    "display_name": "活过外门考核",
+    "description": "在月考与清洗到来前积累足够的线索、筹码与立场，让自己有资格活着走出第一章。",
+    "goal_type": "main_goal",
     "completion_conditions": [
       {
-        "type": "knowledge_present",
-        "key": "anomaly_source_identified"
+        "type": "resource_gte",
+        "scope": "player",
+        "key": "clue_fragments",
+        "value": 6
       }
     ],
     "failure_conditions": [],
-    "reward_tags": ["goal_west_well_resolved"],
-    "priority": 10
+    "reward_tags": [
+      "goal_outer_gate_ready"
+    ],
+    "priority": 100,
+    "next_goal_ids": []
+  },
+  {
+    "id": "task_find_first_lead",
+    "display_name": "找到第一条活路",
+    "description": "先接触一个知道内情的人，确认外门正在发生什么。",
+    "goal_type": "task",
+    "completion_conditions": [
+      {
+        "type": "any_of",
+        "conditions": [
+          {"type": "flag_present", "key": "met_wang_deacon"},
+          {"type": "flag_present", "key": "met_mad_elder"},
+          {"type": "flag_present", "key": "cousin_death_linked"},
+          {"type": "resource_gte", "scope": "player", "key": "clue_fragments", "value": 1}
+        ]
+      }
+    ],
+    "failure_conditions": [],
+    "reward_tags": [],
+    "priority": 10,
+    "next_goal_ids": [
+      "task_trace_cousin_secret"
+    ]
+  },
+  {
+    "id": "task_trace_cousin_secret",
+    "display_name": "追查族兄留下的秘密",
+    "description": "继续追索遗物、账册和传闻，弄清族兄死亡与外门考核之间的联系。",
+    "goal_type": "task",
+    "completion_conditions": [
+      {
+        "type": "any_of",
+        "conditions": [
+          {"type": "flag_present", "key": "knows_cousin_secret"},
+          {"type": "flag_present", "key": "cousin_death_linked"},
+          {"type": "resource_gte", "scope": "player", "key": "clue_fragments", "value": 3}
+        ]
+      }
+    ],
+    "failure_conditions": [],
+    "reward_tags": [],
+    "priority": 20,
+    "next_goal_ids": [
+      "task_prepare_exam_route"
+    ]
+  },
+  {
+    "id": "task_prepare_exam_route",
+    "display_name": "为月考准备一条路线",
+    "description": "无论是讨好执事、依附疯长老，还是另寻活路，你都要为最后的考核准备筹码。",
+    "goal_type": "task",
+    "completion_conditions": [
+      {
+        "type": "any_of",
+        "conditions": [
+          {"type": "flag_present", "key": "wang_extortion_paid"},
+          {"type": "flag_present", "key": "survived_pill_test"},
+          {"type": "flag_present", "key": "learned_blood_stealth"},
+          {"type": "resource_gte", "scope": "player", "key": "clue_fragments", "value": 4}
+        ]
+      }
+    ],
+    "failure_conditions": [],
+    "reward_tags": [],
+    "priority": 30,
+    "next_goal_ids": [
+      "task_face_outer_gate_exam"
+    ]
+  },
+  {
+    "id": "task_face_outer_gate_exam",
+    "display_name": "准备面对外门考核",
+    "description": "继续行动直到你拥有足够线索和筹码，敢于把自己送进最后的考验。",
+    "goal_type": "task",
+    "completion_conditions": [
+      {
+        "type": "resource_gte",
+        "scope": "player",
+        "key": "clue_fragments",
+        "value": 6
+      }
+    ],
+    "failure_conditions": [],
+    "reward_tags": [],
+    "priority": 40,
+    "next_goal_ids": []
   }
 ]
