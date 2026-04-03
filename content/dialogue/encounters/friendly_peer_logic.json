@@ -1,6 +1,6 @@
 [
 	{
-		"event_id": "dlg_friendly_peer_well_warning",
+		"event_id": "900101",
 		"intrusions": [
 			{
 				"apply_log_text_id": "friendly_peer_well_warning.greed.log",
@@ -35,7 +35,7 @@
 							{
 								"delta": 3.0,
 								"field": "alert",
-								"npc_id": "friendly_peer",
+								"npc_id": "01",
 								"type": "modify_npc_relation"
 							},
 							{
@@ -62,7 +62,7 @@
 							{
 								"delta": 2.0,
 								"field": "alert",
-								"npc_id": "friendly_peer",
+								"npc_id": "01",
 								"type": "modify_npc_relation"
 							}
 						],
@@ -106,13 +106,13 @@
 							{
 								"delta": 1.0,
 								"field": "favor",
-								"npc_id": "friendly_peer",
+								"npc_id": "01",
 								"type": "modify_npc_relation"
 							},
 							{
 								"delta": 1.0,
 								"field": "alert",
-								"npc_id": "friendly_peer",
+								"npc_id": "01",
 								"type": "modify_npc_relation"
 							}
 						],
@@ -144,13 +144,13 @@
 							{
 								"delta": 2.0,
 								"field": "favor",
-								"npc_id": "friendly_peer",
+								"npc_id": "01",
 								"type": "modify_npc_relation"
 							},
 							{
 								"delta": 1.0,
 								"field": "alert",
-								"npc_id": "friendly_peer",
+						"npc_id": "01",
 								"type": "modify_npc_relation"
 							}
 						],
@@ -169,7 +169,7 @@
 						{
 							"delta": -1.0,
 							"field": "favor",
-							"npc_id": "friendly_peer",
+						"npc_id": "01",
 							"type": "modify_npc_relation"
 						},
 						{
@@ -193,16 +193,16 @@
 		"opening_text_id": "friendly_peer_well_warning.opening"
 	},
 	{
-		"event_id": "dlg_friendly_peer_shadow_contact",
+		"event_id": "2002",
 		"intrusions": [
 			{
-				"apply_log_text_id": "dlg_friendly_peer_shadow_contact.greed.log",
-				"description_id": "dlg_friendly_peer_shadow_contact.greed.desc",
-				"domain_label_id": "dlg_friendly_peer_shadow_contact.greed.domain",
+				"apply_log_text_id": "2002.greed.log",
+				"description_id": "2002.greed.desc",
+				"domain_label_id": "2002.greed.domain",
 				"id": "greed",
-				"label_id": "dlg_friendly_peer_shadow_contact.greed.label",
+				"label_id": "2002.greed.label",
 				"option_overrides": {
-					"dlg_friendly_peer_shadow_contact_opt_01": {
+					"2002_opt_01": {
 						"effects": [
 							{
 								"key": "liu_suspicion_seeded",
@@ -225,10 +225,10 @@
 								"type": "modify_resource"
 							}
 						],
-						"result_text_id": "dlg_friendly_peer_shadow_contact.greed.opt_01.result",
-						"text_id": "dlg_friendly_peer_shadow_contact.greed.opt_01.text"
+						"result_text_id": "2002.greed.opt_01.result",
+						"text_id": "2002.greed.opt_01.text"
 					},
-					"dlg_friendly_peer_shadow_contact_opt_02": {
+					"2002_opt_02": {
 						"effects": [
 							{
 								"key": "liu_suspicion_seeded",
@@ -245,21 +245,21 @@
 								"value": true
 							}
 						],
-						"result_text_id": "dlg_friendly_peer_shadow_contact.greed.opt_02.result",
-						"text_id": "dlg_friendly_peer_shadow_contact.greed.opt_02.text"
+						"result_text_id": "2002.greed.opt_02.result",
+						"text_id": "2002.greed.opt_02.text"
 					}
 				},
-				"selected_hint_text_id": "dlg_friendly_peer_shadow_contact.greed.hint",
+				"selected_hint_text_id": "2002.greed.hint",
 				"selected_portrait_label": "生气"
 			},
 			{
-				"apply_log_text_id": "dlg_friendly_peer_shadow_contact.wrath.log",
-				"description_id": "dlg_friendly_peer_shadow_contact.wrath.desc",
-				"domain_label_id": "dlg_friendly_peer_shadow_contact.wrath.domain",
+				"apply_log_text_id": "2002.wrath.log",
+				"description_id": "2002.wrath.desc",
+				"domain_label_id": "2002.wrath.domain",
 				"id": "wrath",
-				"label_id": "dlg_friendly_peer_shadow_contact.wrath.label",
+				"label_id": "2002.wrath.label",
 				"option_overrides": {
-					"dlg_friendly_peer_shadow_contact_opt_01": {
+					"2002_opt_01": {
 						"effects": [
 							{
 								"key": "liu_suspicion_seeded",
@@ -292,10 +292,10 @@
 								"type": "modify_resource"
 							}
 						],
-						"result_text_id": "dlg_friendly_peer_shadow_contact.wrath.opt_01.result",
-						"text_id": "dlg_friendly_peer_shadow_contact.wrath.opt_01.text"
+						"result_text_id": "2002.wrath.opt_01.result",
+						"text_id": "2002.wrath.opt_01.text"
 					},
-					"dlg_friendly_peer_shadow_contact_opt_02": {
+					"2002_opt_02": {
 						"effects": [
 							{
 								"key": "liu_suspicion_seeded",
@@ -333,17 +333,17 @@
 								"type": "modify_resource"
 							}
 						],
-						"result_text_id": "dlg_friendly_peer_shadow_contact.wrath.opt_02.result",
-						"text_id": "dlg_friendly_peer_shadow_contact.wrath.opt_02.text"
+						"result_text_id": "2002.wrath.opt_02.result",
+						"text_id": "2002.wrath.opt_02.text"
 					}
 				},
-				"selected_hint_text_id": "dlg_friendly_peer_shadow_contact.wrath.hint",
+				"selected_hint_text_id": "2002.wrath.hint",
 				"selected_portrait_label": "生气"
 			},
 			{
-				"apply_log_text_id": "dlg_friendly_peer_shadow_contact.delusion.log",
-				"description_id": "dlg_friendly_peer_shadow_contact.delusion.desc",
-				"domain_label_id": "dlg_friendly_peer_shadow_contact.delusion.domain",
+				"apply_log_text_id": "2002.delusion.log",
+				"description_id": "2002.delusion.desc",
+				"domain_label_id": "2002.delusion.domain",
 				"fallback_option_override": {
 					"effects": [
 						{
@@ -363,31 +363,31 @@
 						{
 							"delta": 1.0,
 							"field": "favor",
-							"npc_id": "friendly_peer",
+							"npc_id": "01",
 							"type": "modify_npc_relation"
 						},
 						{
 							"delta": 1.0,
 							"field": "alert",
-							"npc_id": "friendly_peer",
+							"npc_id": "01",
 							"type": "modify_npc_relation"
 						}
 					],
-					"result_text_id": "friendly_peer_shadow_contact.delusion.fallback.result"
+					"result_text_id": "2002.delusion.fallback.result"
 				},
 				"id": "delusion",
-				"label_id": "dlg_friendly_peer_shadow_contact.delusion.label",
-				"selected_hint_text_id": "dlg_friendly_peer_shadow_contact.delusion.hint",
+				"label_id": "2002.delusion.label",
+				"selected_hint_text_id": "2002.delusion.hint",
 				"selected_portrait_label": "悲伤"
 			}
 		],
 		"observation_portrait_label": "悲伤",
-		"observation_text_id": "dlg_friendly_peer_shadow_contact.observe",
+		"observation_text_id": "2002.observe",
 		"opening_portrait_label": "悲伤",
-		"opening_text_id": "dlg_friendly_peer_shadow_contact.opening"
+		"opening_text_id": "2002.opening"
 	},
 	{
-		"event_id": "friendly_peer_md_2101",
+		"event_id": "900102",
 		"intrusions": [
 			{
 				"apply_log_text_id": "friendly_peer_md_2101.greed.log",
@@ -487,16 +487,16 @@
 		"opening_text_id": "friendly_peer_md_2101.opening"
 	},
 	{
-		"event_id": "friendly_peer_md_2102",
+		"event_id": "2102",
 		"intrusions": [
 			{
-				"apply_log_text_id": "friendly_peer_md_2102.greed.log",
-				"description_id": "friendly_peer_md_2102.greed.desc",
-				"domain_label_id": "friendly_peer_md_2102.greed.domain",
+				"apply_log_text_id": "2102.greed.log",
+				"description_id": "2102.greed.desc",
+				"domain_label_id": "2102.greed.domain",
 				"id": "greed",
-				"label_id": "friendly_peer_md_2102.greed.label",
+				"label_id": "2102.greed.label",
 				"option_overrides": {
-					"friendly_peer_md_2102_opt_01": {
+					"210201": {
 						"effects": [
 							{
 								"key": "liu_shared_drop_established",
@@ -510,10 +510,10 @@
 								"type": "modify_resource"
 							}
 						],
-						"result_text_id": "friendly_peer_md_2102.greed.opt_01.result",
-						"text_id": "friendly_peer_md_2102.greed.opt_01.text"
+						"result_text_id": "2102.greed.opt_01.result",
+						"text_id": "2102.greed.opt_01.text"
 					},
-					"friendly_peer_md_2102_opt_02": {
+					"210202": {
 						"effects": [
 							{
 								"key": "liu_shared_drop_established",
@@ -526,21 +526,21 @@
 								"value": true
 							}
 						],
-						"result_text_id": "friendly_peer_md_2102.greed.opt_02.result",
-						"text_id": "friendly_peer_md_2102.greed.opt_02.text"
+						"result_text_id": "2102.greed.opt_02.result",
+						"text_id": "2102.greed.opt_02.text"
 					}
 				},
-				"selected_hint_text_id": "friendly_peer_md_2102.greed.hint",
+				"selected_hint_text_id": "2102.greed.hint",
 				"selected_portrait_label": "生气"
 			},
 			{
-				"apply_log_text_id": "friendly_peer_md_2102.wrath.log",
-				"description_id": "friendly_peer_md_2102.wrath.desc",
-				"domain_label_id": "friendly_peer_md_2102.wrath.domain",
+				"apply_log_text_id": "2102.wrath.log",
+				"description_id": "2102.wrath.desc",
+				"domain_label_id": "2102.wrath.domain",
 				"id": "wrath",
-				"label_id": "friendly_peer_md_2102.wrath.label",
+				"label_id": "2102.wrath.label",
 				"option_overrides": {
-					"friendly_peer_md_2102_opt_01": {
+					"210201": {
 						"effects": [
 							{
 								"key": "wang_schedule_exposed",
@@ -559,10 +559,10 @@
 								"type": "modify_resource"
 							}
 						],
-						"result_text_id": "friendly_peer_md_2102.wrath.opt_01.result",
-						"text_id": "friendly_peer_md_2102.wrath.opt_01.text"
+						"result_text_id": "2102.wrath.opt_01.result",
+						"text_id": "2102.wrath.opt_01.text"
 					},
-					"friendly_peer_md_2102_opt_02": {
+					"210202": {
 						"effects": [
 							{
 								"key": "wang_schedule_exposed",
@@ -586,27 +586,27 @@
 								"type": "modify_resource"
 							}
 						],
-						"result_text_id": "friendly_peer_md_2102.wrath.opt_02.result",
-						"text_id": "friendly_peer_md_2102.wrath.opt_02.text"
+						"result_text_id": "2102.wrath.opt_02.result",
+						"text_id": "2102.wrath.opt_02.text"
 					}
 				},
-				"selected_hint_text_id": "friendly_peer_md_2102.wrath.hint",
+				"selected_hint_text_id": "2102.wrath.hint",
 				"selected_portrait_label": "生气"
 			},
 			{
-				"apply_log_text_id": "friendly_peer_md_2102.delusion.log",
-				"description_id": "friendly_peer_md_2102.delusion.desc",
-				"domain_label_id": "friendly_peer_md_2102.delusion.domain",
+				"apply_log_text_id": "2102.delusion.log",
+				"description_id": "2102.delusion.desc",
+				"domain_label_id": "2102.delusion.domain",
 				"id": "delusion",
-				"label_id": "friendly_peer_md_2102.delusion.label",
-				"selected_hint_text_id": "friendly_peer_md_2102.delusion.hint",
+				"label_id": "2102.delusion.label",
+				"selected_hint_text_id": "2102.delusion.hint",
 				"selected_portrait_label": "悲伤"
 			}
 		],
 		"observation_portrait_label": "悲伤",
-		"observation_text_id": "friendly_peer_md_2102.observe",
+		"observation_text_id": "2102.observe",
 		"opening_portrait_label": "悲伤",
-		"opening_text_id": "friendly_peer_md_2102.opening"
+		"opening_text_id": "2102.opening"
 	},
 	{
 		"event_id": "2001",

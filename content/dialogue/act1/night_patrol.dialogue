@@ -2,14 +2,14 @@
 巡夜弟子: 你族兄那几夜总在不该出现的地方出现。你现在来问我，是想替他讨个说法，还是怕自己也走到一样的路上？
 - 把自己拼到的线索讲给他听
     巡夜弟子: 你知道的比我想的多。可你最好别把这些话到处说。外门里有些人，比夜路还怕别人记住他们的脚印。
-    do bridge.modify_npc_favor("night_patrol_disciple", 1)
+    do bridge.modify_npc_favor("03", 1)
     do bridge.add_clue(1)
     do bridge.set_flag("cousin_death_linked", true)
     => END
 
 - 只说一半，先看他到底知道多少
     巡夜弟子: 你倒是会藏。可藏得太多，也会让人觉得你心里另有盘算。
-    do bridge.modify_npc_alert("night_patrol_disciple", 1)
+    do bridge.modify_npc_alert("03", 1)
     do bridge.add_clue(1)
     => END
 
@@ -18,12 +18,12 @@
 - 把话说得滴水不漏，只把真的说出一半
     巡夜弟子: 你这张嘴倒是稳，可我不觉得你心里没有别的盘算。最近安分些，别再让我看见你在不该去的地方乱晃。
     do bridge.add_exposure(1)
-    do bridge.modify_npc_alert("night_patrol_disciple", 1)
+    do bridge.modify_npc_alert("03", 1)
     => END
 
 - 反说自己只是被人推着走，顺便试探他究竟知道多少
     巡夜弟子: 被推着走的人不只你一个。可怕的是有人乐得你们往同一个结局里跌。劝你一句，离化骨池远一点。
     do bridge.add_exposure(1)
-    do bridge.modify_npc_alert("night_patrol_disciple", 1)
+    do bridge.modify_npc_alert("03", 1)
     do bridge.add_clue(1)
     => END

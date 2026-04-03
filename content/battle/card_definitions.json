@@ -1,0 +1,581 @@
+[
+  {
+    "id": "9111",
+    "story_id": "01",
+    "display_name": "族兄的死状",
+    "card_group": "01",
+    "card_type": "00",
+    "base_score": 0,
+    "multiplier_tags": {
+      "03": 1.4
+    },
+    "effect_tags": [
+      "02"
+    ],
+    "cost_sanity": 1,
+    "draw_weight": 10,
+    "text_key": "battle.card.9111",
+    "notes": "柳飞霞首战线索卡"
+  },
+  {
+    "id": "9112",
+    "story_id": "01",
+    "display_name": "执事王麻子",
+    "card_group": "01",
+    "card_type": "00",
+    "base_score": 0,
+    "multiplier_tags": {
+      "01": 1.6,
+      "02": 1.6
+    },
+    "effect_tags": [
+      "01"
+    ],
+    "cost_sanity": 1,
+    "draw_weight": 10,
+    "text_key": "battle.card.9112",
+    "notes": "柳飞霞首战线索卡"
+  },
+  {
+    "id": "9113",
+    "story_id": "01",
+    "display_name": "杂役的日常",
+    "card_group": "01",
+    "card_type": "00",
+    "base_score": 0,
+    "multiplier_tags": {
+      "01": 1.0,
+      "02": 1.0,
+      "03": 1.0
+    },
+    "effect_tags": [],
+    "cost_sanity": 1,
+    "draw_weight": 8,
+    "text_key": "battle.card.9113",
+    "notes": "柳飞霞首战废牌"
+  },
+  {
+    "id": "9121",
+    "story_id": "01",
+    "display_name": "贪",
+    "card_group": "02",
+    "card_type": "01",
+    "base_score": 5,
+    "multiplier_tags": {},
+    "effect_tags": [
+      "01"
+    ],
+    "cost_sanity": 1,
+    "draw_weight": 10,
+    "text_key": "battle.card.9121",
+    "notes": "柳飞霞首战情绪卡"
+  },
+  {
+    "id": "9122",
+    "story_id": "01",
+    "display_name": "嗔",
+    "card_group": "02",
+    "card_type": "02",
+    "base_score": 5,
+    "multiplier_tags": {},
+    "effect_tags": [
+      "02"
+    ],
+    "cost_sanity": 1,
+    "draw_weight": 10,
+    "text_key": "battle.card.9122",
+    "notes": "柳飞霞首战情绪卡"
+  },
+  {
+    "id": "9123",
+    "story_id": "01",
+    "display_name": "痴",
+    "card_group": "02",
+    "card_type": "03",
+    "base_score": 5,
+    "multiplier_tags": {},
+    "effect_tags": [
+      "03"
+    ],
+    "cost_sanity": 1,
+    "draw_weight": 10,
+    "text_key": "battle.card.9123",
+    "notes": "柳飞霞首战情绪卡"
+  },
+  {
+    "id": "9131",
+    "story_id": "01",
+    "display_name": "飞霞的懦弱",
+    "card_group": "01",
+    "card_type": "00",
+    "base_score": 0,
+    "multiplier_tags": {
+      "02": 1.4
+    },
+    "effect_tags": [
+      "03"
+    ],
+    "cost_sanity": 1,
+    "draw_weight": 6,
+    "text_key": "battle.card.9131",
+    "notes": "柳飞霞首战奖励卡"
+  },
+  {
+    "id": "9132",
+    "story_id": "01",
+    "display_name": "怨念",
+    "card_group": "02",
+    "card_type": "02",
+    "base_score": 7,
+    "multiplier_tags": {},
+    "effect_tags": [
+      "02"
+    ],
+    "cost_sanity": 1,
+    "draw_weight": 6,
+    "text_key": "battle.card.9132",
+    "notes": "柳飞霞首战奖励卡"
+  },
+  {
+    "id": "9141",
+    "story_id": "01",
+    "display_name": "药房账缝",
+    "card_group": "01",
+    "card_type": "00",
+    "base_score": 0,
+    "multiplier_tags": {
+      "01": 1.4,
+      "02": 1.2
+    },
+    "effect_tags": [
+      "02"
+    ],
+    "cost_sanity": 1,
+    "draw_weight": 6,
+    "text_key": "battle.card.9141",
+    "notes": "药房执事战奖励卡"
+  },
+  {
+    "id": "9142",
+    "story_id": "01",
+    "display_name": "掐账贪火",
+    "card_group": "02",
+    "card_type": "01",
+    "base_score": 6,
+    "multiplier_tags": {},
+    "effect_tags": [
+      "01"
+    ],
+    "cost_sanity": 1,
+    "draw_weight": 6,
+    "text_key": "battle.card.9142",
+    "notes": "药房执事战奖励卡"
+  },
+  {
+    "id": "9151",
+    "story_id": "01",
+    "display_name": "巡夜脚步",
+    "card_group": "01",
+    "card_type": "00",
+    "base_score": 0,
+    "multiplier_tags": {
+      "03": 1.5,
+      "01": 1.2
+    },
+    "effect_tags": [
+      "01"
+    ],
+    "cost_sanity": 1,
+    "draw_weight": 6,
+    "text_key": "battle.card.9151",
+    "notes": "夜巡弟子战奖励卡"
+  },
+  {
+    "id": "9152",
+    "story_id": "01",
+    "display_name": "疑心",
+    "card_group": "02",
+    "card_type": "03",
+    "base_score": 6,
+    "multiplier_tags": {},
+    "effect_tags": [
+      "03"
+    ],
+    "cost_sanity": 1,
+    "draw_weight": 6,
+    "text_key": "battle.card.9152",
+    "notes": "夜巡弟子战奖励卡"
+  },
+  {
+    "id": "9161",
+    "story_id": "01",
+    "display_name": "试药签",
+    "card_group": "01",
+    "card_type": "00",
+    "base_score": 0,
+    "multiplier_tags": {
+      "02": 1.5,
+      "03": 1.3
+    },
+    "effect_tags": [
+      "03"
+    ],
+    "cost_sanity": 1,
+    "draw_weight": 5,
+    "text_key": "battle.card.9161",
+    "notes": "疯长老战奖励卡"
+  },
+  {
+    "id": "9162",
+    "story_id": "01",
+    "display_name": "烈念",
+    "card_group": "02",
+    "card_type": "02",
+    "base_score": 6,
+    "multiplier_tags": {},
+    "effect_tags": [
+      "02"
+    ],
+    "cost_sanity": 1,
+    "draw_weight": 5,
+    "text_key": "battle.card.9162",
+    "notes": "疯长老战奖励卡"
+  },
+  {
+    "id": "9171",
+    "story_id": "01",
+    "display_name": "外门名册",
+    "card_group": "01",
+    "card_type": "00",
+    "base_score": 0,
+    "multiplier_tags": {
+      "01": 1.1,
+      "02": 1.1,
+      "03": 1.1
+    },
+    "effect_tags": [
+      "01"
+    ],
+    "cost_sanity": 1,
+    "draw_weight": 4,
+    "text_key": "battle.card.9171",
+    "notes": "低级弟子战奖励卡"
+  },
+  {
+    "id": "9172",
+    "story_id": "01",
+    "display_name": "怨火",
+    "card_group": "02",
+    "card_type": "02",
+    "base_score": 6,
+    "multiplier_tags": {},
+    "effect_tags": [
+      "02"
+    ],
+    "cost_sanity": 1,
+    "draw_weight": 4,
+    "text_key": "battle.card.9172",
+    "notes": "低级弟子战奖励卡"
+  },
+  {
+    "id": "9181",
+    "story_id": "01",
+    "display_name": "暗报折纸",
+    "card_group": "01",
+    "card_type": "00",
+    "base_score": 0,
+    "multiplier_tags": {
+      "02": 1.3,
+      "03": 1.4
+    },
+    "effect_tags": [
+      "02"
+    ],
+    "cost_sanity": 1,
+    "draw_weight": 4,
+    "text_key": "battle.card.9181",
+    "notes": "柳飞霞暗报线奖励卡"
+  },
+  {
+    "id": "9182",
+    "story_id": "01",
+    "display_name": "试药余悸",
+    "card_group": "02",
+    "card_type": "03",
+    "base_score": 6,
+    "multiplier_tags": {},
+    "effect_tags": [
+      "03"
+    ],
+    "cost_sanity": 1,
+    "draw_weight": 4,
+    "text_key": "battle.card.9182",
+    "notes": "疯长老试探线奖励卡"
+  },
+  {
+    "id": "9183",
+    "story_id": "01",
+    "display_name": "错名回声",
+    "card_group": "01",
+    "card_type": "00",
+    "base_score": 0,
+    "multiplier_tags": {
+      "03": 1.5,
+      "02": 1.2
+    },
+    "effect_tags": [
+      "03"
+    ],
+    "cost_sanity": 1,
+    "draw_weight": 4,
+    "text_key": "battle.card.9183",
+    "notes": "化骨池线奖励卡"
+  },
+  {
+    "id": "9184",
+    "story_id": "01",
+    "display_name": "缺页人名",
+    "card_group": "01",
+    "card_type": "00",
+    "base_score": 0,
+    "multiplier_tags": {
+      "01": 1.4,
+      "02": 1.3
+    },
+    "effect_tags": [
+      "02"
+    ],
+    "cost_sanity": 1,
+    "draw_weight": 4,
+    "text_key": "battle.card.9184",
+    "notes": "账册线奖励卡"
+  },
+  {
+    "id": "9185",
+    "story_id": "01",
+    "display_name": "留用药签",
+    "card_group": "01",
+    "card_type": "00",
+    "base_score": 0,
+    "multiplier_tags": {
+      "04": 1.5,
+      "03": 1.2
+    },
+    "effect_tags": [
+      "04"
+    ],
+    "cost_sanity": 1,
+    "draw_weight": 4,
+    "text_key": "battle.card.9185",
+    "notes": "疯长老路线奖励卡"
+  },
+  {
+    "id": "9186",
+    "story_id": "01",
+    "display_name": "补洞暗线",
+    "card_group": "01",
+    "card_type": "00",
+    "base_score": 0,
+    "multiplier_tags": {
+      "01": 1.4,
+      "02": 1.2
+    },
+    "effect_tags": [
+      "02"
+    ],
+    "cost_sanity": 1,
+    "draw_weight": 4,
+    "text_key": "battle.card.9186",
+    "notes": "王麻子路线奖励卡"
+  },
+  {
+    "id": "9187",
+    "story_id": "01",
+    "display_name": "血书价码",
+    "card_group": "01",
+    "card_type": "00",
+    "base_score": 0,
+    "multiplier_tags": {
+      "01": 1.3,
+      "02": 1.5
+    },
+    "effect_tags": [
+      "02"
+    ],
+    "cost_sanity": 1,
+    "draw_weight": 4,
+    "text_key": "battle.card.9187",
+    "notes": "后墙私换购得卡"
+  },
+  {
+    "id": "9188",
+    "story_id": "01",
+    "display_name": "废炉余温",
+    "card_group": "02",
+    "card_type": "03",
+    "base_score": 7,
+    "multiplier_tags": {},
+    "effect_tags": [
+      "03"
+    ],
+    "cost_sanity": 1,
+    "draw_weight": 4,
+    "text_key": "battle.card.9188",
+    "notes": "后墙私换购得卡"
+  },
+  {
+    "id": "9189",
+    "story_id": "01",
+    "display_name": "夜路口令",
+    "card_group": "01",
+    "card_type": "00",
+    "base_score": 0,
+    "multiplier_tags": {
+      "01": 1.4,
+      "03": 1.3
+    },
+    "effect_tags": [
+      "01"
+    ],
+    "cost_sanity": 1,
+    "draw_weight": 4,
+    "text_key": "battle.card.9189",
+    "notes": "灰市换命购得卡"
+  },
+  {
+    "id": "9190",
+    "story_id": "01",
+    "display_name": "灰烬偏方",
+    "card_group": "02",
+    "card_type": "03",
+    "base_score": 7,
+    "multiplier_tags": {},
+    "effect_tags": [
+      "03"
+    ],
+    "cost_sanity": 1,
+    "draw_weight": 4,
+    "text_key": "battle.card.9190",
+    "notes": "灰市换命购得卡"
+  },
+  {
+    "id": "9611",
+    "story_id": "01",
+    "display_name": "哭诉与求饶",
+    "card_group": "01",
+    "card_type": "00",
+    "card_family": "pollution",
+    "pollution_kind": "reverse_multi",
+    "default_multiplier": 0.5,
+    "reverse_multiplier": 2.4,
+    "reverse_base_tags": [
+      "02"
+    ],
+    "base_score": 0,
+    "multiplier_tags": {},
+    "effect_tags": [
+      "02"
+    ],
+    "cost_sanity": 0,
+    "end_turn_sanity_loss": 1,
+    "draw_weight": 0,
+    "text_key": "battle.card.9611",
+    "notes": "柳飞霞污染牌"
+  },
+  {
+    "id": "9621",
+    "story_id": "01",
+    "display_name": "严厉的呵斥",
+    "card_group": "01",
+    "card_type": "00",
+    "card_family": "pollution",
+    "pollution_kind": "hand_aura",
+    "hand_base_score_delta": -2,
+    "base_score": 0,
+    "multiplier_tags": {
+      "01": 0.8,
+      "02": 0.8,
+      "03": 0.8
+    },
+    "effect_tags": [
+      "01"
+    ],
+    "cost_sanity": 0,
+    "end_turn_sanity_loss": 1,
+    "draw_weight": 0,
+    "text_key": "battle.card.9621",
+    "notes": "王麻子污染牌"
+  },
+  {
+    "id": "9631",
+    "story_id": "01",
+    "display_name": "巡夜回声",
+    "card_group": "01",
+    "card_type": "00",
+    "card_family": "pollution",
+    "pollution_kind": "reverse_multi",
+    "default_multiplier": 0.7,
+    "reverse_multiplier": 2.0,
+    "reverse_base_tags": [
+      "03"
+    ],
+    "base_score": 0,
+    "multiplier_tags": {},
+    "effect_tags": [
+      "01"
+    ],
+    "cost_sanity": 0,
+    "end_turn_sanity_loss": 1,
+    "draw_weight": 0,
+    "text_key": "battle.card.9631",
+    "notes": "夜巡弟子污染牌"
+  },
+  {
+    "id": "9641",
+    "story_id": "01",
+    "display_name": "试药批签",
+    "card_group": "01",
+    "card_type": "00",
+    "card_family": "pollution",
+    "pollution_kind": "hand_aura",
+    "hand_base_score_delta": -2,
+    "base_score": 0,
+    "multiplier_tags": {
+      "01": 0.9,
+      "02": 0.9,
+      "03": 0.9
+    },
+    "effect_tags": [
+      "03"
+    ],
+    "cost_sanity": 0,
+    "end_turn_sanity_loss": 1,
+    "draw_weight": 0,
+    "text_key": "battle.card.9641",
+    "notes": "疯长老污染牌"
+  },
+  {
+    "id": "9651",
+    "story_id": "01",
+    "display_name": "怯懦辩解",
+    "card_group": "01",
+    "card_type": "00",
+    "card_family": "pollution",
+    "pollution_kind": "reverse_multi",
+    "default_multiplier": 0.8,
+    "reverse_multiplier": 1.6,
+    "reverse_base_tags": [
+      "02"
+    ],
+    "base_score": 0,
+    "multiplier_tags": {},
+    "effect_tags": [
+      "01"
+    ],
+    "cost_sanity": 0,
+    "end_turn_sanity_loss": 1,
+    "draw_weight": 0,
+    "text_key": "battle.card.9651",
+    "notes": "杂兵污染牌"
+  }
+]

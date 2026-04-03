@@ -1,8 +1,8 @@
 [
   {
-    "id": "morning_day_1_notice",
-    "title": "晨间：别院禁井",
-    "description": "入门第一晨，外门师兄把你拦在回廊边，只说了一句：西边旧井最近别靠近，尤其入夜之后。",
+    "id": "9101",
+    "title": "晨间：重开后的第一天",
+    "description": "重开后的第一晨，昨夜那场死局还压在你心口。柳飞霞的试探、族兄留下的玉简、王麻子的盘剥和疯长老那句意味不明的提醒，全都在催你今天必须先抓住一条能保命的线。",
     "trigger_conditions": [
       { "type": "day_range", "min": 1, "max": 1 },
       { "type": "phase_is", "value": "morning" }
@@ -13,30 +13,30 @@
     "options": [
       {
         "id": "note_warning",
-        "text": "先记下这句警告",
+        "text": "先把昨夜露出的线头理清",
         "conditions": [],
         "effects": [
           { "type": "add_tag", "scope": "player", "key": "west_well_warning_received" }
         ],
-        "result_text": "你把“西井”两个字牢牢记下。对一个刚进门的人来说，被刻意回避的地方往往最危险。"
+        "result_text": "你先把柳飞霞、玉简、王麻子、疯长老和化骨池重新摆到一张图上。现在最重要的不是逞强，而是确认今天先盯哪条线，才能活到明晚。"
       },
       {
         "id": "press_for_more",
-        "text": "追问为什么不能靠近",
+        "text": "先盯住谁在暗里看你",
         "conditions": [],
         "effects": [
           { "type": "add_tag", "scope": "player", "key": "west_well_warning_received" },
-          { "type": "modify_npc_relation", "npc_id": "outer_senior_brother", "field": "alert", "delta": 1 },
+          { "type": "modify_npc_relation", "npc_id": "04", "field": "alert", "delta": 1 },
           { "type": "modify_world_value", "key": "investigation_progress", "delta": 1 }
         ],
-        "result_text": "师兄没有解释，只让你少问。可越是这样，你越确定西井不是普通的禁地。"
+        "result_text": "你没有急着动手，而是先确认谁最可能先对你下手。王麻子盯着人，柳飞霞盯着玉简，疯长老像在等一味会自己送上门的药材。今天真正的危险，从来不只在化骨池。"
       }
     ]
   },
   {
-    "id": "morning_day_2_pressure",
-    "title": "晨间：别院气氛发紧",
-    "description": "第二天一早，回廊里说话的人都少了。你隐约听见有人提到昨夜西侧又传来了水声。",
+    "id": "9102",
+    "title": "晨间：王麻子的第一刀",
+    "description": "第二天一早，王麻子就把人堵在外门广场边上收钱立规矩。表面是在盘剥杂役，实际上更像是在替谁提前筛人，看谁最好压、谁最该先清理。",
     "trigger_conditions": [
       { "type": "day_range", "min": 2, "max": 2 },
       { "type": "phase_is", "value": "morning" }
@@ -47,20 +47,20 @@
     "options": [
       {
         "id": "watch_people",
-        "text": "观察众人的反应",
+        "text": "先看他今天在挑哪种人下手",
         "conditions": [],
         "effects": [
           { "type": "modify_world_value", "key": "anomaly_progress", "delta": 1 },
           { "type": "modify_world_value", "key": "patrol_level", "delta": 1 }
         ],
-        "result_text": "你意识到，别院里的紧张并不是因为流言，而是有人真的在防着什么。"
+        "result_text": "你看清了，王麻子今天的急不是为了几块灵石，而是在替人记脸。谁会反抗，谁会低头，谁知道得太多，他都想先摸一遍。"
       }
     ]
   },
   {
-    "id": "morning_day_3_patrol",
-    "title": "晨间：巡逻路线变了",
-    "description": "第三天清晨，夜巡弟子的脚印停在西井附近，比前两天更近，也更多。",
+    "id": "9103",
+    "title": "晨间：巡路改了",
+    "description": "第三天清晨，夜巡弟子的脚印开始往丹房后墙和化骨池一带收拢。别院里没人明说发生了什么，但巡路的改动已经说明，有人怕那边再漏出新的痕迹。",
     "trigger_conditions": [
       { "type": "day_range", "min": 3, "max": 3 },
       { "type": "phase_is", "value": "morning" }
@@ -71,21 +71,21 @@
     "options": [
       {
         "id": "read_patrol_pattern",
-        "text": "记住巡逻变化",
+        "text": "记住巡路收拢的方向",
         "conditions": [],
         "effects": [
           { "type": "modify_world_value", "key": "anomaly_progress", "delta": 1 },
           { "type": "modify_world_value", "key": "patrol_level", "delta": 1 },
           { "type": "modify_resource", "scope": "player", "key": "clue_fragments", "delta": 1 }
         ],
-        "result_text": "你从巡逻路线的变化里读出一个讯号：西井的异常已经开始影响白天的秩序。"
+        "result_text": "你从这条新巡路里读出一件事：昨夜的东西已经不只停在异响层面，而是开始逼得白天的人手和规矩一起改道。"
       }
     ]
   },
   {
-    "id": "morning_day_4_lockdown",
-    "title": "晨间：封锁开始",
-    "description": "第四天清晨，西井外围被临时封住。有人说夜里少了一个人，也有人说只是被带去问话。",
+    "id": "9104",
+    "title": "晨间：封边开始",
+    "description": "第四天清晨，化骨池外围和丹房后墙都被临时封住。有人说夜里少了一个人，也有人说只是被拖去问话，但没有谁敢把名字说全。",
     "trigger_conditions": [
       { "type": "day_range", "min": 4, "max": 4 },
       { "type": "phase_is", "value": "morning" }
@@ -96,21 +96,21 @@
     "options": [
       {
         "id": "stay_calm",
-        "text": "压住情绪，先记住封锁细节",
+        "text": "先记住是谁在封、谁在看、谁在装没看见",
         "conditions": [],
         "effects": [
           { "type": "add_tag", "scope": "world", "key": "patrol_alert" },
           { "type": "modify_world_value", "key": "anomaly_progress", "delta": 1 },
           { "type": "modify_world_value", "key": "patrol_level", "delta": 1 }
         ],
-        "result_text": "从这一刻起，你知道事情已经越过了“异声传闻”的阶段，别院开始正式进入应急状态。"
+        "result_text": "从这一刻起，你知道事情已经越过了“风声不对”的阶段。别院里真正的力量开始出手压边，也说明你追到的方向没有错。"
       }
     ]
   },
   {
-    "id": "morning_day_5_missing_peer",
-    "title": "晨间：少了一个熟面孔",
-    "description": "第五天，常在回廊出现的同门没有来。有人说他病了，但你知道事情没那么简单。",
+    "id": "9105",
+    "title": "晨间：丹房开始点名",
+    "description": "第五天清晨，别院里已经在传昨夜丹房的惨叫。疯长老开始亲自挑人试药，活着出来的人会被记住，死在里面的人连名字都留不下。",
     "trigger_conditions": [
       { "type": "day_range", "min": 5, "max": 5 },
       { "type": "phase_is", "value": "morning" }
@@ -121,20 +121,20 @@
     "options": [
       {
         "id": "treat_as_warning",
-        "text": "把这视作最后警告",
+        "text": "把这当成真正的生死关",
         "conditions": [],
         "effects": [
           { "type": "modify_world_value", "key": "anomaly_progress", "delta": 1 },
           { "type": "modify_world_value", "key": "investigation_progress", "delta": 1 }
         ],
-        "result_text": "你终于接受了一件事：西井不是在等人调查，它是在主动把人拖进自己的节奏里。"
+        "result_text": "你终于接受了一件事：从今天起，所有线索都不再只是查不查的问题，而是能不能赶在被挑进去试药或被顺手灭口前先换到一条活路。"
       }
     ]
   },
   {
-    "id": "morning_day_6_last_window",
-    "title": "晨间：最后准备窗口",
-    "description": "第六天，别院短暂恢复了表面平静。你知道这不是好事，而是终夜前最后的空窗。",
+    "id": "9106",
+    "title": "晨间：月考前夜",
+    "description": "第六天白日反而短暂安静下来。你知道这不是风平浪静，而是所有人都在等月考前最后一次收束，看你究竟会把筹码递给谁，又打算踩着哪条线过关。",
     "trigger_conditions": [
       { "type": "day_range", "min": 6, "max": 6 },
       { "type": "phase_is", "value": "morning" }
@@ -145,19 +145,19 @@
     "options": [
       {
         "id": "prepare_mind",
-        "text": "确认自己要走的方向",
+        "text": "确认自己最后要收成哪条路",
         "conditions": [],
         "effects": [
           { "type": "modify_world_value", "key": "anomaly_progress", "delta": 1 }
         ],
-        "result_text": "你很清楚，今晚之后，所谓“再看看”这种拖延已经不会再有意义。"
+        "result_text": "你很清楚，今晚之后就没有再拖一天的余地了。柳飞霞、王麻子、疯长老和化骨池这几条线，必须收成一个真正能用的选择。"
       }
     ]
   },
   {
-    "id": "morning_day_7_final_stillness",
-    "title": "晨间：终夜前的安静",
-    "description": "第七天早上，西侧安静得反常。井口像什么都没发生过，越是这样，越像在等你靠近。",
+    "id": "9107",
+    "title": "晨间：筛选之日",
+    "description": "第七天终于到了。外门广场、丹房、化骨池和你这几天藏着的所有筹码，都在今天一起收束。别院像什么都没发生过，可谁都知道真正的筛选已经开始。",
     "trigger_conditions": [
       { "type": "day_range", "min": 7, "max": 7 },
       { "type": "phase_is", "value": "morning" }
@@ -168,20 +168,20 @@
     "options": [
       {
         "id": "accept_final_day",
-        "text": "接受今天就是终点",
+        "text": "接受今天不会再给你缓冲",
         "conditions": [],
         "effects": [
           { "type": "modify_world_value", "key": "anomaly_progress", "delta": 1 }
         ],
-        "result_text": "你知道，这一天不再是普通调查的一天，而是要给整个七日循环一个答案。"
+        "result_text": "你知道，这一天不再是普通调查的一天，而是要给这七天里攒下的线索、关系和代价一个真正的答案。"
       }
     ]
   },
 
   {
-    "id": "location_west_well",
-    "title": "白天地点：西井",
-    "description": "白天的西井并不喧闹，但越靠近，越能听见井壁里回荡的细小水声。",
+    "id": "9205",
+    "title": "白天地点：化骨池外围",
+    "description": "白天的化骨池外围看着只是脏和静，像一处处理杂役尸骨的旧地方。可你越靠近，越能感觉到这里不只是弃尸池，而是整条暗线最后会回到的地方。",
     "trigger_conditions": [
       { "type": "phase_is", "value": "day" }
     ],
@@ -191,7 +191,7 @@
     "options": [
       {
         "id": "peer_into_well",
-        "text": "探头向井里看",
+        "text": "贴近池边看一眼底下到底压着什么",
         "conditions": [
           { "type": "resource_gte", "scope": "player", "key": "blood_qi", "value": 2 }
         ],
@@ -202,25 +202,25 @@
           { "type": "modify_resource", "scope": "player", "key": "pollution", "delta": 1 },
           { "type": "modify_resource", "scope": "player", "key": "exposure", "delta": 1 }
         ],
-        "result_text": "你在井水倒影里看到的不是自己的脸，而是某种正在借你轮廓成形的东西。调查推进更快了，但它也看见了你。"
+        "result_text": "你在池水倒影里看到的不是自己的脸，而是一团正在借人形轮廓慢慢拼起来的东西。你离真相更近了，也等于第一次正面让它记住了你。"
       },
       {
         "id": "circle_well_edge",
-        "text": "绕井沿观察痕迹",
+        "text": "绕池边看谁最近来过",
         "conditions": [],
         "effects": [
           { "type": "add_tag", "scope": "player", "key": "visited_west_well" },
           { "type": "modify_world_value", "key": "investigation_progress", "delta": 1 },
           { "type": "modify_resource", "scope": "player", "key": "clue_fragments", "delta": 1 }
         ],
-        "result_text": "你沿着井沿看见了新的潮痕和旧符残印，知道自己确实在一步步接近真相。"
+        "result_text": "你沿着池边看见了新潮痕、旧符印和被人刻意擦过的脚印，知道这里最近不只是闹异事，还有人在反复进出、反复收尾。"
       }
     ]
   },
   {
-    "id": "location_herb_room",
-    "title": "白天地点：药房",
-    "description": "药房永远带着药渣和潮气的味道。这里不靠近西井，却总能闻到和西井有关的旧事。",
+    "id": "9203",
+    "title": "白天地点：炼丹房外间",
+    "description": "炼丹房外间总混着药渣、血气和火灰味。这里表面是在配药记账，实际上却最容易摸到疯长老、王麻子和化骨池之间那条不肯写明的暗线。",
     "trigger_conditions": [
       { "type": "phase_is", "value": "day" }
     ],
@@ -230,7 +230,7 @@
     "options": [
       {
         "id": "check_old_ledgers",
-        "text": "翻旧药册与旧账",
+        "text": "翻旧账册和药材调拨",
         "conditions": [
           { "type": "resource_gte", "scope": "player", "key": "spirit_sense", "value": 2 }
         ],
@@ -239,25 +239,25 @@
           { "type": "modify_resource", "scope": "player", "key": "clue_fragments", "delta": 2 },
           { "type": "add_knowledge", "key": "well_sealed_in_past" }
         ],
-        "result_text": "你在旧账里翻到一段不合常理的药材调拨记录，确认西井的事曾被系统地压下去过。"
+        "result_text": "你在旧账里翻到一段不合常理的调拨记录，确认化骨池的事不是偶然，而是早就有人按着规矩一层层压过、藏过、抹过。"
       },
       {
         "id": "mix_suppressant",
-        "text": "配一份压制异兆的药",
+        "text": "先配一副能压住异兆的药",
         "conditions": [],
         "effects": [
           { "type": "modify_resource", "scope": "player", "key": "pollution", "delta": -1 },
           { "type": "modify_world_value", "key": "investigation_progress", "delta": 1 },
-          { "type": "modify_npc_relation", "npc_id": "herb_steward", "field": "favor", "delta": 1 }
+          { "type": "modify_npc_relation", "npc_id": "02", "field": "favor", "delta": 1 }
         ],
-        "result_text": "药房能给你的不是答案，而是继续查下去的余地。你没有推进太多，但至少没被异常追得更紧。"
+        "result_text": "炼丹房给不了你完整答案，却能给你一点继续往下查的余地。你没推进多少，但至少没让那股异动趁夜先压垮你。"
       }
     ]
   },
   {
-    "id": "location_corridor",
-    "title": "白天地点：回廊",
-    "description": "回廊连接着别院的每一处流言和每一阵脚步声。很多消息不会明说，但会在这里漏出来。",
+    "id": "9202",
+    "title": "白天地点：外门广场",
+    "description": "外门广场连着杂役、夜巡和执事的视线，也是王麻子最爱立规矩的地方。很多消息不会明说，但每次收钱、点名和围观，都会把真正的风向漏出来。",
     "trigger_conditions": [
       { "type": "phase_is", "value": "day" }
     ],
@@ -267,7 +267,7 @@
     "options": [
       {
         "id": "eavesdrop_quietly",
-        "text": "装作路过，偷听几句",
+        "text": "装作路过，听他们今天在怕什么",
         "conditions": [],
         "effects": [
           { "type": "modify_world_value", "key": "investigation_progress", "delta": 1 },
@@ -275,27 +275,27 @@
           { "type": "modify_resource", "scope": "player", "key": "clue_fragments", "delta": 1 },
           { "type": "modify_resource", "scope": "player", "key": "exposure", "delta": 1 }
         ],
-        "result_text": "你在碎片化的对话里拼出一部分真相，但也让自己越来越像一个爱追着禁忌跑的人。"
+        "result_text": "你从零碎对话里拼出一部分真相，也让自己越来越像一个总会出现在不该出现地方的人。别院里开始有人记住你了。"
       },
       {
         "id": "follow_patrol_route",
-        "text": "远远跟一段巡逻路线",
+        "text": "远远跟一段夜巡换班路线",
         "conditions": [
           { "type": "stat_gte", "key": "tact", "value": 2 }
         ],
         "effects": [
           { "type": "modify_world_value", "key": "investigation_progress", "delta": 1 },
-          { "type": "modify_npc_relation", "npc_id": "night_patrol_disciple", "field": "favor", "delta": 1 },
+          { "type": "modify_npc_relation", "npc_id": "03", "field": "favor", "delta": 1 },
           { "type": "modify_resource", "scope": "player", "key": "clue_fragments", "delta": 1 }
         ],
-        "result_text": "你没被发现，还从夜巡弟子的走位里看出了他们真正忌惮的方向。有人开始觉得你也许是站在自己这边的。"
+        "result_text": "你没被发现，还从夜巡弟子的换班走位里看出他们真正忌惮的方向。你第一次摸到一条不靠流言、只靠脚步就能看懂的线。"
       }
     ]
   },
   {
-    "id": "location_dormitory",
-    "title": "白天地点：寝舍",
-    "description": "寝舍是别院里少数还能喘口气的地方。这里无法直接逼近真相，却能让你把线索重新串起来。",
+    "id": "9201",
+    "title": "白天地点：茅草屋",
+    "description": "茅草屋是族兄死后给你留下的唯一落脚地。这里不能直接逼近真相，却能让你把玉简、旧情、血迹和这几天摸到的碎线重新串成判断。",
     "trigger_conditions": [
       { "type": "phase_is", "value": "day" }
     ],
@@ -312,9 +312,9 @@
         "effects": [
           { "type": "modify_world_value", "key": "investigation_progress", "delta": 1 },
           { "type": "modify_resource", "scope": "player", "key": "spirit_sense", "delta": 1 },
-          { "type": "modify_npc_relation", "npc_id": "friendly_peer", "field": "favor", "delta": 1 }
+          { "type": "modify_npc_relation", "npc_id": "01", "field": "favor", "delta": 1 }
         ],
-        "result_text": "你把零散听来的东西重新排过，终于看出其中并非全是流言。寝舍给不了真相，但能给你方向。"
+        "result_text": "你把零散听来的东西重新排过，终于看出其中并非全是流言。茅草屋给不了答案，却能让你看清今天该拿哪条线去换命。"
       },
       {
         "id": "rest_quietly",
@@ -324,15 +324,15 @@
           { "type": "modify_resource", "scope": "player", "key": "blood_qi", "delta": 1 },
           { "type": "modify_resource", "scope": "player", "key": "pollution", "delta": -1 }
         ],
-        "result_text": "你让自己难得喘了口气。今天没查到太多，但至少没有让异变在你身上继续长出来。"
+        "result_text": "你让自己难得喘了口气。今天没查到太多，但至少没有让那股正在你身上扎根的东西继续往里长。"
       }
     ]
   },
 
   {
-    "id": "night_day_1_voice",
-    "title": "夜间异常：第一次异声",
-    "description": "第一夜，风从西侧吹进窗缝，你第一次听见那道像从井底挤出来的低语。",
+    "id": "9301",
+    "title": "夜间异常：第一次对上视线",
+    "description": "第一夜，风从西侧吹进茅草屋，你第一次听见那道像从化骨池底挤出来的声音。它不像寻常怪响，更像已经顺着你的怨气摸到了门口。",
     "trigger_conditions": [
       { "type": "day_range", "min": 1, "max": 1 },
       { "type": "phase_is", "value": "night" }
@@ -351,7 +351,7 @@
           { "type": "modify_world_value", "key": "anomaly_progress", "delta": 1 },
           { "type": "modify_resource", "scope": "player", "key": "exposure", "delta": 1 }
         ],
-        "result_text": "你终于确认，所谓“别靠近西井”不是老弟子吓唬人的规矩，而是一个已经开始向你伸手的事实。"
+        "result_text": "你终于确认，所谓“别靠近化骨池”不是拿来吓唬新人的规矩，而是一件已经顺着你这条命重新找上门的事实。"
       },
       {
         "id": "pretend_sleep",
@@ -361,14 +361,14 @@
           { "type": "add_tag", "scope": "player", "key": "heard_west_well_voice" },
           { "type": "modify_world_value", "key": "anomaly_progress", "delta": 1 }
         ],
-        "result_text": "你把头埋进被褥里，可第二天醒来时，你还是记得它喊你时那种近得过分的语气。"
+        "result_text": "你把头埋进被褥里，可第二天醒来时，你还是记得那声音贴着你耳边说话的距离。你没有回应，不代表它没找到你。"
       }
     ]
   },
   {
-    "id": "night_day_2_rumor",
-    "title": "夜间异常：回廊里的水声",
-    "description": "第二夜，回廊尽头传来像湿鞋拖地一样的声音，可那一头明明没人住。",
+    "id": "9302",
+    "title": "夜间异常：有人在学活人的脚步",
+    "description": "第二夜，外头传来像湿鞋拖地一样的声音，从回廊尽头一路磨到门边。你知道那一头明明没人住，也知道这东西不是单纯想吓你。",
     "trigger_conditions": [
       { "type": "day_range", "min": 2, "max": 2 },
       { "type": "phase_is", "value": "night" }
@@ -385,7 +385,7 @@
           { "type": "modify_world_value", "key": "anomaly_progress", "delta": 1 },
           { "type": "modify_resource", "scope": "player", "key": "pollution", "delta": 1 }
         ],
-        "result_text": "你没找到人，却在地上看见一路潮痕通往西侧。异常已经不再只停留在井边。"
+        "result_text": "你没找到人，却看见一路潮痕往丹房后墙和化骨池方向拖过去。那东西已经不满足于待在池边，它开始学着往活人住的地方走。"
       },
       {
         "id": "wake_peer",
@@ -393,16 +393,16 @@
         "conditions": [],
         "effects": [
           { "type": "modify_world_value", "key": "anomaly_progress", "delta": 1 },
-          { "type": "modify_npc_relation", "npc_id": "friendly_peer", "field": "favor", "delta": 1 }
+          { "type": "modify_npc_relation", "npc_id": "01", "field": "favor", "delta": 1 }
         ],
         "result_text": "同门虽然什么都没看见，但至少开始相信你不是在无端多疑。"
       }
     ]
   },
   {
-    "id": "night_day_3_mark",
-    "title": "夜间异常：它开始回应你",
-    "description": "第三夜，你白天在哪里停留得最久，夜里那声音就从哪里追过来。",
+    "id": "9303",
+    "title": "夜间异常：它开始照着你来",
+    "description": "第三夜，你白天在哪条线上停留得最久，夜里那声音就从哪条线的尽头追过来。它像是在试探你到底最在乎哪一边，也像是在逼你承认自己已经卷进来了。",
     "trigger_conditions": [
       { "type": "day_range", "min": 3, "max": 3 },
       { "type": "phase_is", "value": "night" }
@@ -420,7 +420,7 @@
           { "type": "modify_world_value", "key": "anomaly_progress", "delta": 1 },
           { "type": "modify_resource", "scope": "player", "key": "pollution", "delta": 1 }
         ],
-        "result_text": "你一开口，就意识到那道回声像是早就在等你承认自己能听见它。"
+        "result_text": "你一开口，就意识到它等的根本不是答案，而是你亲口承认自己能听见、也能被它影响。"
       },
       {
         "id": "stay_silent",
@@ -430,14 +430,14 @@
           { "type": "modify_world_value", "key": "anomaly_progress", "delta": 1 },
           { "type": "modify_resource", "scope": "player", "key": "blood_qi", "delta": -1 }
         ],
-        "result_text": "你熬过了这一夜，但也知道沉默只能拖延，不会让它真的离开。"
+        "result_text": "你熬过了这一夜，但也知道沉默只能拖延，不会让它真的离开。它已经开始按着你的动向挑地方现身。"
       }
     ]
   },
   {
-    "id": "night_day_4_ritual",
-    "title": "夜间异常：封锁后的低语",
-    "description": "第四夜，西井被封之后，低语没有消失，反而像从整座别院的墙体里渗了出来。",
+    "id": "9304",
+    "title": "夜间异常：封边之后它还在往外长",
+    "description": "第四夜，化骨池被封之后，那阵声音没有消失，反而像顺着整座别院的墙体和木缝一起往外长。有人以为封边能把它压住，可你看得出那只是把它逼进了更深的地方。",
     "trigger_conditions": [
       { "type": "day_range", "min": 4, "max": 4 },
       { "type": "phase_is", "value": "night" }
@@ -448,7 +448,7 @@
     "options": [
       {
         "id": "trace_ritual",
-        "text": "顺着低语找规律",
+        "text": "顺着异声找规律",
         "conditions": [
           { "type": "resource_gte", "scope": "player", "key": "clue_fragments", "value": 3 }
         ],
@@ -457,7 +457,7 @@
           { "type": "modify_world_value", "key": "anomaly_progress", "delta": 1 },
           { "type": "add_knowledge", "key": "well_sealed_in_past" }
         ],
-        "result_text": "你终于看出这不是随机异响，而像一场被拖延了很久、却仍在缓慢完成的旧仪式。"
+        "result_text": "你终于看出这不是随机异响，而像一场被拖延了很久、却还在慢慢补完最后一环的旧仪式。"
       },
       {
         "id": "hide_under_blanket",
@@ -466,14 +466,14 @@
         "effects": [
           { "type": "modify_world_value", "key": "anomaly_progress", "delta": 2 }
         ],
-        "result_text": "你暂时避开了今晚的代价，但也把整件事往更糟的方向多放任了一步。"
+        "result_text": "你暂时躲开了今晚的代价，却也把整件事往更糟的方向又放任了一步。它不会因为你蒙住头就停下。"
       }
     ]
   },
   {
-    "id": "night_day_5_truth",
-    "title": "夜间异常：井下不是尸体",
-    "description": "第五夜，低语终于不再绕弯，它开始像试探一样向你重复白天查到的内容。",
+    "id": "9305",
+    "title": "夜间异常：池底封的不是死人",
+    "description": "第五夜，那阵声音终于不再绕弯。它开始学着白天你听过的话、看过的名字和摸到的线索来试探你，像是在确认你到底已经拼到哪一步。",
     "trigger_conditions": [
       { "type": "day_range", "min": 5, "max": 5 },
       { "type": "phase_is", "value": "night" }
@@ -493,7 +493,7 @@
           { "type": "modify_world_value", "key": "investigation_progress", "delta": 2 },
           { "type": "modify_world_value", "key": "anomaly_progress", "delta": 1 }
         ],
-        "result_text": "你终于确认井下封着的是会借人声蔓延的异常。知道真相的同时，你也知道时间已经不多了。"
+        "result_text": "你终于确认，化骨池底封着的不是尸体，而是一团会借人声、借恐惧、借执念往外蔓延的异常。知道真相的同时，你也知道已经没有多少时间了。"
       },
       {
         "id": "refuse_to_name_it",
@@ -503,14 +503,14 @@
           { "type": "modify_world_value", "key": "anomaly_progress", "delta": 2 },
           { "type": "modify_resource", "scope": "player", "key": "pollution", "delta": 1 }
         ],
-        "result_text": "你拒绝承认那份答案，可它已经开始顺着你的迟疑往现实里长出来。"
+        "result_text": "你拒绝给它下定义，可它已经开始顺着你的迟疑往现实里长出来。你不叫破它，不代表它不会先来叫破你。"
       }
     ]
   },
   {
-    "id": "night_day_6_preparation",
-    "title": "夜间异常：终夜前的选择",
-    "description": "第六夜，西井的声音不再藏着掖着。它像是在和你谈判，而不是单纯诱骗。",
+    "id": "9306",
+    "title": "夜间异常：最后一次谈条件",
+    "description": "第六夜，化骨池里的声音不再藏着掖着。它不像在诱骗，更像在等你报价。你已经攒够了一部分线索，也攒够了一部分污染，今晚必须决定这些东西明天要拿去换什么。",
     "trigger_conditions": [
       { "type": "day_range", "min": 6, "max": 6 },
       { "type": "phase_is", "value": "night" }
@@ -526,7 +526,7 @@
         "effects": [
           { "type": "add_tag", "scope": "player", "key": "prepared_report" }
         ],
-        "result_text": "你决定把自己摆在活下去的一边。若真相带不走，至少别让它先把你带走。"
+        "result_text": "你决定把自己摆在还想活着出去的一边。若真相带不走，至少别让化骨池先把你整个人带下去。"
       },
       {
         "id": "prepare_descent",
@@ -537,11 +537,11 @@
         "effects": [
           { "type": "add_tag", "scope": "player", "key": "prepared_descent" }
         ],
-        "result_text": "你知道自己掌握的碎片已经够多了，问题只剩你敢不敢为答案付最后一笔代价。"
+        "result_text": "你知道自己掌握的碎片已经够多了，问题只剩你敢不敢亲自去把最后那一层皮揭开。"
       },
       {
         "id": "accept_bargain",
-        "text": "接受它的低语条件",
+        "text": "接受它的异声条件",
         "conditions": [
           {
             "type": "any_of",
@@ -555,14 +555,14 @@
           { "type": "add_tag", "scope": "player", "key": "accepted_whisper" },
           { "type": "modify_resource", "scope": "player", "key": "pollution", "delta": 1 }
         ],
-        "result_text": "你第一次没有把那道声音当成敌意，而是当成一条也许能让你活下来的路。"
+        "result_text": "你第一次没有把那道声音当成纯粹敌意，而是当成一条也许能让你活下来的邪路。只不过一旦上路，代价多半不会由你说了算。"
       }
     ]
   },
   {
-    "id": "night_day_7_final_choice",
-    "title": "夜间异常：井口终夜",
-    "description": "第七夜，西井像一张终于张开的口。七天里你积攒的一切线索、代价和关系，都在此刻要求一个方向。",
+    "id": "9307",
+    "title": "夜间异常：终夜收束",
+    "description": "第七夜，化骨池像一张终于张开的口。柳飞霞递来的暗线、王麻子的盘剥、疯长老的试药、夜巡的封边和你自己这七天攒下的代价，都在这一刻逼你选一个真正的方向。",
     "trigger_conditions": [
       { "type": "day_range", "min": 7, "max": 7 },
       { "type": "phase_is", "value": "night" }
@@ -581,11 +581,11 @@
           { "type": "add_tag", "scope": "player", "key": "ending_report_route" },
           { "type": "finish_run", "reason_id": "ending_resolution" }
         ],
-        "result_text": "你选择和仍然站在人这边的秩序站到一起，把自己从西井的最深处抽了回来。"
+        "result_text": "你选择和仍然站在人这一边的秩序站到一起，把自己从化骨池最深的那股吸力里硬拽了回来。"
       },
       {
         "id": "descend_for_truth",
-        "text": "带着线索亲自下井",
+        "text": "带着线索亲自下池探底",
         "conditions": [
           { "type": "tag_present", "scope": "player", "key": "prepared_descent" },
           { "type": "resource_gte", "scope": "player", "key": "clue_fragments", "value": 5 },
@@ -595,11 +595,11 @@
           { "type": "add_tag", "scope": "player", "key": "ending_truth_route" },
           { "type": "finish_run", "reason_id": "ending_resolution" }
         ],
-        "result_text": "你不再满足于活着离开，而是带着七天拼起来的证据，走向那个真正会给出答案的地方。"
+        "result_text": "你不再满足于活着离开，而是带着七天拼起来的证据，走向那个真正会给出答案的地方。要么翻开底牌，要么和答案一起沉下去。"
       },
       {
         "id": "accept_the_whisper",
-        "text": "向井下之物低头",
+        "text": "向池底之物低头",
         "conditions": [
           {
             "type": "any_of",
@@ -614,15 +614,15 @@
           { "type": "modify_resource", "scope": "player", "key": "pollution", "delta": 1 },
           { "type": "finish_run", "reason_id": "ending_resolution" }
         ],
-        "result_text": "你终于不再抵抗那道声音。它不再需要模仿别人的名字，因为接下来会直接借你的声音留下来。"
+        "result_text": "你终于不再抵抗那道声音。它不再需要模仿别人的名字，因为接下来，它会直接借你的声音留在这里。"
       }
     ]
   },
 
   {
-    "id": "closing_day_1_summary",
+    "id": "9401",
     "title": "收束：第一天",
-    "description": "第一天结束了。你还不知道西井到底是什么，但已经知道它不是能够继续无视的东西。",
+    "description": "第一天结束了。你还不知道化骨池底下到底封着什么，但已经知道自己不是单纯在追一桩旧案，而是在和一群随时可能先下手的人抢时间。",
     "trigger_conditions": [
       { "type": "day_range", "min": 1, "max": 1 },
       { "type": "phase_is", "value": "closing" }
@@ -636,14 +636,14 @@
         "text": "带着不安睡下",
         "conditions": [],
         "effects": [],
-        "result_text": "你给这一天下了个结论：西井的故事已经开始，而你不可能像没听见一样退回去。"
+        "result_text": "你给这一天下了个结论：局已经开了。你不可能再装作什么都没听见、什么都没看见地退回茅草屋里。"
       }
     ]
   },
   {
-    "id": "closing_day_2_summary",
+    "id": "9402",
     "title": "收束：第二天",
-    "description": "第二天结束时，事情仍像流言，但你已经看出别院里真正紧张的并不是闲话，而是秩序本身。",
+    "description": "第二天结束时，事情表面还像流言，可你已经看出别院里真正紧张的不是闲话，而是谁会先被推出去挡事、谁会先被清掉。",
     "trigger_conditions": [
       { "type": "day_range", "min": 2, "max": 2 },
       { "type": "phase_is", "value": "closing" }
@@ -657,14 +657,14 @@
         "text": "记下今天的变化",
         "conditions": [],
         "effects": [],
-        "result_text": "你知道自己必须尽快在调查推进与异变推进之间抢出优势，否则后者迟早会先一步压过来。"
+        "result_text": "你知道自己必须尽快在调查推进和局势失控之间抢出优势，否则王麻子和化骨池，总有一边会先一步压到你头上。"
       }
     ]
   },
   {
-    "id": "closing_day_3_summary",
+    "id": "9403",
     "title": "收束：第三天",
-    "description": "第三天结束时，你第一次感觉到异常已经开始“认识”你，而不是只是随机地发生在附近。",
+    "description": "第三天结束时，你第一次感觉到那股异常已经开始“认识”你，而不是只在附近随机发作。你白天盯着哪条线，夜里它就顺着哪条线来找你。",
     "trigger_conditions": [
       { "type": "day_range", "min": 3, "max": 3 },
       { "type": "phase_is", "value": "closing" }
@@ -678,14 +678,14 @@
         "text": "强迫自己整理思路",
         "conditions": [],
         "effects": [],
-        "result_text": "从今天开始，去哪里不再只是收集线索，而是在主动决定自己要不要继续被它看见。"
+        "result_text": "从今天开始，去哪里不再只是收集线索，而是在主动决定自己要不要继续被它盯上。"
       }
     ]
   },
   {
-    "id": "closing_day_4_summary",
+    "id": "9404",
     "title": "收束：第四天",
-    "description": "封锁和失踪把西井从传闻推成了现实危机。第四天之后，别院已经不再有真正的安全地带。",
+    "description": "封边、失踪和夜里的异动把化骨池从传闻推成了现实危机。第四天之后，别院已经没有真正安全的角落，只剩谁先出手、谁先倒霉。",
     "trigger_conditions": [
       { "type": "day_range", "min": 4, "max": 4 },
       { "type": "phase_is", "value": "closing" }
@@ -699,14 +699,14 @@
         "text": "接受节奏升级",
         "conditions": [],
         "effects": [],
-        "result_text": "你知道中段已经结束。再往后，不会再有那种既能慢慢查、又能慢慢想的宽松日子。"
+        "result_text": "你知道中段已经结束。再往后，不会再有那种既能慢慢查、又能慢慢想的宽松日子。每一次行动都会更像押注。"
       }
     ]
   },
   {
-    "id": "closing_day_5_summary",
+    "id": "9405",
     "title": "收束：第五天",
-    "description": "真相已经露出轮廓，但你也看见了另一面：知道得越多，就越难毫发无损地回头。",
+    "description": "真相已经露出轮廓，但你也看见了另一面：知道得越多，就越难毫发无损地回头。疯长老、王麻子和化骨池，没有一个会白白让你带着答案走。",
     "trigger_conditions": [
       { "type": "day_range", "min": 5, "max": 5 },
       { "type": "phase_is", "value": "closing" }
@@ -720,14 +720,14 @@
         "text": "为最后两天做准备",
         "conditions": [],
         "effects": [],
-        "result_text": "你该开始决定自己想活着离开、想把真相带出去，还是已经离那道声音太近了。"
+        "result_text": "你该开始决定，自己是想活着离开、把真相带出去，还是已经离那道声音太近，再也退不回人那边。"
       }
     ]
   },
   {
-    "id": "closing_day_6_summary",
+    "id": "9406",
     "title": "收束：第六天",
-    "description": "第六天收束时，一切都像被拉成一根快要断掉的弦。明天不是继续推进，而是终夜本身。",
+    "description": "第六天收束时，一切都像被拉成一根快要断掉的弦。明天不是继续推进，而是所有积累一起收口的那一刀。",
     "trigger_conditions": [
       { "type": "day_range", "min": 6, "max": 6 },
       { "type": "phase_is", "value": "closing" }
@@ -741,7 +741,7 @@
         "text": "接受明天就是终点",
         "conditions": [],
         "effects": [],
-        "result_text": "你不会再有新的准备窗口了。第七夜会检验你这七天到底是在逼近真相，还是在逼近异化。"
+        "result_text": "你不会再有新的准备窗口了。第七夜会检验你这七天到底是在逼近真相，还是一步步把自己送进异化里。"
       }
     ]
   }

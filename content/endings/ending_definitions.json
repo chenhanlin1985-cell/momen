@@ -1,5 +1,18 @@
 [
   {
+    "id": "ending_battle_deviation",
+    "title": "走火入魔",
+    "description": "你没能压住这场心战，宿主的残念与域外魔念一同反噬，整具容器在失控中彻底走偏。推演到此崩坏，本轮模拟结束。点击下方按钮，立刻投入下一轮模拟。",
+    "outcome_type": "death",
+    "priority": 200,
+    "conditions": [
+      {
+        "type": "flag_present",
+        "key": "battle_failure_demon_deviation"
+      }
+    ]
+  },
+  {
     "id": "ending_death_used_by_liu",
     "title": "死于柳飞霞之手",
     "description": "你误判了柳飞霞真正的破绽，在她贪念彻底压过伪装的那一瞬间被当场灭口。黑暗再次吞没了宿主，你只能带着这次失败进入下一个轮回。",
@@ -24,8 +37,8 @@
         "conditions": [
           { "type": "flag_present", "key": "knows_cousin_secret" },
           { "type": "flag_present", "key": "learned_blood_stealth" },
-          { "type": "npc_relation_gte", "npc_id": "friendly_peer", "field": "favor", "value": 2 },
-          { "type": "npc_relation_gte", "npc_id": "herb_steward", "field": "alert", "value": 2 }
+          { "type": "npc_relation_gte", "npc_id": "01", "field": "favor", "value": 2 },
+          { "type": "npc_relation_gte", "npc_id": "02", "field": "alert", "value": 2 }
         ]
       }
     ]

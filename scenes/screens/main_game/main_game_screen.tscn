@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cvqm5ubancigd"]
+[gd_scene load_steps=4 format=3 uid="uid://cvqm5ubancigd"]
 
 [ext_resource type="Script" uid="uid://dx7ojhvs73blf" path="res://scenes/screens/main_game/main_game_screen.gd" id="1"]
 [ext_resource type="PackedScene" path="res://ui/components/dialogue_event_panel.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://ui/components/battle_panel.tscn" id="3"]
 
 [node name="MainGameScreen" type="Control"]
 layout_mode = 3
@@ -296,38 +297,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SceneNpcContextPanel" type="PanelContainer" parent="MarginContainer/Root/MainRow/StageColumn/LocationPanel/LocationPadding/LocationContent/SceneViewport"]
-unique_name_in_owner = true
-visible = false
-z_index = 20
-custom_minimum_size = Vector2(220, 0)
-layout_mode = 1
-offset_left = 24.0
-offset_top = 24.0
-offset_right = 244.0
-offset_bottom = 120.0
-
-[node name="SceneNpcContextPadding" type="MarginContainer" parent="MarginContainer/Root/MainRow/StageColumn/LocationPanel/LocationPadding/LocationContent/SceneViewport/SceneNpcContextPanel"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="SceneNpcContextContent" type="VBoxContainer" parent="MarginContainer/Root/MainRow/StageColumn/LocationPanel/LocationPadding/LocationContent/SceneViewport/SceneNpcContextPanel/SceneNpcContextPadding"]
-layout_mode = 2
-theme_override_constants/separation = 8
-
-[node name="SceneNpcContextTitle" type="Label" parent="MarginContainer/Root/MainRow/StageColumn/LocationPanel/LocationPadding/LocationContent/SceneViewport/SceneNpcContextPanel/SceneNpcContextPadding/SceneNpcContextContent"]
-unique_name_in_owner = true
-layout_mode = 2
-text = ""
-
-[node name="SceneNpcContextButtons" type="VBoxContainer" parent="MarginContainer/Root/MainRow/StageColumn/LocationPanel/LocationPadding/LocationContent/SceneViewport/SceneNpcContextPanel/SceneNpcContextPadding/SceneNpcContextContent"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_constants/separation = 6
-
 [node name="SceneOverlay" type="MarginContainer" parent="MarginContainer/Root/MainRow/StageColumn/LocationPanel/LocationPadding/LocationContent/SceneViewport"]
 layout_mode = 1
 anchors_preset = 15
@@ -363,7 +332,7 @@ text = "-"
 autowrap_mode = 3
 mouse_filter = 2
 
-[node name="DialogueEventPanel" parent="MarginContainer/Root/MainRow/StageColumn/LocationPanel/LocationPadding/LocationContent/SceneViewport" instance=ExtResource("2")]
+[node name="DialogueEventPanel" parent="." instance=ExtResource("2")]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -371,6 +340,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+z_index = 80
 
 [node name="EventPanel" type="PanelContainer" parent="MarginContainer/Root/MainRow/StageColumn"]
 unique_name_in_owner = true
@@ -400,6 +370,17 @@ theme_override_constants/separation = 12
 [node name="EventPanelTitle" type="Label" parent="MarginContainer/Root/MainRow/StageColumn/EventPanel/EventPadding/EventScroll/EventContent"]
 layout_mode = 2
 text = "当前事件"
+
+[node name="EventTypeHintLabel" type="Label" parent="MarginContainer/Root/MainRow/StageColumn/EventPanel/EventPadding/EventScroll/EventContent"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "-"
+autowrap_mode = 3
+
+[node name="EventContentTitleLabel" type="Label" parent="MarginContainer/Root/MainRow/StageColumn/EventPanel/EventPadding/EventScroll/EventContent"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "当前主体"
 
 [node name="DialogueRow" type="HBoxContainer" parent="MarginContainer/Root/MainRow/StageColumn/EventPanel/EventPadding/EventScroll/EventContent"]
 unique_name_in_owner = true
@@ -488,6 +469,28 @@ size_flags_vertical = 3
 text = "-"
 autowrap_mode = 3
 
+[node name="EventHintTitleLabel" type="Label" parent="MarginContainer/Root/MainRow/StageColumn/EventPanel/EventPadding/EventScroll/EventContent"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "当前提示"
+
+[node name="EventHintLabel" type="Label" parent="MarginContainer/Root/MainRow/StageColumn/EventPanel/EventPadding/EventScroll/EventContent"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "-"
+autowrap_mode = 3
+
+[node name="EventDecisionTitleLabel" type="Label" parent="MarginContainer/Root/MainRow/StageColumn/EventPanel/EventPadding/EventScroll/EventContent"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "当前决策"
+
+[node name="EventOptionsContainer" type="VBoxContainer" parent="MarginContainer/Root/MainRow/StageColumn/EventPanel/EventPadding/EventScroll/EventContent"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
 [node name="DialogueHintLabel" type="Label" parent="MarginContainer/Root/MainRow/StageColumn/EventPanel/EventPadding/EventScroll/EventContent"]
 unique_name_in_owner = true
 visible = false
@@ -550,6 +553,17 @@ size_flags_vertical = 3
 text = "-"
 autowrap_mode = 3
 
+[node name="EndingHintLabel" type="Label" parent="MarginContainer/Root/MainRow/StageColumn/EndingPanel/EndingPadding/EndingScroll/EndingContent"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "本轮模拟已经结束。"
+autowrap_mode = 3
+
+[node name="EndingRestartButton" type="Button" parent="MarginContainer/Root/MainRow/StageColumn/EndingPanel/EndingPadding/EndingScroll/EndingContent"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "开始下一局"
+
 [node name="SceneInteractionPanel" type="PanelContainer" parent="MarginContainer/Root/MainRow/StageColumn"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -562,27 +576,43 @@ theme_override_constants/margin_top = 12
 theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 12
 
-[node name="SceneMenuBar" type="HBoxContainer" parent="MarginContainer/Root/MainRow/StageColumn/SceneInteractionPanel/SceneInteractionPadding"]
+[node name="SceneInteractionContent" type="VBoxContainer" parent="MarginContainer/Root/MainRow/StageColumn/SceneInteractionPanel/SceneInteractionPadding"]
 layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="ActionTitle" type="Label" parent="MarginContainer/Root/MainRow/StageColumn/SceneInteractionPanel/SceneInteractionPadding/SceneInteractionContent"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "当前抉择"
+
+[node name="NodeSummaryLabel" type="Label" parent="MarginContainer/Root/MainRow/StageColumn/SceneInteractionPanel/SceneInteractionPadding/SceneInteractionContent"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "-"
+autowrap_mode = 3
+
+[node name="ActionScroll" type="ScrollContainer" parent="MarginContainer/Root/MainRow/StageColumn/SceneInteractionPanel/SceneInteractionPadding/SceneInteractionContent"]
+custom_minimum_size = Vector2(0, 140)
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_scroll_mode = 0
+
+[node name="ActionsContainer" type="VBoxContainer" parent="MarginContainer/Root/MainRow/StageColumn/SceneInteractionPanel/SceneInteractionPadding/SceneInteractionContent/ActionScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="SceneMenuBar" type="HBoxContainer" parent="MarginContainer/Root/MainRow/StageColumn/SceneInteractionPanel/SceneInteractionPadding/SceneInteractionContent"]
+layout_mode = 2
+alignment = 2
 theme_override_constants/separation = 10
 
-[node name="LocationMenuButton" type="Button" parent="MarginContainer/Root/MainRow/StageColumn/SceneInteractionPanel/SceneInteractionPadding/SceneMenuBar"]
+[node name="CardMenuButton" type="Button" parent="MarginContainer/Root/MainRow/StageColumn/SceneInteractionPanel/SceneInteractionPadding/SceneInteractionContent/SceneMenuBar"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 3
-text = "地点"
-
-[node name="ActionMenuButton" type="Button" parent="MarginContainer/Root/MainRow/StageColumn/SceneInteractionPanel/SceneInteractionPadding/SceneMenuBar"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-text = "行动"
-
-[node name="EndDayButton" type="Button" parent="MarginContainer/Root/MainRow/StageColumn/SceneInteractionPanel/SceneInteractionPadding/SceneMenuBar"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-text = "结束白天"
+size_flags_horizontal = 0
+text = "绾跨储"
 
 [node name="Sidebar" type="PanelContainer" parent="MarginContainer/Root/MainRow"]
 custom_minimum_size = Vector2(300, 0)
@@ -669,6 +699,17 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
+[node name="BattlePanel" parent="." instance=ExtResource("3")]
+unique_name_in_owner = true
+visible = false
+z_index = 90
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="PopupOverlay" type="ColorRect" parent="."]
 unique_name_in_owner = true
 visible = false
@@ -743,72 +784,31 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 14
 
-[node name="LocationColumn" type="VBoxContainer" parent="PopupOverlay/PopupCenter/PopupPanel/PopupPadding/PopupContent/PopupScroll/PopupBody"]
+[node name="CardColumn" type="VBoxContainer" parent="PopupOverlay/PopupCenter/PopupPanel/PopupPadding/PopupContent/PopupScroll/PopupBody"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="LocationActionTitle" type="Label" parent="PopupOverlay/PopupCenter/PopupPanel/PopupPadding/PopupContent/PopupScroll/PopupBody/LocationColumn"]
+[node name="CardTitle" type="Label" parent="PopupOverlay/PopupCenter/PopupPanel/PopupPadding/PopupContent/PopupScroll/PopupBody/CardColumn"]
+unique_name_in_owner = true
 layout_mode = 2
-text = "前往其他地点"
+text = "褰撳墠绾跨储"
 
-[node name="LocationScroll" type="ScrollContainer" parent="PopupOverlay/PopupCenter/PopupPanel/PopupPadding/PopupContent/PopupScroll/PopupBody/LocationColumn"]
-custom_minimum_size = Vector2(0, 120)
+[node name="CardScroll" type="ScrollContainer" parent="PopupOverlay/PopupCenter/PopupPanel/PopupPadding/PopupContent/PopupScroll/PopupBody/CardColumn"]
+custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 horizontal_scroll_mode = 0
 
-[node name="LocationsContainer" type="VBoxContainer" parent="PopupOverlay/PopupCenter/PopupPanel/PopupPadding/PopupContent/PopupScroll/PopupBody/LocationColumn/LocationScroll"]
+[node name="CardSummaryLabel" type="Label" parent="PopupOverlay/PopupCenter/PopupPanel/PopupPadding/PopupContent/PopupScroll/PopupBody/CardColumn/CardScroll"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = 8
-
-[node name="NpcColumn" type="VBoxContainer" parent="PopupOverlay/PopupCenter/PopupPanel/PopupPadding/PopupContent/PopupScroll/PopupBody"]
-unique_name_in_owner = true
-visible = false
-layout_mode = 2
-theme_override_constants/separation = 8
-
-[node name="NpcActionTitle" type="Label" parent="PopupOverlay/PopupCenter/PopupPanel/PopupPadding/PopupContent/PopupScroll/PopupBody/NpcColumn"]
-layout_mode = 2
-text = "场景中的人物"
-
-[node name="NpcScroll" type="ScrollContainer" parent="PopupOverlay/PopupCenter/PopupPanel/PopupPadding/PopupContent/PopupScroll/PopupBody/NpcColumn"]
-custom_minimum_size = Vector2(0, 120)
-layout_mode = 2
-size_flags_horizontal = 3
-horizontal_scroll_mode = 0
-
-[node name="NpcContainer" type="VBoxContainer" parent="PopupOverlay/PopupCenter/PopupPanel/PopupPadding/PopupContent/PopupScroll/PopupBody/NpcColumn/NpcScroll"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 8
-
-[node name="ActionColumn" type="VBoxContainer" parent="PopupOverlay/PopupCenter/PopupPanel/PopupPadding/PopupContent/PopupScroll/PopupBody"]
-unique_name_in_owner = true
-visible = false
-layout_mode = 2
-theme_override_constants/separation = 8
-
-[node name="ActionTitle" type="Label" parent="PopupOverlay/PopupCenter/PopupPanel/PopupPadding/PopupContent/PopupScroll/PopupBody/ActionColumn"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "场景行动"
-
-[node name="ActionScroll" type="ScrollContainer" parent="PopupOverlay/PopupCenter/PopupPanel/PopupPadding/PopupContent/PopupScroll/PopupBody/ActionColumn"]
-custom_minimum_size = Vector2(0, 140)
-layout_mode = 2
-size_flags_horizontal = 3
-horizontal_scroll_mode = 0
-
-[node name="ActionsContainer" type="VBoxContainer" parent="PopupOverlay/PopupCenter/PopupPanel/PopupPadding/PopupContent/PopupScroll/PopupBody/ActionColumn/ActionScroll"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 8
+size_flags_vertical = 3
+text = "-"
+autowrap_mode = 3
 
 [node name="OpeningOverlay" type="ColorRect" parent="."]
 unique_name_in_owner = true

@@ -1,0 +1,170 @@
+[
+  {
+    "id": "9101",
+    "npc_id": "01",
+    "story_id": "01",
+    "display_name": "柳飞霞",
+    "max_hp": 42,
+    "start_hp": 42,
+    "start_sanity_pressure": 0,
+    "slot_count": 2,
+    "vulnerability_tags": [
+      "01",
+      "02"
+    ],
+    "resistance_tags": [
+      "01",
+      "02"
+    ],
+    "vulnerability_base_type_multipliers": {
+      "02": 1.6
+    },
+    "vulnerability_multi_tag_multipliers": {
+      "01": 1.6
+    },
+    "resistance_extra_cost_by_base_type": {
+      "01": 1
+    },
+    "resistance_score_delta_by_base_type": {
+      "01": 1,
+      "03": -2
+    },
+    "counter_profile_id": "9101",
+    "victory_rewards": [
+      "9131",
+      "9132"
+    ]
+  },
+  {
+    "id": "9201",
+    "npc_id": "02",
+    "story_id": "01",
+    "display_name": "王麻子",
+    "max_hp": 34,
+    "start_hp": 34,
+    "start_sanity_pressure": 0,
+    "slot_count": 2,
+    "vulnerability_tags": [
+      "02",
+      "03"
+    ],
+    "resistance_tags": [
+      "01"
+    ],
+    "vulnerability_base_type_multipliers": {
+      "01": 1.4
+    },
+    "vulnerability_multi_tag_multipliers": {
+      "02": 1.5
+    },
+    "resistance_extra_cost_by_base_type": {
+      "02": 1
+    },
+    "resistance_score_delta_by_base_type": {
+      "03": -1
+    },
+    "counter_profile_id": "9201",
+    "victory_rewards": [
+      "9141",
+      "9142"
+    ]
+  },
+  {
+    "id": "9301",
+    "npc_id": "03",
+    "story_id": "01",
+    "display_name": "夜巡弟子",
+    "max_hp": 32,
+    "start_hp": 32,
+    "start_sanity_pressure": 0,
+    "slot_count": 2,
+    "vulnerability_tags": [
+      "01",
+      "03"
+    ],
+    "resistance_tags": [
+      "02"
+    ],
+    "vulnerability_base_type_multipliers": {
+      "03": 1.4
+    },
+    "vulnerability_multi_tag_multipliers": {
+      "01": 1.4
+    },
+    "resistance_extra_cost_by_base_type": {
+      "02": 1
+    },
+    "resistance_score_delta_by_base_type": {
+      "01": -1
+    },
+    "counter_profile_id": "9301",
+    "victory_rewards": [
+      "9151",
+      "9152"
+    ]
+  },
+  {
+    "id": "9401",
+    "npc_id": "04",
+    "story_id": "01",
+    "display_name": "疯长老",
+    "max_hp": 38,
+    "start_hp": 38,
+    "start_sanity_pressure": 0,
+    "slot_count": 2,
+    "vulnerability_tags": [
+      "03",
+      "04"
+    ],
+    "resistance_tags": [
+      "01"
+    ],
+    "vulnerability_base_type_multipliers": {
+      "02": 1.4,
+      "03": 1.4
+    },
+    "vulnerability_multi_tag_multipliers": {
+      "03": 1.5
+    },
+    "resistance_extra_cost_by_base_type": {
+      "01": 1
+    },
+    "resistance_score_delta_by_base_type": {},
+    "counter_profile_id": "9401",
+    "victory_rewards": [
+      "9161",
+      "9162"
+    ]
+  },
+  {
+    "id": "9501",
+    "npc_id": "",
+    "story_id": "01",
+    "display_name": "外门低级弟子",
+    "max_hp": 22,
+    "start_hp": 22,
+    "start_sanity_pressure": 0,
+    "slot_count": 2,
+    "vulnerability_tags": [
+      "01"
+    ],
+    "resistance_tags": [
+      "03"
+    ],
+    "vulnerability_base_type_multipliers": {
+      "02": 1.3
+    },
+    "vulnerability_multi_tag_multipliers": {
+      "01": 1.2
+    },
+    "resistance_extra_cost_by_base_type": {
+      "03": 1
+    },
+    "resistance_score_delta_by_base_type": {},
+    "counter_profile_id": "9501",
+    "victory_rewards": [
+      "9171",
+      "9172"
+    ]
+  }
+]

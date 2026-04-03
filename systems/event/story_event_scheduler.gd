@@ -3,7 +3,9 @@ extends RefCounted
 
 const AUTO_EVENT_CLASS_ORDER_DAY: Array[String] = [
 	"ending_check",
-	"fixed_story"
+	"fixed_story",
+	"conditional_story",
+	"random_filler"
 ]
 const AUTO_EVENT_CLASS_ORDER_NON_DAY: Array[String] = [
 	"ending_check",

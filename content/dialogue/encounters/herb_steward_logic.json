@@ -1,6 +1,6 @@
 [
 	{
-		"event_id": "dlg_herb_steward_probe",
+		"event_id": "900301",
 		"intrusions": [
 			{
 				"description_id": "herb_steward_probe.greed.desc",

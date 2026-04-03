@@ -4,15 +4,16 @@ extends RefCounted
 const GAME_TEXT := preload("res://systems/content/game_text.gd")
 const EVENT_EFFECT_EXECUTOR_SCRIPT := preload("res://systems/event/event_effect_executor.gd")
 const STORY_EVENT_SCHEDULER_SCRIPT := preload("res://systems/event/story_event_scheduler.gd")
+const BATTLE_SERVICE_SCRIPT := preload("res://systems/battle/battle_service.gd")
 const DIALOGUE_MODE_HUB: String = "hub"
 const DIALOGUE_MODE_OBSERVE: String = "observe"
-const DIALOGUE_MODE_INTRUDE: String = "intrude"
 const DIALOGUE_MODE_TALK: String = "talk"
 
 var _condition_evaluator: ConditionEvaluator
 var _run_state_mutator: RunStateMutator
 var _effect_executor
 var _story_scheduler
+var _battle_service: BattleService
 
 func _init(
 	condition_evaluator: ConditionEvaluator,
@@ -22,6 +23,7 @@ func _init(
 	_run_state_mutator = run_state_mutator
 	_effect_executor = EVENT_EFFECT_EXECUTOR_SCRIPT.new(run_state_mutator)
 	_story_scheduler = STORY_EVENT_SCHEDULER_SCRIPT.new(condition_evaluator)
+	_battle_service = BATTLE_SERVICE_SCRIPT.new()
 
 func collect_action_followups(
 	run_state: RunState,
@@ -60,11 +62,54 @@ func resolve_current_or_next_event(
 	var next_definition: Dictionary = _story_scheduler.find_next_event(run_state, content_repository, slot)
 	if not next_definition.is_empty():
 		_run_state_mutator.set_current_event(run_state, str(next_definition.get("id", "")))
+		start_battle_for_current_event_if_needed(run_state, content_repository)
 		return
 
 	var queued_event_id: String = _get_next_queued_event_id(run_state, content_repository)
 	if not queued_event_id.is_empty():
 		_run_state_mutator.set_current_event(run_state, queued_event_id)
+		start_battle_for_current_event_if_needed(run_state, content_repository)
+
+func start_battle_for_current_event_if_needed(
+	run_state: RunState,
+	content_repository: ContentRepository
+) -> void:
+	if run_state.current_battle_state != null or run_state.current_event_id.is_empty():
+		return
+	var event_definition: Dictionary = get_current_event_definition(run_state, content_repository)
+	if str(event_definition.get("presentation_type", "")) != "battle_event":
+		return
+	var battle_id: String = str(event_definition.get("battle_id", ""))
+	if battle_id.is_empty():
+		return
+	var battle_definition: Dictionary = content_repository.get_battle_definition(battle_id)
+	if battle_definition.is_empty():
+		return
+	var enemy_mind_definition: Dictionary = content_repository.get_battle_enemy_mind_definition(
+		str(battle_definition.get("enemy_mind_id", ""))
+	)
+	if enemy_mind_definition.is_empty():
+		return
+	var battle_card_lookup: Dictionary = {}
+	for card_definition: Dictionary in content_repository.get_battle_card_definitions():
+		var card_id: String = str(card_definition.get("id", ""))
+		if card_id.is_empty():
+			continue
+		battle_card_lookup[card_id] = card_definition
+	var pollution_profile_definition: Dictionary = content_repository.get_battle_pollution_profile_definition(
+		str(enemy_mind_definition.get("counter_profile_id", ""))
+	)
+	var battle_state: BattleState = _battle_service.create_battle_state(
+		battle_definition,
+		enemy_mind_definition,
+		pollution_profile_definition,
+		_run_state_mutator.get_player_level(run_state),
+		run_state.player_state.battle_card_ids,
+		run_state.player_state.removed_battle_card_ids,
+		battle_card_lookup,
+		content_repository.get_battle_texts()
+	)
+	_run_state_mutator.set_current_battle_state(run_state, battle_state)
 
 func choose_option(
 	run_state: RunState,
@@ -83,7 +128,7 @@ func choose_option(
 		_run_state_mutator.clear_current_event(run_state)
 		return {"success": true, "continued": true}
 
-	if _handle_dialogue_stage_control(run_state, event_definition, option_id):
+	if _handle_dialogue_stage_control(run_state, content_repository, event_definition, option_id):
 		return {"success": true, "stage_control": true}
 
 	var option_definition: Dictionary = _find_option_definition(event_definition, option_id)
@@ -95,7 +140,6 @@ func choose_option(
 		return {"success": false, "message": GAME_TEXT.text("event_service.errors.option_unavailable")}
 
 	var event_id: String = str(event_definition.get("id", ""))
-	option_definition = _resolve_dialogue_option_override(event_definition, option_definition)
 	var check_result: Dictionary = _resolve_option_check(run_state, option_definition)
 	var outcome: String = str(check_result.get("outcome", "always"))
 	var result_text: String = _resolve_option_result_text(option_definition, outcome)
@@ -153,6 +197,12 @@ func get_current_event_definition(
 	if not run_state.current_event_result_text.is_empty():
 		definition["result_text"] = run_state.current_event_result_text
 		definition["awaiting_continue"] = true
+	if not run_state.current_battle_resolution_text.is_empty():
+		var description_text: String = str(definition.get("description", ""))
+		if description_text.is_empty():
+			definition["description"] = run_state.current_battle_resolution_text
+		else:
+			definition["description"] = "%s\n\n%s" % [run_state.current_battle_resolution_text, description_text]
 
 	var encounter_definition: Dictionary = content_repository.get_dialogue_encounter_definition(run_state.current_event_id)
 	if str(definition.get("presentation_type", "standard_event")) == "dialogue_event" and not encounter_definition.is_empty():
@@ -160,8 +210,6 @@ func get_current_event_definition(
 		definition["dialogue_mode"] = _resolve_dialogue_mode(run_state)
 		definition["dialogue_body_override_text"] = run_state.current_dialogue_body_override_text
 		definition["dialogue_portrait_override_label"] = run_state.current_dialogue_portrait_override_label
-		definition["dialogue_intrusion_tag"] = run_state.current_dialogue_intrusion_tag
-		definition["dialogue_intrusion_used"] = run_state.current_dialogue_intrusion_used
 
 	var combat_enemy_id: String = str(definition.get("combat_enemy_id", ""))
 	if not combat_enemy_id.is_empty():
@@ -238,18 +286,9 @@ func _resolve_dialogue_portrait_label(definition: Dictionary) -> String:
 	if encounter_definition.is_empty():
 		return ""
 	var mode: String = str(definition.get("dialogue_mode", DIALOGUE_MODE_HUB))
-	var intrusion_id: String = str(definition.get("dialogue_intrusion_tag", "")).strip_edges()
 	if mode == DIALOGUE_MODE_OBSERVE:
 		return str(encounter_definition.get("observation_portrait_label", "")).strip_edges()
 	if mode == DIALOGUE_MODE_TALK:
-		if not intrusion_id.is_empty():
-			var selected_intrusion: Dictionary = _find_intrusion_definition(encounter_definition, intrusion_id)
-			var talk_label: String = str(selected_intrusion.get("talk_portrait_label", "")).strip_edges()
-			if not talk_label.is_empty():
-				return talk_label
-			var selected_label: String = str(selected_intrusion.get("selected_portrait_label", "")).strip_edges()
-			if not selected_label.is_empty():
-				return selected_label
 		return str(encounter_definition.get("talk_portrait_label", "")).strip_edges()
 	return str(encounter_definition.get("opening_portrait_label", "")).strip_edges()
 
@@ -272,11 +311,12 @@ func get_current_event_option_views(
 			"check_text": "",
 			"check_tag_text": "",
 			"difficulty_text": "",
+			"reward_text": "",
 			"is_continue": true
 		}]
 
 	if presentation_type == "dialogue_event" and not Dictionary(event_definition.get("dialogue_encounter", {})).is_empty():
-		return _build_dialogue_stage_option_views(run_state, event_definition)
+		return _build_dialogue_stage_option_views(run_state, event_definition, content_repository)
 
 	var result: Array[Dictionary] = []
 	for option_definition: Dictionary in event_definition.get("options", []):
@@ -291,19 +331,23 @@ func get_current_event_option_views(
 			"unmet_text": "" if unmet.is_empty() else GAME_TEXT.text("event_service.unmet_prefix") + "、".join(unmet),
 			"check_text": _describe_option_check(check_definition),
 			"check_tag_text": _describe_check_tag(check_definition),
-			"difficulty_text": _describe_check_difficulty(run_state, check_definition)
+			"difficulty_text": _describe_check_difficulty(run_state, check_definition),
+			"reward_text": _describe_option_rewards(
+				Array(option_definition.get("effects", []), TYPE_DICTIONARY, "", null),
+				content_repository
+			)
 		})
 	return result
 
 func _handle_dialogue_stage_control(
 	run_state: RunState,
+	content_repository: ContentRepository,
 	event_definition: Dictionary,
 	option_id: String
 ) -> bool:
 	if str(event_definition.get("presentation_type", "standard_event")) != "dialogue_event":
 		return false
-	var encounter_definition: Dictionary = Dictionary(event_definition.get("dialogue_encounter", {}))
-	if encounter_definition.is_empty():
+	if Dictionary(event_definition.get("dialogue_encounter", {})).is_empty():
 		return false
 
 	match option_id:
@@ -315,85 +359,58 @@ func _handle_dialogue_stage_control(
 		"__intrude__":
 			_run_state_mutator.set_current_dialogue_body_override_text(run_state, "")
 			_run_state_mutator.set_current_dialogue_portrait_override_label(run_state, "")
-			_run_state_mutator.set_current_dialogue_mode(run_state, DIALOGUE_MODE_INTRUDE)
-			return true
-		"__talk__":
-			_run_state_mutator.set_current_dialogue_body_override_text(run_state, "")
-			_run_state_mutator.set_current_dialogue_portrait_override_label(run_state, "")
+			var battle_definition: Dictionary = content_repository.get_battle_definition_by_entry_event_id(
+				str(event_definition.get("id", ""))
+			)
+			if not battle_definition.is_empty():
+				var enemy_mind_definition: Dictionary = content_repository.get_battle_enemy_mind_definition(
+					str(battle_definition.get("enemy_mind_id", ""))
+				)
+				if not enemy_mind_definition.is_empty():
+					var battle_card_lookup: Dictionary = {}
+					for card_definition: Dictionary in content_repository.get_battle_card_definitions():
+						var card_id: String = str(card_definition.get("id", ""))
+						if card_id.is_empty():
+							continue
+						battle_card_lookup[card_id] = card_definition
+					var pollution_profile_definition: Dictionary = content_repository.get_battle_pollution_profile_definition(
+						str(enemy_mind_definition.get("counter_profile_id", ""))
+					)
+					var battle_state: BattleState = _battle_service.create_battle_state(
+						battle_definition,
+						enemy_mind_definition,
+						pollution_profile_definition,
+						_run_state_mutator.get_player_level(run_state),
+						run_state.player_state.battle_card_ids,
+						run_state.player_state.removed_battle_card_ids,
+						battle_card_lookup,
+						content_repository.get_battle_texts()
+					)
+					_run_state_mutator.set_current_battle_state(run_state, battle_state)
+					return true
 			_run_state_mutator.set_current_dialogue_mode(run_state, DIALOGUE_MODE_TALK)
 			return true
-		"__back__":
-			_run_state_mutator.set_current_dialogue_body_override_text(run_state, "")
-			_run_state_mutator.set_current_dialogue_portrait_override_label(run_state, "")
-			_run_state_mutator.set_current_dialogue_mode(run_state, DIALOGUE_MODE_HUB)
-			return true
+	return false
 
-	if not option_id.begins_with("__intrusion__:"):
-		return false
-	if run_state.current_dialogue_intrusion_used:
-		return false
-
-	var intrusion_id: String = option_id.trim_prefix("__intrusion__:")
-	var intrusion_definition: Dictionary = _find_intrusion_definition(encounter_definition, intrusion_id)
-	if intrusion_definition.is_empty():
-		return false
-
-	_run_state_mutator.set_current_dialogue_intrusion(run_state, intrusion_id)
-	_run_state_mutator.set_current_dialogue_body_override_text(
-		run_state,
-		str(intrusion_definition.get("selected_hint_text", ""))
-	)
-	_run_state_mutator.set_current_dialogue_portrait_override_label(
-		run_state,
-		str(intrusion_definition.get("selected_portrait_label", ""))
-	)
-	_run_state_mutator.set_current_dialogue_mode(run_state, DIALOGUE_MODE_HUB)
-	var intrusion_log: String = str(intrusion_definition.get("apply_log_text", ""))
-	if not intrusion_log.is_empty():
-		_run_state_mutator.append_log(run_state, intrusion_log)
-	return true
-
-func _resolve_dialogue_option_override(event_definition: Dictionary, option_definition: Dictionary) -> Dictionary:
-	if str(event_definition.get("presentation_type", "standard_event")) != "dialogue_event":
-		return option_definition
-
-	var encounter_definition: Dictionary = Dictionary(event_definition.get("dialogue_encounter", {}))
-	if encounter_definition.is_empty():
-		return option_definition
-
-	var intrusion_id: String = str(event_definition.get("dialogue_intrusion_tag", ""))
-	if intrusion_id.is_empty():
-		return option_definition
-
-	var intrusion_definition: Dictionary = _find_intrusion_definition(encounter_definition, intrusion_id)
-	if intrusion_definition.is_empty():
-		return option_definition
-
-	var option_overrides: Dictionary = Dictionary(intrusion_definition.get("option_overrides", {}))
-	var option_id: String = str(option_definition.get("id", ""))
-	var override_definition: Dictionary = Dictionary(option_overrides.get(option_id, {}))
-	if override_definition.is_empty():
-		override_definition = Dictionary(intrusion_definition.get("fallback_option_override", {}))
-	if override_definition.is_empty():
-		return option_definition
-
-	var resolved: Dictionary = option_definition.duplicate(true)
-	for key: Variant in override_definition.keys():
-		resolved[key] = override_definition[key]
-	return resolved
-
-func _build_dialogue_stage_option_views(run_state: RunState, event_definition: Dictionary) -> Array[Dictionary]:
+func _build_dialogue_stage_option_views(
+	run_state: RunState,
+	event_definition: Dictionary,
+	content_repository: ContentRepository
+) -> Array[Dictionary]:
 	var mode: String = str(event_definition.get("dialogue_mode", DIALOGUE_MODE_HUB))
-	var encounter_definition: Dictionary = Dictionary(event_definition.get("dialogue_encounter", {}))
-	if mode == DIALOGUE_MODE_INTRUDE:
-		return _build_dialogue_intrusion_option_views(event_definition, encounter_definition)
 	if mode == DIALOGUE_MODE_TALK:
-		return _build_dialogue_talk_option_views(run_state, event_definition)
-	return _build_dialogue_hub_option_views(event_definition, encounter_definition)
+		return _build_dialogue_talk_option_views(run_state, event_definition, content_repository)
+	return _build_dialogue_hub_option_views(event_definition, content_repository)
 
-func _build_dialogue_hub_option_views(event_definition: Dictionary, encounter_definition: Dictionary) -> Array[Dictionary]:
+func _build_dialogue_hub_option_views(
+	event_definition: Dictionary,
+	content_repository: ContentRepository
+) -> Array[Dictionary]:
 	var views: Array[Dictionary] = []
 	var observed: bool = str(event_definition.get("dialogue_mode", "")) == DIALOGUE_MODE_OBSERVE
+	var has_dialogue_battle: bool = not content_repository.get_battle_definition_by_entry_event_id(
+		str(event_definition.get("id", ""))
+	).is_empty()
 	views.append({
 		"id": "__observe__",
 		"text": "观察",
@@ -402,94 +419,48 @@ func _build_dialogue_hub_option_views(event_definition: Dictionary, encounter_de
 		"check_text": "查看她此刻的情绪、破绽和异常反应" if not observed else "你已经看清她此刻最明显的情绪与破绽",
 		"check_tag_text": "",
 		"difficulty_text": "",
+		"reward_text": "",
 		"is_stage_action": true
 	})
 	views.append({
 		"id": "__intrude__",
 		"text": "入侵",
-		"is_available": not _to_bool(event_definition.get("dialogue_intrusion_used", false)),
-		"unmet_text": "本轮对话已经植入过一次魔念" if _to_bool(event_definition.get("dialogue_intrusion_used", false)) else "",
-		"check_text": _describe_selected_intrusion(event_definition, encounter_definition),
-		"check_tag_text": "",
-		"difficulty_text": "",
-		"is_stage_action": true
-	})
-	views.append({
-		"id": "__talk__",
-		"text": "对话",
 		"is_available": true,
 		"unmet_text": "",
-		"check_text": "进入正式对话，选择这一轮的试探、逼问或摊牌方式",
+		"check_text": "直接切入心战，用牌局撬开她的心防与破绽" if has_dialogue_battle else "当前节点尚未配置心战，将直接进入正式对话",
 		"check_tag_text": "",
 		"difficulty_text": "",
+		"reward_text": "",
 		"is_stage_action": true
 	})
 	return views
 
-func _build_dialogue_intrusion_option_views(event_definition: Dictionary, encounter_definition: Dictionary) -> Array[Dictionary]:
-	var views: Array[Dictionary] = []
-	for intrusion_definition: Dictionary in encounter_definition.get("intrusions", []):
-		var available: bool = not _to_bool(event_definition.get("dialogue_intrusion_used", false))
-		var unmet_text: String = ""
-		if _to_bool(event_definition.get("dialogue_intrusion_used", false)):
-			unmet_text = "本轮对话已经植入过一次魔念"
-		views.append({
-			"id": "__intrusion__:%s" % str(intrusion_definition.get("id", "")),
-			"text": str(intrusion_definition.get("label", intrusion_definition.get("id", ""))),
-			"is_available": available,
-			"unmet_text": unmet_text,
-			"check_text": str(intrusion_definition.get("description", "")),
-			"check_tag_text": str(intrusion_definition.get("domain_label", "魔念")),
-			"difficulty_text": "",
-			"is_stage_action": true
-		})
-	views.append({
-		"id": "__back__",
-		"text": "返回",
-		"is_available": true,
-		"unmet_text": "",
-		"check_text": "回到当前对话局的决策台",
-		"check_tag_text": "",
-		"difficulty_text": "",
-		"is_stage_action": true,
-		"is_continue": true
-	})
-	return views
-
-func _build_dialogue_talk_option_views(run_state: RunState, event_definition: Dictionary) -> Array[Dictionary]:
+func _build_dialogue_talk_option_views(
+	run_state: RunState,
+	event_definition: Dictionary,
+	content_repository: ContentRepository
+) -> Array[Dictionary]:
 	var result: Array[Dictionary] = []
 	for option_definition: Dictionary in event_definition.get("options", []):
-		var resolved_option: Dictionary = _resolve_dialogue_option_override(event_definition, option_definition)
-		var conditions: Array[Dictionary] = Array(resolved_option.get("conditions", []), TYPE_DICTIONARY, "", null)
+		var conditions: Array[Dictionary] = Array(option_definition.get("conditions", []), TYPE_DICTIONARY, "", null)
 		var is_available: bool = _condition_evaluator.evaluate_all(run_state, conditions)
 		var unmet: Array[String] = _condition_evaluator.get_unmet_descriptions(run_state, conditions)
-		var check_definition: Dictionary = Dictionary(resolved_option.get("check", {}))
+		var check_definition: Dictionary = Dictionary(option_definition.get("check", {}))
 		result.append({
-			"id": str(resolved_option.get("id", "")),
-			"text": str(resolved_option.get("text", "")),
+			"id": str(option_definition.get("id", "")),
+			"text": str(option_definition.get("text", "")),
 			"is_available": is_available,
 			"unmet_text": "" if unmet.is_empty() else GAME_TEXT.text("event_service.unmet_prefix") + "、".join(unmet),
 			"check_text": _describe_option_check(check_definition),
 			"check_tag_text": _describe_check_tag(check_definition),
 			"difficulty_text": _describe_check_difficulty(run_state, check_definition),
+			"reward_text": _describe_option_rewards(
+				Array(option_definition.get("effects", []), TYPE_DICTIONARY, "", null),
+				content_repository
+			),
 			"is_stage_action": false
 		})
 	return result
-
-func _describe_selected_intrusion(event_definition: Dictionary, encounter_definition: Dictionary) -> String:
-	var intrusion_id: String = str(event_definition.get("dialogue_intrusion_tag", ""))
-	if intrusion_id.is_empty():
-		return "尚未植入魔念"
-	var intrusion_definition: Dictionary = _find_intrusion_definition(encounter_definition, intrusion_id)
-	if intrusion_definition.is_empty():
-		return "当前魔念已植入"
-	return "已植入 %s" % str(intrusion_definition.get("label", intrusion_id))
-
-func _find_intrusion_definition(encounter_definition: Dictionary, intrusion_id: String) -> Dictionary:
-	for intrusion_definition: Dictionary in encounter_definition.get("intrusions", []):
-		if str(intrusion_definition.get("id", "")) == intrusion_id:
-			return intrusion_definition
-	return {}
 
 func _resolve_dialogue_mode(run_state: RunState) -> String:
 	if run_state.current_dialogue_mode.is_empty():
@@ -781,6 +752,75 @@ func _build_critical_text(system: String, critical_success: bool, critical_failu
 	if critical_failure:
 		return GAME_TEXT.text("event_service.critical.failure_d100") if system == "d100" else GAME_TEXT.text("event_service.critical.failure_d20")
 	return ""
+
+func _describe_option_rewards(effects: Array[Dictionary], content_repository: ContentRepository) -> String:
+	if effects.is_empty():
+		return ""
+	var always_text: String = _describe_effect_group(_filter_effects_for_summary(effects, "always"), content_repository)
+	var success_text: String = _describe_effect_group(_filter_effects_for_summary(effects, "success"), content_repository)
+	var failure_text: String = _describe_effect_group(_filter_effects_for_summary(effects, "failure"), content_repository)
+	var lines: Array[String] = []
+	if not always_text.is_empty():
+		lines.append("获得：%s" % always_text)
+	if not success_text.is_empty():
+		lines.append("成功：%s" % success_text)
+	if not failure_text.is_empty():
+		lines.append("失败：%s" % failure_text)
+	return "\n".join(lines)
+
+func _filter_effects_for_summary(effects: Array[Dictionary], outcome: String) -> Array[Dictionary]:
+	var filtered: Array[Dictionary] = []
+	for effect: Dictionary in effects:
+		var effect_outcome: String = str(effect.get("outcome", "always"))
+		if effect_outcome.is_empty():
+			effect_outcome = "always"
+		if effect_outcome == outcome:
+			filtered.append(effect)
+	return filtered
+
+func _describe_effect_group(effects: Array[Dictionary], content_repository: ContentRepository) -> String:
+	var parts: Array[String] = []
+	for effect: Dictionary in effects:
+		var effect_type: String = str(effect.get("type", ""))
+		match effect_type:
+			"modify_resource":
+				if str(effect.get("scope", "")) != "player":
+					continue
+				var resource_key: String = str(effect.get("key", ""))
+				var delta: int = int(effect.get("delta", 0))
+				if delta == 0:
+					continue
+				parts.append("%s%s%d" % [_describe_resource_label(resource_key), "+" if delta > 0 else "", delta])
+			"add_battle_card":
+				var card_id: String = str(effect.get("key", ""))
+				var card_definition: Dictionary = content_repository.get_battle_card_definition(card_id)
+				var card_name: String = str(card_definition.get("display_name", card_id))
+				parts.append("获得卡牌《%s》" % card_name)
+			"remove_battle_card":
+				var removed_card_id: String = str(effect.get("key", ""))
+				var removed_card_definition: Dictionary = content_repository.get_battle_card_definition(removed_card_id)
+				var removed_card_name: String = str(removed_card_definition.get("display_name", removed_card_id))
+				parts.append("移除卡牌《%s》" % removed_card_name)
+	return "，".join(parts)
+
+func _describe_resource_label(resource_key: String) -> String:
+	match resource_key:
+		"experience":
+			return "天魔经验"
+		"spirit_stone":
+			return "灵石"
+		"blood_qi":
+			return "血气"
+		"spirit_sense":
+			return "神识"
+		"clue_fragments":
+			return "线索碎片"
+		"pollution":
+			return "污染"
+		"exposure":
+			return "暴露"
+		_:
+			return resource_key
 
 func _describe_result_label(passed: bool) -> String:
 	return GAME_TEXT.text("event_service.result_labels.success") if passed else GAME_TEXT.text("event_service.result_labels.failure")

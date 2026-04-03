@@ -1,6 +1,6 @@
 [
 	{
-		"event_id": "dlg_outer_senior_guidance",
+		"event_id": "900201",
 		"intrusions": [
 			{
 				"description_id": "outer_senior_guidance.greed.desc",
@@ -27,7 +27,7 @@
 		"observation_text_id": "outer_senior_guidance.observe"
 	},
 	{
-		"event_id": "conditional_senior_test",
+		"event_id": "900202",
 		"intrusions": [
 			{
 				"description_id": "senior_test.greed.desc",

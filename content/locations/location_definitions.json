@@ -1,7 +1,7 @@
 [
   {
-    "id": "dormitory",
-    "story_id": "act1_well_whisper",
+    "id": "01",
+    "story_id": "01",
     "display_name": "茅草屋",
     "description": "外门杂役挤在一起的破屋。夜里风会漏进墙缝，也会把不该听见的话吹到耳边。",
     "tags": ["safe", "rest", "social"],
@@ -10,11 +10,11 @@
     "sort_order": 100,
     "availability_conditions": [],
     "base_actions": ["rest", "talk", "investigate"],
-    "present_npcs": ["friendly_peer"],
+    "present_npcs": ["01"],
     "content_slots": {
-      "resident_npcs": ["friendly_peer"],
-      "fixed_events": ["act1_day1_arrival"],
-      "investigation_events": ["dlg_friendly_peer_well_warning"],
+      "resident_npcs": ["01"],
+      "fixed_events": ["1001"],
+      "investigation_events": ["2001"],
       "random_events": ["act1_res_hidden_stash", "act1_ano_mark_on_wall"]
     },
     "linked_pools": ["act1_resource_pool", "act1_relationship_pool", "act1_anomaly_pool"],
@@ -22,8 +22,8 @@
     "locked_description": "你暂时还没有回到茅草屋的机会。"
   },
   {
-    "id": "corridor",
-    "story_id": "act1_well_whisper",
+    "id": "02",
+    "story_id": "01",
     "display_name": "外门广场",
     "description": "摊派、点名和月考都在这里发生。人越多，越容易把自己暴露给不该看见的人。",
     "tags": ["social", "risk", "patrol"],
@@ -32,11 +32,11 @@
     "sort_order": 200,
     "availability_conditions": [],
     "base_actions": ["talk", "investigate", "work"],
-    "present_npcs": ["herb_steward", "night_patrol_disciple"],
+    "present_npcs": ["02", "03"],
     "content_slots": {
-      "resident_npcs": ["herb_steward", "night_patrol_disciple"],
-      "fixed_events": ["act1_day2_missing_rumor", "act1_day7_final_judgement"],
-      "investigation_events": ["dlg_herb_steward_probe", "dlg_patrol_report_anomaly"],
+      "resident_npcs": ["02", "03"],
+      "fixed_events": ["1002", "1006"],
+      "investigation_events": ["2004", "2005"],
       "random_events": ["act1_rel_peer_small_talk", "act1_risk_patrol_question"]
     },
     "linked_pools": ["act1_relationship_pool", "act1_risk_pool"],
@@ -44,8 +44,8 @@
     "locked_description": "你现在还不能自由出入外门广场。"
   },
   {
-    "id": "herb_front",
-    "story_id": "act1_well_whisper",
+    "id": "03",
+    "story_id": "01",
     "display_name": "炼丹房外间",
     "description": "药味和血腥味混在一起的地方。疯长老偶尔会从里面探出头来，像挑牲口一样看人。",
     "tags": ["work", "records", "suspicion"],
@@ -54,14 +54,14 @@
     "sort_order": 300,
     "availability_conditions": [],
     "base_actions": ["work", "investigate", "talk"],
-    "present_npcs": ["outer_senior_brother"],
+    "present_npcs": ["04"],
     "linked_pools": ["act1_resource_pool", "act1_relationship_pool", "act1_risk_pool"],
     "blocked_description": "炼丹房暂时不许靠近。",
     "locked_description": "你暂时还没有资格接近炼丹房。"
   },
   {
-    "id": "herb_records",
-    "story_id": "act1_well_whisper",
+    "id": "04",
+    "story_id": "01",
     "display_name": "丹房旧账室",
     "description": "旧账册、试药簿和没来得及烧掉的纸页都堆在这里，是最容易摸到秘密的角落。",
     "tags": ["records", "restricted", "evidence"],
@@ -76,8 +76,8 @@
     "locked_description": "你还没找到进入丹房旧账室的方法。"
   },
   {
-    "id": "west_well_outer",
-    "story_id": "act1_well_whisper",
+    "id": "05",
+    "story_id": "01",
     "display_name": "化骨池外围",
     "description": "处理尸骨和废丹残渣的地方。白天都不安静，夜里更像会往外吐东西。",
     "tags": ["anomaly", "investigation", "high_risk"],
@@ -98,8 +98,8 @@
     "locked_description": "你现在还不能靠近化骨池。"
   },
   {
-    "id": "west_well_inner",
-    "story_id": "act1_well_whisper",
+    "id": "06",
+    "story_id": "01",
     "display_name": "丹炉内室",
     "description": "最深处的试药内室，疯长老在这里把人当成丹材，活着走出来本身就是一条路。",
     "tags": ["anomaly", "restricted", "forbidden"],

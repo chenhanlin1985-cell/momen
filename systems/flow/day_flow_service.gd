@@ -11,7 +11,7 @@ func _init(run_state_mutator: RunStateMutator) -> void:
 
 
 func advance_after_action(_run_state: RunState) -> void:
-	return
+	advance_after_event(_run_state)
 
 
 func advance_after_event(run_state: RunState) -> void:
@@ -23,7 +23,8 @@ func advance_after_event(run_state: RunState) -> void:
 			_run_state_mutator.set_phase(run_state, "day")
 			_run_state_mutator.append_log(run_state, GAME_TEXT.text("day_flow_service.logs.day_start"))
 		"day":
-			return
+			_run_state_mutator.set_phase(run_state, "night")
+			_run_state_mutator.append_log(run_state, GAME_TEXT.text("day_flow_service.logs.day_complete"))
 		"night":
 			_run_state_mutator.set_phase(run_state, "closing")
 			_run_state_mutator.append_log(run_state, GAME_TEXT.text("day_flow_service.logs.night_end"))

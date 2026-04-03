@@ -61,6 +61,10 @@ func _apply_effect(run_state: RunState, effect: Dictionary) -> void:
 				str(effect.get("field", "favor")),
 				int(effect.get("delta", 0))
 			)
+		"add_battle_card":
+			_run_state_mutator.add_battle_card(run_state, str(effect.get("key", "")))
+		"remove_battle_card":
+			_run_state_mutator.remove_battle_card(run_state, str(effect.get("key", "")))
 		"add_npc_tag":
 			_run_state_mutator.add_npc_tag(
 				run_state,
@@ -88,7 +92,12 @@ func _apply_effect(run_state: RunState, effect: Dictionary) -> void:
 		"add_followup_event":
 			_run_state_mutator.queue_followup_event(run_state, str(effect.get("key", "")))
 		"finish_run":
-			_run_state_mutator.finish_run(run_state, str(effect.get("reason_id", "event_resolution")))
+			var finish_reason: String = str(effect.get("reason_id", ""))
+			if finish_reason.is_empty():
+				finish_reason = str(effect.get("key", ""))
+			if finish_reason.is_empty():
+				finish_reason = "event_resolution"
+			_run_state_mutator.finish_run(run_state, finish_reason)
 		_:
 			pass
 

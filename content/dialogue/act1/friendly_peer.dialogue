@@ -3,7 +3,7 @@
 
 - 顺着她的话继续试探
     柳飞霞: 我只知道，他最后几夜总像被什么东西催着走。等他再回来时，袖口上总沾着一层黑褐色药灰。
-    do bridge.modify_npc_favor("friendly_peer", 1)
+    do bridge.modify_npc_favor("01", 1)
     do bridge.add_clue(1)
     do bridge.set_flag("cousin_death_linked", true)
     => END
@@ -11,6 +11,6 @@
 - 亮出玉简，看她还装不装
     柳飞霞: ……你果然把它留在身边。那就把它藏好。外门里盯着它的人，比盯着你的人还多。
     do bridge.set_flag("knows_cousin_secret", true)
-    do bridge.modify_npc_favor("friendly_peer", 2)
+    do bridge.modify_npc_favor("01", 2)
     do bridge.add_clue(1)
     => END

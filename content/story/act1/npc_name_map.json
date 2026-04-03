@@ -1,6 +1,6 @@
 [
-  { "id": "friendly_peer", "title": "柳飞霞", "aliases": ["同门"] },
-  { "id": "outer_senior_brother", "title": "疯长老", "aliases": ["外门师兄"] },
-  { "id": "herb_steward", "title": "执事王麻子", "aliases": ["王麻子", "药房执事"] },
-  { "id": "night_patrol_disciple", "title": "巡夜弟子", "aliases": ["夜巡弟子"] }
+  { "id": "01", "title": "柳飞霞", "aliases": ["同门"] },
+  { "id": "04", "title": "疯长老", "aliases": ["外门师兄"] },
+  { "id": "02", "title": "执事王麻子", "aliases": ["王麻子", "药房执事"] },
+  { "id": "03", "title": "巡夜弟子", "aliases": ["夜巡弟子"] }
 ]

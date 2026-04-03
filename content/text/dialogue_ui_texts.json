@@ -2,15 +2,11 @@
   "dialogue_panel": {
     "hub_hint": "先观察，再决定是否入侵，最后进入正式对话。",
     "hub_title": "本轮行动",
-    "intrude_hint": "一轮对话只能植入一次魔念。",
-    "intrude_title": "选择魔念",
-    "talk_hint": "魔念会改变这一轮对话的走向。",
+    "talk_hint": "正式对话会根据当前节点继续推进。",
     "talk_title": "对话选项",
-    "intrusion_none": "未植入魔念",
-    "intrusion_greed": "已植入：贪",
-    "intrusion_wrath": "已植入：嗔",
-    "intrusion_delusion": "已植入：痴",
     "observe_header": "【观察】",
-    "intruded_header": "【已植入】"
+    "stage_hub": "试探阶段",
+    "stage_observe": "观察阶段",
+    "stage_talk": "对话阶段"
   }
 }

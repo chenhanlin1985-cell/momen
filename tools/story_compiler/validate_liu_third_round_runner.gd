@@ -10,8 +10,8 @@ const EVENT_SERVICE_SCRIPT := preload("res://systems/event/event_service.gd")
 const META_PROGRESS_SCRIPT := preload("res://core/models/meta_progress.gd")
 
 const RUN_ID := "default_run"
-const TARGET_INTERACTION_ID := "friendly_peer_first_report"
-const TARGET_EVENT_ID := "friendly_peer_md_2102"
+const TARGET_INTERACTION_ID := "1104"
+const TARGET_EVENT_ID := "2102"
 
 func _initialize() -> void:
 	var compiler = COMPILER_SCRIPT.new()
@@ -31,7 +31,7 @@ func _initialize() -> void:
 
 	run_state.world_state.day = 3
 	run_state.world_state.current_phase = "day"
-	run_state.world_state.current_location_id = "dormitory"
+	run_state.world_state.current_location_id = "01"
 	run_state.world_state.actions_remaining = run_state.world_state.actions_per_day
 	run_state_mutator.set_global_flag(run_state, "liu_informant_active", true)
 

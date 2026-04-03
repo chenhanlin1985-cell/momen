@@ -1,0 +1,119 @@
+[
+  {
+    "id": "9101",
+    "story_id": "01",
+    "turn_intents": [
+      {
+        "intent_text_key": "battle.intent.9101.01",
+        "inject_card_ids": [
+          "9611"
+        ]
+      },
+      {
+        "intent_text_key": "battle.intent.9101.02",
+        "inject_card_ids": []
+      }
+    ],
+    "threshold_intents": [
+      {
+        "id": "9101_half",
+        "hp_lte": 15,
+        "intent_text_key": "battle.intent.9101.03",
+        "inject_card_ids": [
+          "9611"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "9201",
+    "story_id": "01",
+    "turn_intents": [
+      {
+        "intent_text_key": "battle.intent.9201.01",
+        "inject_card_ids": []
+      },
+      {
+        "intent_text_key": "battle.intent.9201.02",
+        "inject_card_ids": [
+          "9621"
+        ]
+      }
+    ],
+    "threshold_intents": [
+      {
+        "id": "9201_half",
+        "hp_lte": 12,
+        "intent_text_key": "battle.intent.9201.03",
+        "inject_card_ids": [
+          "9621"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "9301",
+    "story_id": "01",
+    "turn_intents": [
+      {
+        "intent_text_key": "battle.intent.9301.01",
+        "inject_card_ids": [
+          "9631"
+        ]
+      },
+      {
+        "intent_text_key": "battle.intent.9301.02",
+        "inject_card_ids": []
+      }
+    ],
+    "threshold_intents": [
+      {
+        "id": "9301_half",
+        "hp_lte": 10,
+        "intent_text_key": "battle.intent.9301.03",
+        "inject_card_ids": [
+          "9631"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "9401",
+    "story_id": "01",
+    "turn_intents": [
+      {
+        "intent_text_key": "battle.intent.9401.01",
+        "inject_card_ids": []
+      },
+      {
+        "intent_text_key": "battle.intent.9401.02",
+        "inject_card_ids": [
+          "9641"
+        ]
+      }
+    ],
+    "threshold_intents": [
+      {
+        "id": "9401_half",
+        "hp_lte": 14,
+        "intent_text_key": "battle.intent.9401.03",
+        "inject_card_ids": [
+          "9641"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "9501",
+    "story_id": "01",
+    "turn_intents": [
+      {
+        "intent_text_key": "battle.intent.9501.01",
+        "inject_card_ids": [
+          "9651"
+        ]
+      }
+    ],
+    "threshold_intents": []
+  }
+]

@@ -2,6 +2,7 @@ class_name RunState
 extends RefCounted
 
 const ENDING_RESULT_SCRIPT := preload("res://core/models/ending_result.gd")
+const BATTLE_STATE_SCRIPT := preload("res://core/models/battle_state.gd")
 
 var run_id: String = ""
 var story_id: String = ""
@@ -17,8 +18,8 @@ var current_event_result_text: String = ""
 var current_dialogue_mode: String = ""
 var current_dialogue_body_override_text: String = ""
 var current_dialogue_portrait_override_label: String = ""
-var current_dialogue_intrusion_tag: String = ""
-var current_dialogue_intrusion_used: bool = false
+var current_battle_resolution_text: String = ""
+var current_battle_state = null
 var is_run_over: bool = false
 var end_reason: String = ""
 var ending_result = null
@@ -47,8 +48,8 @@ func to_dict() -> Dictionary:
 		"current_dialogue_mode": current_dialogue_mode,
 		"current_dialogue_body_override_text": current_dialogue_body_override_text,
 		"current_dialogue_portrait_override_label": current_dialogue_portrait_override_label,
-		"current_dialogue_intrusion_tag": current_dialogue_intrusion_tag,
-		"current_dialogue_intrusion_used": current_dialogue_intrusion_used,
+		"current_battle_resolution_text": current_battle_resolution_text,
+		"current_battle_state": {} if current_battle_state == null else current_battle_state.to_dict(),
 		"is_run_over": is_run_over,
 		"end_reason": end_reason,
 		"ending_result": {} if ending_result == null else ending_result.to_dict()
@@ -68,8 +69,10 @@ static func from_dict(data: Dictionary) -> RunState:
 	state.current_dialogue_mode = str(data.get("current_dialogue_mode", ""))
 	state.current_dialogue_body_override_text = str(data.get("current_dialogue_body_override_text", ""))
 	state.current_dialogue_portrait_override_label = str(data.get("current_dialogue_portrait_override_label", ""))
-	state.current_dialogue_intrusion_tag = str(data.get("current_dialogue_intrusion_tag", ""))
-	state.current_dialogue_intrusion_used = _to_bool(data.get("current_dialogue_intrusion_used", false))
+	state.current_battle_resolution_text = str(data.get("current_battle_resolution_text", ""))
+	var battle_payload: Dictionary = data.get("current_battle_state", {})
+	if not battle_payload.is_empty():
+		state.current_battle_state = BATTLE_STATE_SCRIPT.from_dict(battle_payload)
 	state.is_run_over = _to_bool(data.get("is_run_over", false))
 	state.end_reason = str(data.get("end_reason", ""))
 	var ending_payload: Dictionary = data.get("ending_result", {})

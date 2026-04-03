@@ -7,12 +7,13 @@ const WRITER_DRAFT_OUT_FILE = "res://content/story/act1/md/generated_writer_draf
 const FRIENDLY_PEER_ARC_MD_OUT_FILE = "res://content/story/act1/md/archive/liu_current_arc.md"
 const DIALOGUE_MANIFEST_PATH = "res://content/dialogue/encounters/_manifest.json"
 const STORY_CSV_DIR = "res://content/story/act1/csv"
-const DEFAULT_STORY_ID = "act1_well_whisper"
+const DEFAULT_STORY_ID = "01"
 const EVENT_ID_MAP_PATH = "res://content/story/act1/event_id_map.json"
 const NPC_NAME_MAP_PATH = "res://content/story/act1/npc_name_map.json"
 const LOCATION_NAME_MAP_PATH = "res://content/story/act1/location_name_map.json"
 const STATUS_KEY_MAP_PATH = "res://content/story/act1/status_key_map.json"
 const AUTHOR_FOLDER_MAP_PATH = "res://content/story/act1/md/active/_folder_map.json"
+const BATTLE_CARD_DEFINITIONS_PATH = "res://content/battle/card_definitions.json"
 const DEFAULT_INTRUSION_SPECS := [
 	{
 		"id": "greed",
@@ -44,6 +45,8 @@ const CLASS_LABELS := {
 }
 const PRESENTATION_LABELS := {
 	"普通事件": "standard_event",
+	"紧凑抉择事件": "compact_choice_event",
+	"概要事件": "summary_event",
 	"三段式对话事件": "dialogue_event",
 	"结局事件": "ending_event",
 	"战斗事件": "combat_event"
@@ -110,6 +113,7 @@ var _npc_name_map: Dictionary = {}
 var _location_name_map: Dictionary = {}
 var _status_map_by_scope: Dictionary = {}
 var _author_folder_label_map: Dictionary = {}
+var _battle_card_name_map: Dictionary = {}
 
 func _run() -> void:
 	var result: Dictionary = compile_markdown()
@@ -130,6 +134,7 @@ func compile_markdown(write_output: bool = true) -> Dictionary:
 	_location_name_map = _load_named_id_map(LOCATION_NAME_MAP_PATH, "地点")
 	_status_map_by_scope = _load_status_key_map()
 	_author_folder_label_map = _load_author_folder_label_map()
+	_battle_card_name_map = _load_battle_card_name_map()
 	_runtime_event_id_map = _load_runtime_event_id_map()
 	var events: Array = []
 	var source_files: Array[String] = get_source_markdown_paths()
@@ -407,6 +412,7 @@ func export_event_ids_to_markdown(event_ids: Array[String], output_path: String,
 	_location_name_map = _load_named_id_map(LOCATION_NAME_MAP_PATH, "地点")
 	_status_map_by_scope = _load_status_key_map()
 	_author_folder_label_map = _load_author_folder_label_map()
+	_battle_card_name_map = _load_battle_card_name_map()
 	_runtime_event_id_map = _load_runtime_event_id_map()
 	var bundles: Array[Dictionary] = _load_current_event_bundles(_normalize_event_ids_for_export(event_ids))
 	if not _compile_errors.is_empty():
@@ -902,6 +908,8 @@ func parse_effects(val: String, outcome: String = "") -> Array:
 				effects.append(_with_outcome({"type": "modify_resource", "scope": "player", "key": "spirit_stone", "delta": v.to_int()}, outcome))
 			elif k == "污染度":
 				effects.append(_with_outcome({"type": "modify_resource", "scope": "player", "key": "pollution", "delta": v.to_int()}, outcome))
+			elif k == "天魔经验" or k == "经验":
+				effects.append(_with_outcome({"type": "modify_resource", "scope": "player", "key": "experience", "delta": v.to_int()}, outcome))
 			elif k == "增加标记":
 				effects.append(_with_outcome({"type": "add_tag", "scope": "player", "key": _parse_status_key(v, "player_tag")}, outcome))
 			elif k == "移除标记":
@@ -910,6 +918,10 @@ func parse_effects(val: String, outcome: String = "") -> Array:
 				effects.append(_with_outcome({"type": "set_flag", "key": _parse_status_key(v, "flag"), "value": true}, outcome))
 			elif k == "移除状态":
 				effects.append(_with_outcome({"type": "clear_flag", "key": _parse_status_key(v, "flag")}, outcome))
+			elif k == "获得卡牌" or k == "获得魔念卡":
+				effects.append(_with_outcome({"type": "add_battle_card", "key": _resolve_battle_card_id(v)}, outcome))
+			elif k == "移除卡牌" or k == "删除卡牌":
+				effects.append(_with_outcome({"type": "remove_battle_card", "key": _resolve_battle_card_id(v)}, outcome))
 			elif k == "NPC关系":
 				var relation_match := RegEx.new()
 				relation_match.compile("^(.+?)\\.([^\\s]+)\\s*([+-]?\\d+)$")
@@ -1162,6 +1174,36 @@ func _load_author_folder_label_map() -> Dictionary:
 			continue
 		result[folder] = label
 	return result
+
+func _load_battle_card_name_map() -> Dictionary:
+	var file: FileAccess = FileAccess.open(BATTLE_CARD_DEFINITIONS_PATH, FileAccess.READ)
+	if file == null:
+		_warn("未找到心战卡牌定义：%s" % BATTLE_CARD_DEFINITIONS_PATH)
+		return {}
+	var parsed: Variant = JSON.parse_string(file.get_as_text())
+	if typeof(parsed) != TYPE_ARRAY:
+		_warn("心战卡牌定义格式错误：%s" % BATTLE_CARD_DEFINITIONS_PATH)
+		return {}
+	var result: Dictionary = {}
+	for item: Variant in parsed:
+		if not item is Dictionary:
+			continue
+		var card_id: String = str(item.get("id", "")).strip_edges()
+		var display_name: String = str(item.get("display_name", "")).strip_edges()
+		if card_id.is_empty():
+			continue
+		result[card_id] = card_id
+		if not display_name.is_empty():
+			result[display_name] = card_id
+	return result
+
+func _resolve_battle_card_id(value: String) -> String:
+	var trimmed: String = value.strip_edges()
+	if trimmed.is_empty():
+		return ""
+	if _battle_card_name_map.has(trimmed):
+		return str(_battle_card_name_map[trimmed])
+	return trimmed
 
 func _infer_participants_from_path(path: String) -> Array[String]:
 	var folder_name: String = path.get_base_dir().get_file()
@@ -1895,7 +1937,8 @@ func _effects_to_markdown(effects: Array) -> String:
 					"spirit_sense": "神识",
 					"clue_fragments": "线索碎片",
 					"spirit_stone": "灵石",
-					"pollution": "污染度"
+					"pollution": "污染度",
+					"experience": "天魔经验"
 				}
 				var key: String = str(effect.get("key", ""))
 				var label: String = str(resource_label_map.get(key, key))
@@ -1912,6 +1955,10 @@ func _effects_to_markdown(effects: Array) -> String:
 				parts.append("增加标记: %s" % _status_key_to_label(str(effect.get("key", "")), "player_tag"))
 			"remove_tag":
 				parts.append("移除标记: %s" % _status_key_to_label(str(effect.get("key", "")), "player_tag"))
+			"add_battle_card":
+				parts.append("获得卡牌: %s" % _map_id_to_label(str(effect.get("key", "")), _battle_card_name_map))
+			"remove_battle_card":
+				parts.append("移除卡牌: %s" % _map_id_to_label(str(effect.get("key", "")), _battle_card_name_map))
 			"modify_npc_relation":
 				var delta_variant: Variant = effect.get("delta", "")
 				var relation_delta: String = str(delta_variant)
@@ -2633,6 +2680,8 @@ func _apply_option_metadata(option: Dictionary, metadata_text: String) -> void:
 				_apply_resource_cost(option, "spirit_sense", raw_value.to_int())
 			"气血", "消耗气血":
 				_apply_resource_cost(option, "blood_qi", raw_value.to_int())
+			"灵石", "消耗灵石":
+				_apply_resource_cost(option, "spirit_stone", raw_value.to_int())
 			"判定", "判定属性":
 				_set_check_stat(option, raw_value)
 			"难度", "目标":

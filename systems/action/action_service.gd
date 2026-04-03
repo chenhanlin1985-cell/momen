@@ -18,8 +18,6 @@ func _init(
 func execute_action(run_state: RunState, action_definition: Dictionary) -> Dictionary:
 	if run_state.is_run_over:
 		return {"success": false, "message": GAME_TEXT.text("action_service.errors.run_over")}
-	if run_state.world_state.actions_remaining <= 0:
-		return {"success": false, "message": GAME_TEXT.text("action_service.errors.unavailable")}
 
 	var availability_conditions: Array[Dictionary] = Array(
 		action_definition.get("availability_conditions", []),
@@ -35,7 +33,6 @@ func execute_action(run_state: RunState, action_definition: Dictionary) -> Dicti
 		_run_state_mutator.set_current_location_id(run_state, target_location_id)
 		_run_state_mutator.increment_location_visit_count(run_state, target_location_id)
 
-	_run_state_mutator.consume_action_point(run_state)
 	_apply_resource_changes(run_state, action_definition.get("base_costs", {}).get("resources", {}), -1)
 	_apply_resource_changes(run_state, action_definition.get("base_rewards", {}).get("resources", {}), 1)
 	_apply_stat_changes(run_state, action_definition.get("base_rewards", {}).get("stats", {}))

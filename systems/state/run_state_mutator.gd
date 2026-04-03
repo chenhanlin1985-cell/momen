@@ -50,6 +50,7 @@ func set_current_event(run_state: RunState, event_id: String) -> void:
 func clear_current_event(run_state: RunState) -> void:
 	run_state.current_event_id = ""
 	run_state.current_event_result_text = ""
+	run_state.current_battle_resolution_text = ""
 	_reset_dialogue_state(run_state)
 
 
@@ -68,18 +69,21 @@ func set_current_dialogue_body_override_text(run_state: RunState, body_text: Str
 func set_current_dialogue_portrait_override_label(run_state: RunState, portrait_label: String) -> void:
 	run_state.current_dialogue_portrait_override_label = portrait_label
 
+func set_current_battle_state(run_state: RunState, battle_state: BattleState) -> void:
+	run_state.current_battle_state = battle_state
 
-func set_current_dialogue_intrusion(run_state: RunState, intrusion_tag: String) -> void:
-	run_state.current_dialogue_intrusion_tag = intrusion_tag
-	run_state.current_dialogue_intrusion_used = not intrusion_tag.is_empty()
+func set_current_battle_resolution_text(run_state: RunState, summary_text: String) -> void:
+	run_state.current_battle_resolution_text = summary_text
+
+
+func clear_current_battle_state(run_state: RunState) -> void:
+	run_state.current_battle_state = null
 
 
 func _reset_dialogue_state(run_state: RunState) -> void:
 	run_state.current_dialogue_mode = ""
 	run_state.current_dialogue_body_override_text = ""
 	run_state.current_dialogue_portrait_override_label = ""
-	run_state.current_dialogue_intrusion_tag = ""
-	run_state.current_dialogue_intrusion_used = false
 
 
 func mark_event_triggered(run_state: RunState, event_id: String) -> void:
@@ -93,10 +97,13 @@ func start_next_day(run_state: RunState) -> void:
 	run_state.world_state.current_phase = "morning"
 	run_state.world_state.last_action_id = ""
 	run_state.world_state.last_action_category = ""
+	run_state.world_state.current_action_candidates.clear()
 
 
 func set_phase(run_state: RunState, phase: String) -> void:
 	run_state.world_state.current_phase = phase
+	if phase != "day":
+		run_state.world_state.current_action_candidates.clear()
 
 
 func set_last_action_id(run_state: RunState, action_id: String) -> void:
@@ -105,6 +112,14 @@ func set_last_action_id(run_state: RunState, action_id: String) -> void:
 
 func set_last_action_category(run_state: RunState, action_category: String) -> void:
 	run_state.world_state.last_action_category = action_category
+
+
+func set_current_action_candidates(run_state: RunState, candidate_ids: Array[String]) -> void:
+	run_state.world_state.current_action_candidates = Array(candidate_ids, TYPE_STRING, "", null)
+
+
+func clear_current_action_candidates(run_state: RunState) -> void:
+	run_state.world_state.current_action_candidates.clear()
 
 
 func set_current_location_id(run_state: RunState, location_id: String) -> void:
@@ -192,6 +207,22 @@ func modify_world_value(run_state: RunState, key: String, delta: int) -> void:
 func add_knowledge(run_state: RunState, key: String) -> void:
 	if not run_state.player_state.knowledge.has(key):
 		run_state.player_state.knowledge.append(key)
+
+
+func add_battle_card(run_state: RunState, card_id: String) -> void:
+	if card_id.is_empty():
+		return
+	run_state.player_state.removed_battle_card_ids.erase(card_id)
+	if not run_state.player_state.battle_card_ids.has(card_id):
+		run_state.player_state.battle_card_ids.append(card_id)
+
+
+func remove_battle_card(run_state: RunState, card_id: String) -> void:
+	if card_id.is_empty():
+		return
+	run_state.player_state.battle_card_ids.erase(card_id)
+	if not run_state.player_state.removed_battle_card_ids.has(card_id):
+		run_state.player_state.removed_battle_card_ids.append(card_id)
 
 
 func remove_player_tag(run_state: RunState, tag: String) -> void:

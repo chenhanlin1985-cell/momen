@@ -1,17 +1,17 @@
 {
   "flow_id": "act1_main_story_flow",
-  "story_id": "act1_well_whisper",
+  "story_id": "01",
   "act_id": "act1_blood_mist_outer_gate",
   "entry_node_id": "outer_gate_arrival",
   "nodes": [
     {
       "id": "outer_gate_arrival",
       "title": "初入血雾外门",
-      "event_id": "act1_day1_arrival",
+      "event_id": "1001",
       "day": 1,
       "hub_type": "exploration",
       "time_slot": "morning",
-      "location_id": "dormitory",
+      "location_id": "01",
       "required_flags": ["has_cousin_relic"],
       "description": "主角带着族兄留下的黑色玉简进入外门，先要在不暴露遗物的前提下活过最初几天。",
       "gate_requirements": [
@@ -31,18 +31,18 @@
         "label": "线索数量"
       },
       "supports_from": [
-        "dlg_friendly_peer_well_warning",
+        "2001",
         "act1_res_hidden_stash"
       ]
     },
     {
       "id": "deacon_extortion",
       "title": "执事的剥削",
-      "event_id": "act1_day2_missing_rumor",
+      "event_id": "1002",
       "day": 2,
       "hub_type": "exploration",
       "time_slot": "morning",
-      "location_id": "corridor",
+      "location_id": "02",
       "required_flags": [],
       "description": "王麻子开始按月敲榨，玩家第一次必须在资源、屈辱和暴露之间做取舍。",
       "gate_requirements": [
@@ -62,7 +62,7 @@
         "label": "线索数量"
       },
       "supports_from": [
-        "dlg_herb_steward_probe",
+        "2004",
         "act1_rel_peer_small_talk",
         "act1_risk_patrol_question"
       ]
@@ -70,11 +70,11 @@
     {
       "id": "midnight_visit",
       "title": "深夜祭药",
-      "event_id": "act1_day4_first_choice",
+      "event_id": "1003",
       "day": 4,
       "hub_type": "branching",
       "time_slot": "night",
-      "location_id": "dormitory",
+      "location_id": "01",
       "required_flags": ["has_cousin_relic"],
       "description": "柳飞霞在深夜带着药和试探而来。玩家要决定是否拿族兄遗物反试她，并确认自己更接近谁的局。",
       "gate_requirements": [
@@ -94,7 +94,7 @@
         "label": "线索数量"
       },
       "supports_from": [
-        "dlg_friendly_peer_well_warning",
+        "2001",
         "conditional_record_discovery",
         "act1_ano_wrong_name_whisper"
       ]
@@ -102,11 +102,11 @@
     {
       "id": "pill_trial",
       "title": "丹房惨叫",
-      "event_id": "act1_day5_lockdown",
+      "event_id": "1004",
       "day": 5,
       "hub_type": "branching",
       "time_slot": "night",
-      "location_id": "herb_front",
+      "location_id": "03",
       "required_flags": [],
       "description": "疯长老开始用活人试药。玩家若被盯上，就必须靠气血硬挺，或拿族兄遗物的秘密换一线生机。",
       "gate_requirements": [
@@ -126,19 +126,19 @@
         "label": "线索数量"
       },
       "supports_from": [
-        "dlg_outer_senior_guidance",
-        "conditional_senior_test",
+        "2003",
+        "2007",
         "act1_ano_hear_well_echo"
       ]
     },
     {
       "id": "exam_eve",
       "title": "月考前夜",
-      "event_id": "act1_day6_truth_reversal",
+      "event_id": "1005",
       "day": 6,
       "hub_type": "resolution",
       "time_slot": "night",
-      "location_id": "corridor",
+      "location_id": "02",
       "required_flags": [],
       "description": "月考前夜不再继续发散探索，而是逼迫玩家把前面拿到的线索、关系和 flags 收束成一条求生路线。",
       "gate_requirements": [
@@ -159,18 +159,18 @@
       },
       "supports_from": [
         "conditional_wrong_trust_payoff",
-        "dlg_patrol_report_anomaly",
+        "2005",
         "act1_risk_followed_in_dark"
       ]
     },
     {
       "id": "outer_gate_assessment",
       "title": "外门月考",
-      "event_id": "act1_day7_final_judgement",
+      "event_id": "1006",
       "day": 7,
       "hub_type": "resolution",
       "time_slot": "morning",
-      "location_id": "corridor",
+      "location_id": "02",
       "required_flags": [],
       "description": "所有支线在这里收束。系统不再回溯玩家完整走法，而是只检查你现在身上带着什么状态和筹码。",
       "gate_requirements": [
@@ -208,10 +208,10 @@
       ],
       "fallback_ending_id": "ending_bone_pool_death",
       "supports_from": [
-        "dlg_friendly_peer_well_warning",
-        "dlg_herb_steward_probe",
-        "dlg_outer_senior_guidance",
-        "act1_day6_truth_reversal"
+        "2001",
+        "2004",
+        "2003",
+        "1005"
       ]
     }
   ],

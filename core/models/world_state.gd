@@ -10,6 +10,7 @@ var actions_remaining: int = 2
 var current_phase: String = "morning"
 var last_action_id: String = ""
 var last_action_category: String = ""
+var current_action_candidates: Array[String] = []
 var current_location_id: String = ""
 var last_location_id: String = ""
 var location_states: Dictionary = {}
@@ -33,6 +34,7 @@ func to_dict() -> Dictionary:
 		"current_phase": current_phase,
 		"last_action_id": last_action_id,
 		"last_action_category": last_action_category,
+		"current_action_candidates": current_action_candidates.duplicate(),
 		"current_location_id": current_location_id,
 		"last_location_id": last_location_id,
 		"location_states": location_payload,
@@ -50,6 +52,7 @@ static func from_dict(data: Dictionary) -> WorldState:
 	state.current_phase = str(data.get("current_phase", "morning"))
 	state.last_action_id = str(data.get("last_action_id", ""))
 	state.last_action_category = str(data.get("last_action_category", ""))
+	state.current_action_candidates = Array(data.get("current_action_candidates", []), TYPE_STRING, "", null)
 	state.current_location_id = str(data.get("current_location_id", ""))
 	state.last_location_id = str(data.get("last_location_id", ""))
 	for location_id: String in data.get("location_states", {}).keys():

@@ -1,12 +1,12 @@
 [
   {
-    "id": "outer_senior_brother",
-    "story_id": "act1_well_whisper",
+    "id": "04",
+    "story_id": "01",
     "display_name": "疯长老",
     "role": "elder",
     "faction_id": "alchemy_hall",
     "tags": ["chaotic", "overwhelming", "pill_master"],
-    "default_location_id": "herb_front",
+    "default_location_id": "03",
     "portrait_path": "",
     "portrait_placeholder": "疯长老\n半身像占位",
     "available_interactions": ["talk", "seek_help"],
@@ -18,8 +18,8 @@
     "default_attitude": "喜怒无常",
     "default_state": "试药前兆",
     "state_event_ids": [
-      "dlg_outer_senior_guidance",
-      "conditional_senior_test",
+      "2003",
+      "2007",
       "conditional_wrong_trust_payoff"
     ],
     "initial_status_tags": [],
@@ -35,13 +35,13 @@
     ]
   },
   {
-    "id": "herb_steward",
-    "story_id": "act1_well_whisper",
+    "id": "02",
+    "story_id": "01",
     "display_name": "执事王麻子",
     "role": "deacon",
     "faction_id": "outer_gate",
     "tags": ["greedy", "cowardly", "collector"],
-    "default_location_id": "corridor",
+    "default_location_id": "02",
     "portrait_path": "",
     "portrait_placeholder": "王麻子\n半身像占位",
     "available_interactions": ["talk", "ask_records"],
@@ -53,8 +53,8 @@
     "default_attitude": "贪婪",
     "default_state": "四处摊派",
     "state_event_ids": [
-      "dlg_herb_steward_probe",
-      "conditional_patrol_interrogation"
+      "2004",
+      "2008"
     ],
     "initial_status_tags": [],
     "initial_flags": {
@@ -69,13 +69,13 @@
     ]
   },
   {
-    "id": "friendly_peer",
-    "story_id": "act1_well_whisper",
+    "id": "01",
+    "story_id": "01",
     "display_name": "柳飞霞",
     "role": "peer",
     "faction_id": "outer_gate",
     "tags": ["suspicious", "poisoner", "self_serving"],
-    "default_location_id": "dormitory",
+    "default_location_id": "01",
     "portrait_path": "res://assets/art/portraits/npcs/01/01_default.png",
     "portrait_variants": {
       "生气": "res://assets/art/portraits/npcs/01/01_ang.png",
@@ -91,9 +91,9 @@
     "default_attitude": "试探",
     "default_state": "借旧情接近你",
     "state_event_ids": [
-      "dlg_friendly_peer_well_warning",
-      "dlg_friendly_peer_shadow_contact",
-      "friendly_peer_md_2102"
+      "2001",
+      "2002",
+      "2102"
     ],
     "initial_status_tags": [],
     "initial_flags": {
@@ -108,13 +108,13 @@
     ]
   },
   {
-    "id": "night_patrol_disciple",
-    "story_id": "act1_well_whisper",
+    "id": "03",
+    "story_id": "01",
     "display_name": "巡夜弟子",
     "role": "patrol",
     "faction_id": "discipline_hall",
     "tags": ["watchful", "duty_bound"],
-    "default_location_id": "corridor",
+    "default_location_id": "02",
     "portrait_path": "",
     "portrait_placeholder": "巡夜弟子\n半身像占位",
     "available_interactions": ["talk", "report"],
@@ -126,7 +126,7 @@
     "default_attitude": "警惕",
     "default_state": "照例巡夜",
     "state_event_ids": [
-      "dlg_patrol_report_anomaly"
+      "2005"
     ],
     "initial_status_tags": [],
     "initial_flags": {

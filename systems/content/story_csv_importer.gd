@@ -40,6 +40,7 @@ func import_directory(csv_dir: String) -> Array[Dictionary]:
 			"dialogue_resource_path": str(row.get("dialogue_resource_path", "")),
 			"dialogue_start_cue": str(row.get("dialogue_start_cue", "")),
 			"combat_enemy_id": str(row.get("combat_enemy_id", "")),
+			"battle_id": str(row.get("battle_id", "")),
 			"combatant_name": _resolve_text(texts, str(row.get("combat_name_key", ""))),
 			"combat_guard": _to_int(row.get("combat_guard", "0")),
 			"combat_damage": _to_int(row.get("combat_damage", "0")),

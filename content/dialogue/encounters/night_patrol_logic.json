@@ -1,6 +1,6 @@
 [
 	{
-		"event_id": "dlg_patrol_report_anomaly",
+		"event_id": "900401",
 		"intrusions": [
 			{
 				"description_id": "patrol_report_anomaly.greed.desc",
@@ -27,7 +27,7 @@
 		"observation_text_id": "patrol_report_anomaly.observe"
 	},
 	{
-		"event_id": "conditional_patrol_interrogation",
+		"event_id": "900402",
 		"intrusions": [
 			{
 				"description_id": "patrol_interrogation.greed.desc",

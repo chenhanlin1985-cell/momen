@@ -1,12 +1,12 @@
-﻿[
+[
   {
     "id": "default_run",
-    "story_id": "act1_well_whisper",
+    "story_id": "01",
     "display_name": "血雾外门短篇",
     "opening_title": "血雾外门",
     "opening_lines": [
       "你带着族兄留下的遗物，被迫留在血雾弥漫的外门。月考将近，所有人都在抢一条能活下去的路。",
-      "执事、疯长老、巡夜弟子和同门都可能成为你的线索来源，也可能把你推向更深的泥潭。",
+      "外门里每一个朝你看过来的人，都可能藏着线索，也都可能顺手把你推进更深的泥潭。",
       "第一章的目标很简单：在最后的外门考核到来前，为自己积累足够的线索、筹码和立场。"
     ],
     "opening_sequence": [
@@ -121,7 +121,7 @@
         "title": "血雾外门",
         "lines": [
           "你带着族兄留下的遗物，被迫留在血雾弥漫的外门。月考将近，所有人都在抢一条能活下去的路。",
-          "执事、疯长老、巡夜弟子和同门都可能成为你的线索来源，也可能把你推向更深的泥潭。",
+          "外门里每一个朝你看过来的人，都可能藏着线索，也都可能顺手把你推进更深的泥潭。",
           "这一次，你不再只是会被碾死的外门杂役。"
         ],
         "goal_summary": "主目标：活过第一章最后的外门考核。\n开局目标：借柳飞霞之口确认族兄死亡背后的阴谋，并在第一天内拿到第一条可用线索。",
@@ -133,16 +133,16 @@
         ]
       }
     ],
-    "opening_goal_summary": "主目标：活过第一章最后的外门考核。\n当前要做的事：在不同地点移动，通过探索、交涉与对抗不断积累线索和状态。",
+    "opening_goal_summary": "主目标：活过第一章最后的外门考核。\n当前要做的事：系统会依次推进每天的节点；若没有必然或条件事件，你就要从三项随机抉择里选出今天的白天行动。",
     "opening_start_button_text": "进入外门",
     "starting_day": 1,
     "max_day": 7,
     "actions_per_day": 1,
-    "starting_location_id": "dormitory",
+    "starting_location_id": "01",
     "starting_unlocked_locations": [
-      "dormitory",
-      "corridor",
-      "herb_front"
+      "01",
+      "02",
+      "03"
     ],
     "player_init": {
       "attribute_roles": {
@@ -195,10 +195,10 @@
       ]
     },
     "starting_npcs": [
-      "outer_senior_brother",
-      "friendly_peer",
-      "night_patrol_disciple",
-      "herb_steward"
+      "04",
+      "01",
+      "03",
+      "02"
     ],
     "story_csv_dir": "res://content/story/act1/csv",
     "main_story_flow_path": "res://content/story/act1/main_story_flow.json",

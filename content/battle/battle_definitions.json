@@ -1,0 +1,136 @@
+[
+  {
+    "id": "9101",
+    "story_id": "01",
+    "entry_event_id": "2001",
+    "result_event_id_success": "9102",
+    "result_event_id_failure": "9103",
+    "enemy_mind_id": "9101",
+    "starter_deck": [
+      "9111",
+      "9112",
+      "9113",
+      "9121",
+      "9122",
+      "9123"
+    ],
+    "initial_hand_size": 4,
+    "redraw_cost": 1,
+    "end_turn_recoil": 1,
+    "max_sanity": 12,
+    "exp_reward": 2,
+    "reward_card_ids": [
+      "9131",
+      "9132"
+    ],
+    "ui_style": "9101",
+    "opening_log_text": "战意裂开，柳飞霞的心防第一次被你真正看见。"
+  },
+  {
+    "id": "9201",
+    "story_id": "01",
+    "entry_event_id": "2004",
+    "result_event_id_success": "9202",
+    "result_event_id_failure": "9203",
+    "enemy_mind_id": "9201",
+    "starter_deck": [
+      "9111",
+      "9112",
+      "9113",
+      "9121",
+      "9122",
+      "9123"
+    ],
+    "initial_hand_size": 4,
+    "redraw_cost": 1,
+    "end_turn_recoil": 1,
+    "max_sanity": 12,
+    "exp_reward": 2,
+    "reward_card_ids": [
+      "9141",
+      "9142"
+    ],
+    "ui_style": "9201",
+    "opening_log_text": "药房执事嘴上还在拨账，心里已经开始盘算该先拿谁来灭口。"
+  },
+  {
+    "id": "9301",
+    "story_id": "01",
+    "entry_event_id": "2005",
+    "result_event_id_success": "9302",
+    "result_event_id_failure": "9303",
+    "enemy_mind_id": "9301",
+    "starter_deck": [
+      "9111",
+      "9112",
+      "9113",
+      "9121",
+      "9122",
+      "9123"
+    ],
+    "initial_hand_size": 4,
+    "redraw_cost": 1,
+    "end_turn_recoil": 1,
+    "max_sanity": 12,
+    "exp_reward": 2,
+    "reward_card_ids": [
+      "9151",
+      "9152"
+    ],
+    "ui_style": "9301",
+    "opening_log_text": "夜巡弟子的呼吸很稳，可那份稳正说明他知道得太多。"
+  },
+  {
+    "id": "9401",
+    "story_id": "01",
+    "entry_event_id": "2003",
+    "result_event_id_success": "9402",
+    "result_event_id_failure": "9403",
+    "enemy_mind_id": "9401",
+    "starter_deck": [
+      "9111",
+      "9112",
+      "9113",
+      "9121",
+      "9122",
+      "9123"
+    ],
+    "initial_hand_size": 4,
+    "redraw_cost": 1,
+    "end_turn_recoil": 1,
+    "max_sanity": 12,
+    "exp_reward": 3,
+    "reward_card_ids": [
+      "9161",
+      "9162"
+    ],
+    "ui_style": "9401",
+    "opening_log_text": "疯长老嘴里的疯话并不散，真正危险的是他把每句话都当药引。"
+  },
+  {
+    "id": "9501",
+    "story_id": "01",
+    "entry_event_id": "9501",
+    "result_event_id_success": "9502",
+    "result_event_id_failure": "9503",
+    "enemy_mind_id": "9501",
+    "starter_deck": [
+      "9111",
+      "9112",
+      "9113",
+      "9121",
+      "9122",
+      "9123"
+    ],
+    "initial_hand_size": 4,
+    "redraw_cost": 1,
+    "end_turn_recoil": 1,
+    "max_sanity": 12,
+    "exp_reward": 1,
+    "reward_card_ids": [
+      "9171"
+    ],
+    "ui_style": "9501",
+    "opening_log_text": "外门低级弟子只是来找茬，可他身上正适合给你练手。"
+  }
+]

@@ -652,19 +652,19 @@ func _describe_flag_list(values: Array[String]) -> Array[String]:
 
 func _describe_flag(flag_key: String) -> String:
 	var labels: Dictionary = {
-		"heard_well_warning": "已听闻西井警告",
+		"heard_well_warning": "已听闻化骨池警告",
 		"missing_rumor_confirmed": "已确认失踪传闻",
-		"met_outer_senior": "已接触外门师兄",
+		"met_outer_senior": "已接触疯长老",
 		"met_herb_steward": "已接触药房执事",
 		"entered_records_room": "已进入记录间",
 		"records_tampered_confirmed": "已确认账册被篡改",
 		"approached_inner_well": "已靠近井边禁区",
-		"marked_by_well": "已被西井标记",
+		"marked_by_well": "已被化骨池标记",
 		"reported_to_patrol": "已向夜巡上报",
-		"trusted_outer_senior": "已信任外门师兄",
+		"trusted_outer_senior": "已信任疯长老",
 		"prepared_report": "已准备上报",
 		"prepared_descent": "已准备深入",
-		"accepted_whisper": "已接受低语"
+		"accepted_whisper": "已接受池底异声"
 	}
 	return str(labels.get(flag_key, flag_key))
 

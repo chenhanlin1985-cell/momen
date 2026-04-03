@@ -2,7 +2,7 @@
   {
     "id": "blood_runner",
     "display_name": "催命血役",
-    "story_id": "act1_well_whisper",
+    "story_id": "01",
     "role": "enforcer",
     "tags": ["humanoid", "outer_gate", "combat"],
     "guard": 12,

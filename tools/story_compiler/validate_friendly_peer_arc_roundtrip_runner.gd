@@ -3,9 +3,9 @@ extends SceneTree
 const COMPILER_SCRIPT := preload("res://tools/story_compiler/markdown_story_compiler.gd")
 
 const TARGET_EVENT_IDS: Array[String] = [
-	"dlg_friendly_peer_well_warning",
-	"dlg_friendly_peer_shadow_contact",
-	"friendly_peer_md_2102"
+	"2001",
+	"2002",
+	"2102"
 ]
 
 func _initialize() -> void:

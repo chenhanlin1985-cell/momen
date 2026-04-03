@@ -2,15 +2,11 @@ class_name MainGameViewModel
 extends RefCounted
 
 const GAME_TEXT := preload("res://systems/content/game_text.gd")
-
-
 static func build(
 	run_state: RunState,
-	available_locations: Array[Dictionary],
 	current_location: Dictionary,
 	present_npcs: Array[Dictionary],
 	visible_actions: Array[Dictionary],
-	npc_interactions: Array[Dictionary],
 	current_event: Dictionary,
 	event_hints: Array[String],
 	current_event_option_views: Array[Dictionary],
@@ -48,14 +44,6 @@ static func build(
 		goal_text_lines.append(GAME_TEXT.text("view_model.goal_sections.tasks", "当前任务"))
 		goal_text_lines.append_array(task_lines)
 
-	var location_lines: Array[String] = []
-	for location_definition: Dictionary in available_locations:
-		var listed_location_name: String = str(location_definition.get("display_name", location_definition.get("id", "")))
-		var location_note: String = str(location_definition.get("description", ""))
-		if str(location_definition.get("id", "")) == run_state.world_state.current_location_id:
-			listed_location_name = GAME_TEXT.format_text("view_model.location_current_prefix", [listed_location_name])
-		location_lines.append("%s\n%s" % [listed_location_name, location_note] if not location_note.is_empty() else listed_location_name)
-
 	var npc_lines: Array[String] = []
 	for npc_definition: Dictionary in present_npcs:
 		npc_lines.append(
@@ -73,32 +61,23 @@ static func build(
 	for action_definition: Dictionary in visible_actions:
 		action_lines.append(str(action_definition.get("display_name", action_definition.get("id", ""))))
 
-	var interaction_lines: Array[String] = []
-	for interaction: Dictionary in npc_interactions:
-		interaction_lines.append(
-			GAME_TEXT.format_text(
-				"view_model.interaction_line",
-				[
-					str(interaction.get("npc_display_name", interaction.get("npc_id", ""))),
-					str(interaction.get("display_name", interaction.get("id", "")))
-				]
-			)
-		)
-
 	var event_title: String = ""
 	var event_body: String = ""
 	var event_text: String = ""
-	var event_presentation_type: String = "standard_event"
 	var event_speaker_text: String = ""
 	var event_portrait_text: String = ""
+	var event_type_key: String = ""
+	var event_type_text: String = ""
+	var event_type_description_text: String = ""
+	var event_type_short_text: String = ""
+	var has_battle: bool = run_state.current_battle_state != null
+	var is_dialogue_event: bool = false
 	if not current_event.is_empty():
-		event_presentation_type = str(current_event.get("presentation_type", "standard_event"))
+		is_dialogue_event = str(current_event.get("presentation_type", "standard_event")) == "dialogue_event"
 		event_title = str(current_event.get("title", GAME_TEXT.text("view_model.current_event_title")))
 		event_body = str(current_event.get("description", ""))
 		if _to_bool(current_event.get("awaiting_continue", false)):
 			event_body = str(current_event.get("result_text", event_body))
-		if event_presentation_type == "combat_event":
-			event_body = _build_combat_body(current_event, event_body)
 		event_speaker_text = str(current_event.get("speaker_display_name", event_title))
 		event_portrait_text = str(
 			current_event.get(
@@ -107,16 +86,24 @@ static func build(
 			)
 		)
 		event_text = "%s\n%s" % [event_title, event_body]
+		var event_type_data: Dictionary = _resolve_gameplay_event_type(current_event, has_battle, run_state)
+		event_type_key = str(event_type_data.get("key", ""))
+		event_type_text = str(event_type_data.get("full", ""))
+		event_type_description_text = str(event_type_data.get("description", ""))
+		event_type_short_text = str(event_type_data.get("short", ""))
 
 	var ending_text: String = ""
 	var ending_title: String = ""
 	var ending_body: String = ""
+	var ending_outcome_type: String = ""
 	if run_state.ending_result != null:
 		ending_title = run_state.ending_result.title
 		ending_body = run_state.ending_result.description
+		ending_outcome_type = str(run_state.ending_result.outcome_type)
 		ending_text = "%s\n%s" % [ending_title, ending_body]
 
 	var story_text: String = _build_story_text(run_state)
+	var summary_text: String = story_text
 	var phase_text: String = _describe_phase(run_state.world_state.current_phase)
 	var activity_text: String = _describe_activity_text(run_state.world_state.current_phase)
 	var stats_text: String = GAME_TEXT.format_text(
@@ -153,32 +140,41 @@ static func build(
 
 	var stage_title: String = GAME_TEXT.text("view_model.stage_titles.location")
 	var stage_body: String = "%s\n\n%s" % [location_name, location_scene_text]
-	if not current_event.is_empty():
-		stage_title = event_title
-		stage_body = event_body
-	elif run_state.is_run_over:
+	if run_state.is_run_over:
 		stage_title = ending_title if not ending_title.is_empty() else GAME_TEXT.text("view_model.stage_titles.ending")
 		stage_body = ending_body if not ending_body.is_empty() else GAME_TEXT.text("view_model.ending_body_fallback")
+	elif not current_event.is_empty():
+		stage_title = event_type_text if not event_type_text.is_empty() else event_title
+		stage_body = event_body
+		summary_text = _build_compact_summary_text(event_title, event_body)
 
 	var status_text: String = GAME_TEXT.format_text(
 		"view_model.status.available_actions",
 		[", ".join(action_lines) if not action_lines.is_empty() else GAME_TEXT.text("view_model.status.none")]
 	)
-	if not current_event.is_empty():
-		if event_presentation_type == "dialogue_event":
-			status_text = GAME_TEXT.format_text("view_model.status.dialogue", [event_speaker_text])
-		elif event_presentation_type == "combat_event":
-			status_text = GAME_TEXT.format_text("view_model.status.combat", [event_title])
-		else:
-			status_text = event_text
-	elif run_state.is_run_over:
+	if run_state.is_run_over:
 		status_text = ending_text if not ending_text.is_empty() else GAME_TEXT.format_text("view_model.status.run_over", [run_state.end_reason])
+	elif has_battle:
+		status_text = GAME_TEXT.format_text(
+			"view_model.status.battle",
+			[str(run_state.current_battle_state.enemy_display_name)]
+		)
+	elif not current_event.is_empty():
+		if is_dialogue_event:
+			status_text = GAME_TEXT.format_text(
+				"view_model.status.dialogue_typed" if not event_type_text.is_empty() else "view_model.status.dialogue",
+				[event_speaker_text, event_type_text] if not event_type_text.is_empty() else [event_speaker_text]
+			)
+		else:
+			status_text = "%s\n%s" % [event_type_text, event_text] if not event_type_text.is_empty() else event_text
 
 	var scene_mode: String = "location"
-	if not current_event.is_empty():
-		scene_mode = "dialogue" if event_presentation_type == "dialogue_event" else "event"
-	elif run_state.is_run_over:
+	if run_state.is_run_over:
 		scene_mode = "ending"
+	elif has_battle:
+		scene_mode = "battle"
+	elif not current_event.is_empty():
+		scene_mode = "dialogue" if is_dialogue_event else "event"
 
 	return {
 		"scene_mode": scene_mode,
@@ -206,20 +202,24 @@ static func build(
 		"location_text": GAME_TEXT.format_text("view_model.hud.location", [location_name]),
 		"event_title_text": event_title,
 		"event_body_text": event_body,
-		"event_presentation_type": event_presentation_type,
+		"event_type_text": event_type_text,
+		"event_type_description_text": event_type_description_text,
+		"event_type_key": event_type_key,
+		"event_type_short_text": event_type_short_text,
 		"event_speaker_text": event_speaker_text,
 		"event_portrait_text": event_portrait_text,
 		"ending_title_text": ending_title,
 		"ending_body_text": ending_body,
+		"ending_outcome_type": ending_outcome_type,
 		"stage_title_text": stage_title,
 		"stage_body_text": stage_body,
 		"npc_text": "\n".join(npc_lines) if not npc_lines.is_empty() else GAME_TEXT.text("view_model.empty.npc_text"),
 		"stats_text": stats_text,
 		"attribute_roles_text": attribute_roles_text,
 		"story_text": story_text,
+		"summary_text": summary_text,
 		"goal_text": "\n".join(goal_text_lines) if not goal_text_lines.is_empty() else GAME_TEXT.text("view_model.empty.goal_text"),
 		"action_text": ", ".join(action_lines),
-		"interaction_text": ", ".join(interaction_lines),
 		"event_text": event_text,
 		"hint_text": hint_text,
 		"location_mount_text": _build_location_mount_text(current_location, location_mount_traces),
@@ -227,9 +227,107 @@ static func build(
 		"option_hint_text": option_hint_text,
 		"log_text": "\n".join(run_state.log_entries),
 		"ending_text": ending_text,
-		"location_list_text": "\n\n".join(location_lines),
 		"status_text": status_text
 	}
+
+
+static func _resolve_gameplay_event_type(current_event: Dictionary, has_battle: bool, run_state: RunState) -> Dictionary:
+	var event_id: String = str(current_event.get("id", current_event.get("event_id", "")))
+	var battle_id: String = str(current_event.get("battle_id", ""))
+	if has_battle:
+		if run_state.current_battle_state != null:
+			battle_id = str(run_state.current_battle_state.battle_id)
+		return _resolve_battle_type_text(event_id, battle_id)
+	if _is_review_event(event_id):
+		return {
+			"key": "review",
+			"full": GAME_TEXT.text("view_model.event_types.review"),
+			"description": GAME_TEXT.text("view_model.event_type_descriptions.review"),
+			"short": GAME_TEXT.text("view_model.event_types_short.review")
+		}
+	if _is_shop_event(event_id):
+		return {
+			"key": "shop",
+			"full": GAME_TEXT.text("view_model.event_types.shop"),
+			"description": GAME_TEXT.text("view_model.event_type_descriptions.shop"),
+			"short": GAME_TEXT.text("view_model.event_types_short.shop")
+		}
+	if not battle_id.is_empty():
+		return _resolve_battle_type_text(event_id, battle_id)
+	var event_class: String = str(current_event.get("event_class", ""))
+	var content_category: String = str(current_event.get("content_category", ""))
+	if event_class == "random_filler" or content_category == "random_disturbance":
+		return {
+			"key": "random",
+			"full": GAME_TEXT.text("view_model.event_types.random"),
+			"description": GAME_TEXT.text("view_model.event_type_descriptions.random"),
+			"short": GAME_TEXT.text("view_model.event_types_short.random")
+		}
+	if _is_reward_event(event_id):
+		return {
+			"key": "reward",
+			"full": GAME_TEXT.text("view_model.event_types.reward"),
+			"description": GAME_TEXT.text("view_model.event_type_descriptions.reward"),
+			"short": GAME_TEXT.text("view_model.event_types_short.reward")
+		}
+	if str(current_event.get("presentation_type", "")) == "dialogue_event":
+		return {
+			"key": "dialogue",
+			"full": GAME_TEXT.text("view_model.event_types.dialogue"),
+			"description": GAME_TEXT.text("view_model.event_type_descriptions.dialogue"),
+			"short": GAME_TEXT.text("view_model.event_types_short.dialogue")
+		}
+	return {
+		"key": "story",
+		"full": GAME_TEXT.text("view_model.event_types.story"),
+		"description": GAME_TEXT.text("view_model.event_type_descriptions.story"),
+		"short": GAME_TEXT.text("view_model.event_types_short.story")
+	}
+
+
+static func _resolve_battle_type_text(event_id: String, battle_id: String) -> Dictionary:
+	var battle_key: String = "normal_battle"
+	if battle_id == "9101" or event_id == "2001":
+		battle_key = "boss_battle"
+	elif battle_id in ["9201", "9301", "9401"] or event_id in ["2004", "2005", "2003"]:
+		battle_key = "elite_battle"
+	return {
+		"key": battle_key,
+		"full": GAME_TEXT.text("view_model.event_types.%s" % battle_key),
+		"description": GAME_TEXT.text("view_model.event_type_descriptions.%s" % battle_key),
+		"short": GAME_TEXT.text("view_model.event_types_short.%s" % battle_key)
+	}
+
+
+static func _is_reward_event(event_id: String) -> bool:
+	return event_id in [
+		"1301", "1302", "1303",
+		"2002", "2007", "2102",
+		"2201", "2202", "2203",
+		"2301", "2302", "2303",
+		"2401", "2402", "2403",
+		"conditional_record_discovery",
+		"conditional_whisper_deepens"
+	]
+
+
+static func _is_review_event(event_id: String) -> bool:
+	return event_id in ["3301", "3302"]
+
+
+static func _is_shop_event(event_id: String) -> bool:
+	return event_id in ["3401", "3402"]
+
+
+static func _build_compact_summary_text(event_title: String, event_body: String) -> String:
+	var trimmed_title: String = event_title.strip_edges()
+	var trimmed_body: String = event_body.strip_edges()
+	if trimmed_body.is_empty():
+		return trimmed_title
+	var first_block: String = String(trimmed_body.split("\n\n", false)[0]).strip_edges()
+	if trimmed_title.is_empty():
+		return first_block
+	return "%s\n%s" % [trimmed_title, first_block]
 
 
 static func _build_attribute_roles_text(attribute_roles: Dictionary) -> String:
@@ -242,27 +340,6 @@ static func _build_attribute_roles_text(attribute_roles: Dictionary) -> String:
 			continue
 		lines.append("%s：%s" % [str(labels.get(key, key)), role_text])
 	return "\n".join(lines) if not lines.is_empty() else GAME_TEXT.text("view_model.empty.attribute_roles")
-
-
-static func _build_combat_body(current_event: Dictionary, description: String) -> String:
-	var lines: Array[String] = []
-	var combatant_name: String = str(current_event.get("combatant_name", ""))
-	if not combatant_name.is_empty():
-		lines.append(GAME_TEXT.format_text("view_model.combat.opponent", [combatant_name]))
-	var combat_guard: int = int(current_event.get("combat_guard", 0))
-	var combat_damage: int = int(current_event.get("combat_damage", 0))
-	var combat_hp: int = int(current_event.get("combat_hp", 0))
-	if combat_guard > 0 or combat_damage > 0 or combat_hp > 0:
-		lines.append(GAME_TEXT.format_text("view_model.combat.stats", [combat_guard, combat_damage, combat_hp]))
-	var combat_escape_target: int = int(current_event.get("combat_escape_target", 0))
-	if combat_escape_target > 0:
-		lines.append(GAME_TEXT.format_text("view_model.combat.escape", [combat_escape_target]))
-	if description.is_empty():
-		return "\n".join(lines)
-	if lines.is_empty():
-		return description
-	return "%s\n\n%s" % ["\n".join(lines), description]
-
 
 static func _build_location_mount_text(current_location: Dictionary, location_mount_traces: Array[Dictionary]) -> String:
 	var content_slots: Dictionary = Dictionary(current_location.get("content_slots", {}))

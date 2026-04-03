@@ -12,6 +12,11 @@ const ENDINGS_PATH: String = "res://content/endings/ending_definitions.json"
 const EVENTS_PATH: String = "res://content/events/event_definitions.json"
 const LOCATIONS_PATH: String = "res://content/locations/location_definitions.json"
 const ENEMIES_PATH: String = "res://content/enemies/enemy_definitions.json"
+const BATTLE_CARDS_PATH: String = "res://content/battle/card_definitions.json"
+const BATTLE_ENEMY_MINDS_PATH: String = "res://content/battle/enemy_mind_definitions.json"
+const BATTLE_DEFINITIONS_PATH: String = "res://content/battle/battle_definitions.json"
+const BATTLE_POLLUTION_PROFILES_PATH: String = "res://content/battle/pollution_profiles.json"
+const BATTLE_TEXTS_PATH: String = "res://content/battle/battle_texts.json"
 const DIALOGUE_ENCOUNTER_MANIFEST_PATH: String = "res://content/dialogue/encounters/_manifest.json"
 
 var _actions_by_id: Dictionary = {}
@@ -23,6 +28,11 @@ var _ending_definitions: Array[Dictionary] = []
 var _events_by_id: Dictionary = {}
 var _locations_by_id: Dictionary = {}
 var _enemies_by_id: Dictionary = {}
+var _battle_cards_by_id: Dictionary = {}
+var _battle_enemy_minds_by_id: Dictionary = {}
+var _battle_definitions_by_id: Dictionary = {}
+var _battle_pollution_profiles_by_id: Dictionary = {}
+var _battle_texts_by_id: Dictionary = {}
 var _story_events_by_run_id: Dictionary = {}
 var _main_story_flows_by_run_id: Dictionary = {}
 var _dialogue_encounters_by_event_id: Dictionary = {}
@@ -38,6 +48,11 @@ func _init() -> void:
 	_events_by_id = _index_by_id(_load_array_file(EVENTS_PATH))
 	_locations_by_id = _index_by_id(_load_array_file(LOCATIONS_PATH))
 	_enemies_by_id = _index_by_id(_load_array_file(ENEMIES_PATH))
+	_battle_cards_by_id = _index_by_id(_load_array_file(BATTLE_CARDS_PATH))
+	_battle_enemy_minds_by_id = _index_by_id(_load_array_file(BATTLE_ENEMY_MINDS_PATH))
+	_battle_definitions_by_id = _index_by_id(_load_array_file(BATTLE_DEFINITIONS_PATH))
+	_battle_pollution_profiles_by_id = _index_by_id(_load_array_file(BATTLE_POLLUTION_PROFILES_PATH))
+	_battle_texts_by_id = _load_dictionary_file(BATTLE_TEXTS_PATH)
 	_story_events_by_run_id = _build_story_event_lookup()
 	_main_story_flows_by_run_id = _build_main_story_flow_lookup()
 	_build_dialogue_encounter_content()
@@ -122,6 +137,40 @@ func get_enemy_definitions() -> Array[Dictionary]:
 	for enemy_id: String in _enemies_by_id.keys():
 		result.append(_enemies_by_id[enemy_id].duplicate(true))
 	return result
+
+func get_battle_card_definition(card_id: String) -> Dictionary:
+	return _battle_cards_by_id.get(card_id, {}).duplicate(true)
+
+func get_battle_card_definitions() -> Array[Dictionary]:
+	var result: Array[Dictionary] = []
+	for card_id: String in _battle_cards_by_id.keys():
+		result.append(_battle_cards_by_id[card_id].duplicate(true))
+	return result
+
+func get_battle_enemy_mind_definition(enemy_mind_id: String) -> Dictionary:
+	return _battle_enemy_minds_by_id.get(enemy_mind_id, {}).duplicate(true)
+
+func get_battle_definition(battle_id: String) -> Dictionary:
+	return _battle_definitions_by_id.get(battle_id, {}).duplicate(true)
+
+func get_battle_pollution_profile_definition(profile_id: String) -> Dictionary:
+	return _battle_pollution_profiles_by_id.get(profile_id, {}).duplicate(true)
+
+func get_battle_definition_by_entry_event_id(event_id: String) -> Dictionary:
+	for battle_id: String in _battle_definitions_by_id.keys():
+		var definition: Dictionary = Dictionary(_battle_definitions_by_id[battle_id])
+		if str(definition.get("entry_event_id", "")) == event_id:
+			return definition.duplicate(true)
+	return {}
+
+func get_battle_definitions() -> Array[Dictionary]:
+	var result: Array[Dictionary] = []
+	for battle_id: String in _battle_definitions_by_id.keys():
+		result.append(_battle_definitions_by_id[battle_id].duplicate(true))
+	return result
+
+func get_battle_texts() -> Dictionary:
+	return _battle_texts_by_id.duplicate(true)
 
 func get_ending_definitions() -> Array[Dictionary]:
 	return _ending_definitions.duplicate(true)
@@ -220,6 +269,30 @@ func get_visible_actions(
 		)
 		if condition_evaluator.evaluate_all(run_state, conditions):
 			visible_actions.append(definition.duplicate(true))
+	visible_actions.sort_custom(func(a: Dictionary, b: Dictionary) -> bool:
+		return int(a.get("sort_order", 0)) < int(b.get("sort_order", 0))
+	)
+	return visible_actions
+
+
+func get_visible_day_node_actions(
+	run_state: RunState,
+	condition_evaluator: ConditionEvaluator
+) -> Array[Dictionary]:
+	var visible_actions: Array[Dictionary] = []
+	for action_id: String in _actions_by_id.keys():
+		var definition: Dictionary = _actions_by_id[action_id]
+		if not _to_bool(definition.get("is_visible", true)):
+			continue
+		var conditions: Array[Dictionary] = Array(
+			definition.get("availability_conditions", []),
+			TYPE_DICTIONARY,
+			"",
+			null
+		)
+		if not condition_evaluator.evaluate_all(run_state, conditions):
+			continue
+		visible_actions.append(definition.duplicate(true))
 	visible_actions.sort_custom(func(a: Dictionary, b: Dictionary) -> bool:
 		return int(a.get("sort_order", 0)) < int(b.get("sort_order", 0))
 	)

@@ -50,7 +50,7 @@ func _build_world_state(run_definition: Dictionary, content_repository: ContentR
 	state.global_flags = world_init.get("global_flags", {}).duplicate(true)
 	state.values = world_init.get("values", {}).duplicate(true)
 	state.tags = Array(world_init.get("tags", []), TYPE_STRING, "", null)
-	state.current_location_id = str(run_definition.get("starting_location_id", "dormitory"))
+	state.current_location_id = str(run_definition.get("starting_location_id", "01"))
 	state.last_location_id = ""
 	state.location_states = _build_location_states(run_definition, content_repository)
 	return state
