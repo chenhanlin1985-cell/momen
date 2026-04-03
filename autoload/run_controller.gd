@@ -658,20 +658,17 @@ func _complete_current_battle() -> void:
 				battle_state.enemy_display_name
 			)
 		)
+	var result_event_id: String = battle_state.result_event_id_success if battle_state.is_player_victory else battle_state.result_event_id_failure
+	_run_state_mutator.clear_current_battle_state(run_state)
 	if not battle_state.is_player_victory:
 		_run_state_mutator.set_global_flag(run_state, "battle_failure_demon_deviation", true)
-		_run_state_mutator.clear_current_battle_state(run_state)
-		_run_state_mutator.clear_current_event(run_state)
-		_run_state_mutator.finish_run(run_state, "battle_defeat")
-		_finalize_progression(run_state, true, true)
-		return
-	var result_event_id: String = battle_state.result_event_id_success
-	_run_state_mutator.clear_current_battle_state(run_state)
 	if not result_event_id.is_empty():
 		_set_current_event_and_start_battle(run_state, result_event_id)
 		_run_state_mutator.set_current_battle_resolution_text(run_state, "\n".join(resolution_summary_lines))
 	else:
 		_run_state_mutator.clear_current_event(run_state)
+		if not battle_state.is_player_victory:
+			_run_state_mutator.finish_run(run_state, "battle_defeat")
 	_finalize_progression(run_state, true, result_event_id.is_empty())
 
 func _set_current_event_and_start_battle(run_state: RunState, event_id: String) -> void:
