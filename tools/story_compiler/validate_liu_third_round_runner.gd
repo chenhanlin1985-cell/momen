@@ -1,6 +1,5 @@
 extends SceneTree
 
-const COMPILER_SCRIPT := preload("res://tools/story_compiler/markdown_story_compiler.gd")
 const CONTENT_REPOSITORY_SCRIPT := preload("res://systems/content/content_repository.gd")
 const RUN_INITIALIZER_SCRIPT := preload("res://systems/run/run_initializer.gd")
 const CONDITION_EVALUATOR_SCRIPT := preload("res://systems/condition/condition_evaluator.gd")
@@ -14,12 +13,6 @@ const TARGET_INTERACTION_ID := "1104"
 const TARGET_EVENT_ID := "2102"
 
 func _initialize() -> void:
-	var compiler = COMPILER_SCRIPT.new()
-	var compile_result: Dictionary = compiler.apply_current_project_assets(true)
-	if not _to_bool(compile_result.get("success", false)):
-		_fail("Markdown assets writeback failed: %s" % str(compile_result.get("errors", [])))
-		return
-
 	var content_repository = CONTENT_REPOSITORY_SCRIPT.new()
 	var run_initializer = RUN_INITIALIZER_SCRIPT.new()
 	var condition_evaluator = CONDITION_EVALUATOR_SCRIPT.new()
@@ -39,8 +32,8 @@ func _initialize() -> void:
 	if event_definition.is_empty():
 		_fail("Missing story event definition: %s" % TARGET_EVENT_ID)
 		return
-	if str(event_definition.get("presentation_type", "")) != "dialogue_event":
-		_fail("Expected %s to be dialogue_event, got %s" % [TARGET_EVENT_ID, str(event_definition.get("presentation_type", ""))])
+	if str(event_definition.get("presentation_type", "")) != "standard_event":
+		_fail("Expected %s to be standard_event, got %s" % [TARGET_EVENT_ID, str(event_definition.get("presentation_type", ""))])
 		return
 
 	var interactions: Array[Dictionary] = npc_service.get_available_interactions_for_current_location(run_state, content_repository)
@@ -66,21 +59,21 @@ func _initialize() -> void:
 	if current_event.is_empty():
 		_fail("Current event definition failed to resolve for %s" % TARGET_EVENT_ID)
 		return
-	if str(current_event.get("presentation_type", "")) != "dialogue_event":
-		_fail("Resolved current event is not dialogue_event: %s" % str(current_event.get("presentation_type", "")))
-		return
-	if Dictionary(current_event.get("dialogue_encounter", {})).is_empty():
-		_fail("Dialogue encounter not attached for %s" % TARGET_EVENT_ID)
+	if str(current_event.get("presentation_type", "")) != "standard_event":
+		_fail("Resolved current event is not standard_event: %s" % str(current_event.get("presentation_type", "")))
 		return
 
 	var option_views: Array[Dictionary] = event_service.get_current_event_option_views(run_state, content_repository)
 	var option_ids: Array[String] = []
 	for option_view: Dictionary in option_views:
 		option_ids.append(str(option_view.get("id", "")))
-	var expected_stage_ids: Array[String] = ["__observe__", "__intrude__", "__talk__"]
-	for expected_id: String in expected_stage_ids:
-		if not option_ids.has(expected_id):
-			_fail("Missing dialogue stage option %s in %s" % [expected_id, str(option_ids)])
+	var expected_option_ids: Array[String] = ["2102_opt_01", "2102_opt_02"]
+	if option_ids != expected_option_ids:
+		_fail("Unexpected option ids: %s" % str(option_ids))
+		return
+	for invalid_id: String in ["__observe__", "__intrude__", "__talk__"]:
+		if option_ids.has(invalid_id):
+			_fail("Unexpected stage option %s in %s" % [invalid_id, str(option_ids)])
 			return
 
 	print("Liu third-round validation passed")

@@ -7,7 +7,6 @@ const STORY_EVENT_SCHEDULER_SCRIPT := preload("res://systems/event/story_event_s
 const BATTLE_SERVICE_SCRIPT := preload("res://systems/battle/battle_service.gd")
 const DIALOGUE_MODE_HUB: String = "hub"
 const DIALOGUE_MODE_OBSERVE: String = "observe"
-const DIALOGUE_MODE_TALK: String = "talk"
 
 var _condition_evaluator: ConditionEvaluator
 var _run_state_mutator: RunStateMutator
@@ -288,8 +287,6 @@ func _resolve_dialogue_portrait_label(definition: Dictionary) -> String:
 	var mode: String = str(definition.get("dialogue_mode", DIALOGUE_MODE_HUB))
 	if mode == DIALOGUE_MODE_OBSERVE:
 		return str(encounter_definition.get("observation_portrait_label", "")).strip_edges()
-	if mode == DIALOGUE_MODE_TALK:
-		return str(encounter_definition.get("talk_portrait_label", "")).strip_edges()
 	return str(encounter_definition.get("opening_portrait_label", "")).strip_edges()
 
 func get_current_event_option_views(
@@ -318,26 +315,7 @@ func get_current_event_option_views(
 	if presentation_type == "dialogue_event" and not Dictionary(event_definition.get("dialogue_encounter", {})).is_empty():
 		return _build_dialogue_stage_option_views(run_state, event_definition, content_repository)
 
-	var result: Array[Dictionary] = []
-	for option_definition: Dictionary in event_definition.get("options", []):
-		var check_definition: Dictionary = Dictionary(option_definition.get("check", {}))
-		var conditions: Array[Dictionary] = Array(option_definition.get("conditions", []), TYPE_DICTIONARY, "", null)
-		var is_available: bool = _condition_evaluator.evaluate_all(run_state, conditions)
-		var unmet: Array[String] = _condition_evaluator.get_unmet_descriptions(run_state, conditions)
-		result.append({
-			"id": str(option_definition.get("id", "")),
-			"text": str(option_definition.get("text", "")),
-			"is_available": is_available,
-			"unmet_text": "" if unmet.is_empty() else GAME_TEXT.text("event_service.unmet_prefix") + "、".join(unmet),
-			"check_text": _describe_option_check(check_definition),
-			"check_tag_text": _describe_check_tag(check_definition),
-			"difficulty_text": _describe_check_difficulty(run_state, check_definition),
-			"reward_text": _describe_option_rewards(
-				Array(option_definition.get("effects", []), TYPE_DICTIONARY, "", null),
-				content_repository
-			)
-		})
-	return result
+	return _build_standard_option_views(run_state, event_definition, content_repository)
 
 func _handle_dialogue_stage_control(
 	run_state: RunState,
@@ -388,7 +366,6 @@ func _handle_dialogue_stage_control(
 					)
 					_run_state_mutator.set_current_battle_state(run_state, battle_state)
 					return true
-			_run_state_mutator.set_current_dialogue_mode(run_state, DIALOGUE_MODE_TALK)
 			return true
 	return false
 
@@ -397,9 +374,11 @@ func _build_dialogue_stage_option_views(
 	event_definition: Dictionary,
 	content_repository: ContentRepository
 ) -> Array[Dictionary]:
-	var mode: String = str(event_definition.get("dialogue_mode", DIALOGUE_MODE_HUB))
-	if mode == DIALOGUE_MODE_TALK:
-		return _build_dialogue_talk_option_views(run_state, event_definition, content_repository)
+	var has_dialogue_battle: bool = not content_repository.get_battle_definition_by_entry_event_id(
+		str(event_definition.get("id", ""))
+	).is_empty()
+	if not has_dialogue_battle:
+		return _build_standard_option_views(run_state, event_definition, content_repository)
 	return _build_dialogue_hub_option_views(event_definition, content_repository)
 
 func _build_dialogue_hub_option_views(
@@ -422,20 +401,21 @@ func _build_dialogue_hub_option_views(
 		"reward_text": "",
 		"is_stage_action": true
 	})
-	views.append({
-		"id": "__intrude__",
-		"text": "入侵",
-		"is_available": true,
-		"unmet_text": "",
-		"check_text": "直接切入心战，用牌局撬开她的心防与破绽" if has_dialogue_battle else "当前节点尚未配置心战，将直接进入正式对话",
-		"check_tag_text": "",
-		"difficulty_text": "",
-		"reward_text": "",
-		"is_stage_action": true
-	})
+	if has_dialogue_battle:
+		views.append({
+			"id": "__intrude__",
+			"text": "入侵",
+			"is_available": true,
+			"unmet_text": "",
+			"check_text": "直接切入心战，用牌局撬开她的心防与破绽",
+			"check_tag_text": "",
+			"difficulty_text": "",
+			"reward_text": "",
+			"is_stage_action": true
+		})
 	return views
 
-func _build_dialogue_talk_option_views(
+func _build_standard_option_views(
 	run_state: RunState,
 	event_definition: Dictionary,
 	content_repository: ContentRepository

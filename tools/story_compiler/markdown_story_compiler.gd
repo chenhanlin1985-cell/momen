@@ -663,8 +663,14 @@ func _apply_event_structure_defaults(event: Dictionary) -> void:
 		or not Dictionary(event.get("intrusion_texts", {})).is_empty()
 		or not Dictionary(event.get("intrusion_options", {})).is_empty()
 	)
-	if has_dialogue_structure and str(event.get("presentation_type", "standard_event")) == "standard_event":
+	var presentation_type: String = str(event.get("presentation_type", "standard_event"))
+	var has_battle_entry: bool = not str(event.get("battle_id", "")).strip_edges().is_empty()
+	if has_dialogue_structure and presentation_type == "standard_event" and has_battle_entry:
 		event["presentation_type"] = "dialogue_event"
+		return
+	if presentation_type == "dialogue_event" and not has_battle_entry:
+		event["presentation_type"] = "standard_event"
+		_warn("事件 %s 标记为 dialogue_event 但没有 battle_id，已自动降级为 standard_event" % str(event.get("id", "")))
 
 func apply_metadata(event: Dictionary, key: String, val: String):
 	if key == "条件":

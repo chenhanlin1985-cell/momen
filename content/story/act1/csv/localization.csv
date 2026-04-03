@@ -131,7 +131,7 @@ opt.act1_risk_wrong_time_wrong_place.pretend_errand.result,你只能先拿一套
 opt.act1_risk_wrong_time_wrong_place.pretend_errand.success,你那套借口说得刚好，不多不少，对方虽然多看了你两眼，却还是把这次碰面当成了普通跑腿。
 opt.act1_risk_wrong_time_wrong_place.pretend_errand.failure,你话一出口就知道借口编得太急。对方虽然没当场拆穿，却明显把你这次出现的时辰和位置一并记了下来。
 evt.2002.title,柳飞霞递来暗线
-evt.2002.desc,
+evt.2002.desc,第二天白日，柳飞霞比平时更早守在破屋阴影里。她没有再提旧情，只低声说昨夜有人在问你，也在问那块玉简。她把声音压得很低，像是怕王麻子的耳目正贴在墙后听。
 opt.2002_opt_01.text,先听她开出的条件
 opt.2002_opt_01.result,你先让她把筹码摆到桌面上，看看她究竟想拿什么换这条暗线。
 opt.2002_opt_02.text,逼她表态到底站哪边

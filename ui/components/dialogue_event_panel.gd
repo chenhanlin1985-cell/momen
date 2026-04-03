@@ -165,12 +165,14 @@ func _render_dialogue_event(
 	var final_title_text: String = GAME_TEXT.text("main_screen.section_titles.decision", "当前决策")
 	var final_title_visible: bool = true
 	if not Dictionary(event_definition.get("dialogue_encounter", {})).is_empty():
+		var has_stage_actions: bool = false
+		for option_view: Dictionary in option_views:
+			if _to_bool(option_view.get("is_stage_action", false)):
+				has_stage_actions = true
+				break
 		var mode: String = str(event_definition.get("dialogue_mode", "hub"))
-		match mode:
-			"hub":
-				final_hint_text = GAME_TEXT.text("dialogue_panel.hub_hint")
-			"talk":
-				final_hint_text = GAME_TEXT.text("dialogue_panel.talk_hint")
+		if mode == "hub" and has_stage_actions:
+			final_hint_text = GAME_TEXT.text("dialogue_panel.hub_hint")
 
 	for option_view: Dictionary in option_views:
 		_dialogue_options_container.add_child(_build_option_card(option_view))
@@ -369,8 +371,6 @@ func _resolve_dialogue_stage_label(event_definition: Dictionary) -> String:
 	match str(event_definition.get("dialogue_mode", "hub")):
 		"observe":
 			return GAME_TEXT.text("dialogue_panel.stage_observe")
-		"talk":
-			return GAME_TEXT.text("dialogue_panel.stage_talk")
 		_:
 			return GAME_TEXT.text("dialogue_panel.stage_hub")
 
@@ -389,8 +389,6 @@ func _resolve_dialogue_body_text(event_definition: Dictionary, default_text: Str
 			if observation_text.is_empty():
 				return GAME_TEXT.text("dialogue_panel.observe_header")
 			return "%s\n%s" % [GAME_TEXT.text("dialogue_panel.observe_header"), observation_text]
-		"talk":
-			return ""
 		_:
 			return opening_text
 

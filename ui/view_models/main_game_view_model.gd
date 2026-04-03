@@ -73,7 +73,7 @@ static func build(
 	var has_battle: bool = run_state.current_battle_state != null
 	var is_dialogue_event: bool = false
 	if not current_event.is_empty():
-		is_dialogue_event = str(current_event.get("presentation_type", "standard_event")) == "dialogue_event"
+		is_dialogue_event = _should_use_dialogue_scene(current_event)
 		event_title = str(current_event.get("title", GAME_TEXT.text("view_model.current_event_title")))
 		event_body = str(current_event.get("description", ""))
 		if _to_bool(current_event.get("awaiting_continue", false)):
@@ -270,7 +270,7 @@ static func _resolve_gameplay_event_type(current_event: Dictionary, has_battle: 
 			"description": GAME_TEXT.text("view_model.event_type_descriptions.reward"),
 			"short": GAME_TEXT.text("view_model.event_types_short.reward")
 		}
-	if str(current_event.get("presentation_type", "")) == "dialogue_event":
+	if _should_use_dialogue_scene(current_event):
 		return {
 			"key": "dialogue",
 			"full": GAME_TEXT.text("view_model.event_types.dialogue"),
@@ -297,6 +297,16 @@ static func _resolve_battle_type_text(event_id: String, battle_id: String) -> Di
 		"description": GAME_TEXT.text("view_model.event_type_descriptions.%s" % battle_key),
 		"short": GAME_TEXT.text("view_model.event_types_short.%s" % battle_key)
 	}
+
+
+static func _should_use_dialogue_scene(current_event: Dictionary) -> bool:
+	var presentation_type: String = str(current_event.get("presentation_type", "standard_event"))
+	if presentation_type == "dialogue_event":
+		return true
+	if presentation_type == "compact_choice_event" or presentation_type == "summary_event":
+		return false
+	var speaker_npc_id: String = str(current_event.get("speaker_npc_id", "")).strip_edges()
+	return not speaker_npc_id.is_empty()
 
 
 static func _is_reward_event(event_id: String) -> bool:
