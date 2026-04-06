@@ -1,7 +1,7 @@
 extends PanelContainer
 
 signal selected(slot_index: int)
-signal card_dropped(slot_index: int, card_id: String)
+signal card_dropped(slot_index: int, card_ref: String)
 
 var slot_index: int = -1
 var accepted_group: String = ""
@@ -17,15 +17,15 @@ func _ensure_ui() -> void:
 		return
 	mouse_filter = Control.MOUSE_FILTER_PASS
 	mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
-	custom_minimum_size = Vector2(0, 120)
+	custom_minimum_size = Vector2(0, 88)
 	size_flags_horizontal = Control.SIZE_EXPAND_FILL
 
 	var padding: MarginContainer = MarginContainer.new()
 	padding.set_anchors_preset(Control.PRESET_FULL_RECT)
-	padding.add_theme_constant_override("margin_left", 12)
-	padding.add_theme_constant_override("margin_top", 12)
-	padding.add_theme_constant_override("margin_right", 12)
-	padding.add_theme_constant_override("margin_bottom", 12)
+	padding.add_theme_constant_override("margin_left", 10)
+	padding.add_theme_constant_override("margin_top", 8)
+	padding.add_theme_constant_override("margin_right", 10)
+	padding.add_theme_constant_override("margin_bottom", 8)
 	add_child(padding)
 
 	_title_label = Label.new()
@@ -64,7 +64,7 @@ func _drop_data(_at_position: Vector2, data: Variant) -> void:
 	if not _can_drop_data(_at_position, data):
 		return
 	_apply_slot_style(false)
-	card_dropped.emit(slot_index, str(data.get("card_id", "")))
+	card_dropped.emit(slot_index, str(data.get("card_ref", "")))
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_DRAG_END:

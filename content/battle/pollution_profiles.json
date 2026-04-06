@@ -32,12 +32,6 @@
       {
         "intent_text_key": "battle.intent.9201.01",
         "inject_card_ids": []
-      },
-      {
-        "intent_text_key": "battle.intent.9201.02",
-        "inject_card_ids": [
-          "9621"
-        ]
       }
     ],
     "threshold_intents": [

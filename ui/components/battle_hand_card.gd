@@ -1,7 +1,8 @@
 extends PanelContainer
 
-signal activated(card_id: String)
+signal activated(card_ref: String)
 
+var card_ref: String = ""
 var card_id: String = ""
 var card_group: String = ""
 
@@ -51,6 +52,7 @@ func _ensure_ui() -> void:
 
 func configure(card_view: Dictionary) -> void:
 	_ensure_ui()
+	card_ref = str(card_view.get("card_ref", card_view.get("card_id", "")))
 	card_id = str(card_view.get("card_id", ""))
 	card_group = str(card_view.get("card_group", ""))
 	_name_label.text = str(card_view.get("text", card_id))
@@ -98,10 +100,10 @@ func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		var mouse_event: InputEventMouseButton = event as InputEventMouseButton
 		if mouse_event.button_index == MOUSE_BUTTON_LEFT and mouse_event.pressed:
-			activated.emit(card_id)
+			activated.emit(card_ref)
 
 func _get_drag_data(_at_position: Vector2) -> Variant:
-	if card_id.is_empty():
+	if card_ref.is_empty():
 		return null
 	var preview_panel: PanelContainer = PanelContainer.new()
 	preview_panel.custom_minimum_size = Vector2(160, 96)
@@ -118,6 +120,7 @@ func _get_drag_data(_at_position: Vector2) -> Variant:
 	set_drag_preview(preview_panel)
 	return {
 		"type": "battle_card",
+		"card_ref": card_ref,
 		"card_id": card_id,
 		"card_group": card_group
 	}

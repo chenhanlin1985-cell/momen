@@ -4,8 +4,8 @@
     "npc_id": "01",
     "story_id": "01",
     "display_name": "柳飞霞",
-    "max_hp": 42,
-    "start_hp": 42,
+    "max_hp": 38,
+    "start_hp": 38,
     "start_sanity_pressure": 0,
     "slot_count": 2,
     "vulnerability_tags": [
@@ -22,12 +22,10 @@
     "vulnerability_multi_tag_multipliers": {
       "01": 1.6
     },
-    "resistance_extra_cost_by_base_type": {
-      "01": 1
-    },
+    "resistance_extra_cost_by_base_type": {},
     "resistance_score_delta_by_base_type": {
       "01": 1,
-      "03": -2
+      "03": -1
     },
     "counter_profile_id": "9101",
     "victory_rewards": [
@@ -40,8 +38,8 @@
     "npc_id": "02",
     "story_id": "01",
     "display_name": "王麻子",
-    "max_hp": 34,
-    "start_hp": 34,
+    "max_hp": 32,
+    "start_hp": 32,
     "start_sanity_pressure": 0,
     "slot_count": 2,
     "vulnerability_tags": [

@@ -95,4 +95,99 @@
 
 - 玩家可见文本继续全部外置
 - `battle_texts.json` 负责卡牌说明、敌方意图、HUD 文案、污染提示
+
+## 验证入口
+
+战斗系统现在已经提供了一条一键验证入口：
+
+- [run_battle_validation_suite.ps1](/e:/game/momen/tools/validation/run_battle_validation_suite.ps1)
+
+执行方式：
+
+```powershell
+& 'e:\game\momen\tools\validation\run_battle_validation_suite.ps1'
+```
+
+这条入口会顺序跑完当前最关键的战斗验证：
+
+- 战斗定义完整性
+- 失败链是否都能进入失败收束
+- 软锁与无解终局
+- 端到端胜负链
+- 结果事件后的状态清理
+- 存档 / 读档恢复
+- 视图同步
+- 污染牌反制窗口
+- 指定敌人额外倍率
+- 粗略平衡估计
+
+## 验证分层建议
+
+后续如果继续调整战斗系统，建议按下面三层来跑，而不是只靠实机打一两场。
+
+### 1. 改内容或事件链接时
+
+至少运行：
+
+- [validate_all_battle_integrity_runner.gd](/e:/game/momen/tools/validation/validate_all_battle_integrity_runner.gd)
+- [validate_all_battle_failure_flow_runner.gd](/e:/game/momen/tools/validation/validate_all_battle_failure_flow_runner.gd)
+- [validate_battle_end_to_end_runner.gd](/e:/game/momen/tools/validation/validate_battle_end_to_end_runner.gd)
+
+这一层主要防：
+
+- `battle_id`、敌方定义、结果事件缺失
+- 失败后无法进入失败收束
+- 胜负结果链断掉
+
+### 2. 改规则或状态机时
+
+至少运行：
+
+- [validate_battle_softlock_runner.gd](/e:/game/momen/tools/validation/validate_battle_softlock_runner.gd)
+- [validate_battle_result_state_cleanup_runner.gd](/e:/game/momen/tools/validation/validate_battle_result_state_cleanup_runner.gd)
+- [validate_battle_save_restore_runner.gd](/e:/game/momen/tools/validation/validate_battle_save_restore_runner.gd)
+- [validate_battle_view_sync_runner.gd](/e:/game/momen/tools/validation/validate_battle_view_sync_runner.gd)
+
+这一层主要防：
+
+- 理智耗尽/局面无解后的软锁
+- 失败结局后的状态残留
+- 战斗中存档恢复错位
+- UI 和真实状态不同步
+
+### 3. 改卡牌平衡或特殊规则时
+
+至少运行：
+
+- [validate_pollution_counterplay_runner.gd](/e:/game/momen/tools/validation/validate_pollution_counterplay_runner.gd)
+- [validate_enemy_specific_card_bonus_runner.gd](/e:/game/momen/tools/validation/validate_enemy_specific_card_bonus_runner.gd)
+- [estimate_battle_balance_runner.gd](/e:/game/momen/tools/validation/estimate_battle_balance_runner.gd)
+
+这一层主要防：
+
+- 污染牌重新变回无反制窗口
+- 文案写了特殊加成但规则层没生效
+- 某一场战斗重新冒出独一档尖刺难度
+
+## 维护建议
+
+后续只要改了以下任意一类内容：
+
+- `content/battle/*.json`
+- `systems/battle/*.gd`
+- 战斗结果事件链
+- 战斗面板与状态同步逻辑
+
+就不建议只靠手打一两场确认。至少先跑一遍：
+
+```powershell
+& 'e:\game\momen\tools\validation\run_battle_validation_suite.ps1'
+```
+
+因为战斗系统现在最容易重新回来的问题，不是“某张牌数字差一点”，而是：
+
+- 软锁
+- 失败链断掉
+- 存档恢复错位
+- UI 看起来还能点，但状态其实已经终结
 - `localization.csv` 负责入口事件与收束事件正文

@@ -1,4 +1,4 @@
-class_name MainGameScreen
+﻿class_name MainGameScreen
 extends Control
 
 const GAME_TEXT := preload("res://systems/content/game_text.gd")
@@ -9,11 +9,15 @@ const LOCATION_BACKDROP_THEME: Dictionary = {
 		"accent": Color("6f98bf"),
 		"background_path": "res://assets/art/backgrounds/scenes/01/01_01.png"
 	},
-	"02": {"color": Color("2e2f3c"), "accent": Color("b3a36f")},
-	"03": {"color": Color("26352d"), "accent": Color("81b783")},
-	"04": {"color": Color("342e26"), "accent": Color("d0b27a")},
-	"05": {"color": Color("1f2838"), "accent": Color("86a7d1")},
-	"06": {"color": Color("261f33"), "accent": Color("c79cf0")}
+	"02": {"color": Color("2e2f3c"), "accent": Color("b3a36f"), "background_path": "res://assets/art/backgrounds/scenes/02/02_01.png"},
+	"03": {"color": Color("26352d"), "accent": Color("81b783"), "background_path": "res://assets/art/backgrounds/scenes/03/03_01.png"},
+	"04": {"color": Color("342e26"), "accent": Color("d0b27a"), "background_path": "res://assets/art/backgrounds/scenes/04/04_01.png"},
+	"05": {"color": Color("1f2838"), "accent": Color("86a7d1"), "background_path": "res://assets/art/backgrounds/scenes/05/05_01.png"},
+	"06": {"color": Color("261f33"), "accent": Color("c79cf0"), "background_path": "res://assets/art/backgrounds/scenes/06/06_01.png"}
+}
+
+const ENDING_ART_PATHS: Dictionary = {
+	"ending_battle_deviation": "res://assets/art/backgrounds/scenes/endings/ending_battle_deviation.png.png"
 }
 
 const NPC_AVATAR_THEME: Dictionary = {
@@ -98,6 +102,13 @@ const EVENT_TYPE_THEME: Dictionary = {
 	}
 }
 
+const ROUTE_THEME: Dictionary = {
+	"route_records": {"tag": "账册线", "color": Color("d7b16d")},
+	"route_seek_senior": {"tag": "疯长老线", "color": Color("c88386")},
+	"route_well": {"tag": "化骨池线", "color": Color("7ea8cf")},
+	"route_lie_low": {"tag": "暂避锋芒", "color": Color("8ea18a")}
+}
+
 
 @onready var _day_label: Label = %DayLabel
 @onready var _phase_label: Label = %PhaseLabel
@@ -132,6 +143,7 @@ const EVENT_TYPE_THEME: Dictionary = {
 @onready var _location_panel: PanelContainer = %LocationPanel
 @onready var _event_panel: PanelContainer = %EventPanel
 @onready var _ending_panel: PanelContainer = %EndingPanel
+@onready var _ending_art_rect: TextureRect = %EndingArtRect
 @onready var _scene_background: ColorRect = %SceneBackground
 @onready var _scene_background_texture: TextureRect = %SceneBackgroundTexture
 @onready var _scene_backdrop: MarginContainer = $"MarginContainer/Root/MainRow/StageColumn/LocationPanel/LocationPadding/LocationContent/SceneViewport/SceneBackdrop"
@@ -142,6 +154,7 @@ const EVENT_TYPE_THEME: Dictionary = {
 @onready var _scene_actor_layer: Control = %SceneActorLayer
 @onready var _scene_interaction_panel: PanelContainer = %SceneInteractionPanel
 @onready var _node_summary_label: Label = %NodeSummaryLabel
+@onready var _route_map_panel: Node = %RouteMapPanel
 @onready var _top_bar: PanelContainer = $"MarginContainer/Root/TopBar"
 @onready var _top_bar_content: GridContainer = $"MarginContainer/Root/TopBar/TopBarPadding/TopBarContent"
 @onready var _status_bar: PanelContainer = $"MarginContainer/Root/StatusBar"
@@ -154,6 +167,7 @@ const EVENT_TYPE_THEME: Dictionary = {
 @onready var _card_menu_button: Button = %CardMenuButton
 @onready var _card_column: VBoxContainer = %CardColumn
 @onready var _actions_container: VBoxContainer = %ActionsContainer
+@onready var _action_scroll: ScrollContainer = $"MarginContainer/Root/MainRow/StageColumn/SceneInteractionPanel/SceneInteractionPadding/SceneInteractionContent/ActionScroll"
 @onready var _action_title: Label = %ActionTitle
 @onready var _card_title: Label = %CardTitle
 @onready var _card_summary_label: Label = %CardSummaryLabel
@@ -191,6 +205,8 @@ func _ready() -> void:
 	_battle_panel.card_dropped_to_slot.connect(_on_battle_card_dropped_to_slot)
 	_battle_panel.redraw_requested.connect(_on_battle_redraw_requested)
 	_battle_panel.resolve_requested.connect(_on_battle_resolve_requested)
+	_route_map_panel.node_selected.connect(_on_route_map_node_selected)
+	_route_map_panel.node_focused.connect(_on_route_map_node_focused)
 	_card_menu_button.pressed.connect(_on_scene_menu_pressed.bind("cards"))
 	_popup_close_button.pressed.connect(_close_scene_popup)
 	_popup_dismiss_layer.gui_input.connect(_on_popup_overlay_input)
@@ -208,9 +224,14 @@ func _ready() -> void:
 
 func _refresh(run_state: RunState) -> void:
 	_opening_overlay.visible = false
+	RunController.sync_current_battle_state()
+	run_state = AppState.current_run_state
+	if run_state == null:
+		return
 	var current_location: Dictionary = RunController.get_current_location()
 	var present_npcs: Array[Dictionary] = RunController.get_present_npcs()
 	var visible_actions: Array[Dictionary] = RunController.get_visible_actions()
+	var route_map_view: Dictionary = RunController.get_current_route_map_view()
 	var current_event: Dictionary = RunController.get_current_event()
 	var event_hints: Array[String] = RunController.get_event_hints()
 	var current_event_option_views: Array[Dictionary] = RunController.get_current_event_option_views()
@@ -222,6 +243,7 @@ func _refresh(run_state: RunState) -> void:
 		current_location,
 		present_npcs,
 		visible_actions,
+		route_map_view,
 		current_event,
 		event_hints,
 		current_event_option_views,
@@ -246,12 +268,13 @@ func _refresh(run_state: RunState) -> void:
 	_event_body_label.text = str(view_model.get("event_body_text", ""))
 	_event_panel_title.text = str(view_model.get("event_type_text", _main_text("event_titles.default")))
 	_event_type_hint_label.text = ""
-	_event_content_title_label.text = _main_text("section_titles.content", "当前主体")
-	_event_hint_title_label.text = _main_text("section_titles.hint", "当前提示")
+	_event_content_title_label.text = _main_text("section_titles.content", "褰撳墠涓讳綋")
+	_event_hint_title_label.text = _main_text("section_titles.hint", "褰撳墠鎻愮ず")
 	_event_hint_label.text = str(view_model.get("hint_text", ""))
-	_event_decision_title_label.text = _main_text("section_titles.decision", "当前决策")
+	_event_decision_title_label.text = _main_text("section_titles.decision", "褰撳墠鍐崇瓥")
 	_ending_title_label.text = str(view_model.get("ending_title_text", ""))
 	_ending_body_label.text = str(view_model.get("ending_body_text", ""))
+	_apply_ending_art(run_state)
 	var ending_outcome_type: String = str(view_model.get("ending_outcome_type", ""))
 	_ending_hint_label.text = _main_text("ending.restart_hint") if ending_outcome_type == "death" else _main_text("ending.continue_hint")
 	_apply_ending_theme(ending_outcome_type)
@@ -269,8 +292,10 @@ func _refresh(run_state: RunState) -> void:
 	var scene_mode: String = str(view_model.get("scene_mode", "location"))
 	_update_stage_panels(scene_mode)
 	_update_scene_backdrop(scene_mode, current_location, run_state.is_run_over)
+	_apply_route_map_scene_theme(scene_mode, route_map_view)
 	_update_event_presentation(scene_mode, view_model, current_event)
 	_update_battle_presentation()
+	_update_route_map_presentation(scene_mode, route_map_view)
 	_rebuild_event_options(scene_mode, current_event, run_state.is_run_over)
 	_rebuild_scene_hotspots(scene_mode, present_npcs, run_state.is_run_over)
 	_rebuild_action_buttons(scene_mode, visible_actions, run_state.is_run_over)
@@ -455,30 +480,45 @@ func _update_stage_panels(scene_mode: String) -> void:
 	_ending_panel.visible = scene_mode == "ending"
 	_battle_panel.visible = scene_mode == "battle"
 	_scene_backdrop.visible = scene_mode != "dialogue"
-	_scene_interaction_panel.visible = scene_mode == "location"
+	_scene_interaction_panel.visible = scene_mode == "location" or scene_mode == "route_map"
+	_action_scroll.visible = scene_mode != "route_map"
 	_scene_overlay.visible = scene_mode != "dialogue"
 	_top_bar.visible = scene_mode != "dialogue" and scene_mode != "ending"
-	_sidebar.visible = scene_mode != "dialogue" and scene_mode != "ending"
-	_status_bar.visible = scene_mode != "dialogue" and scene_mode != "ending"
+	_sidebar.visible = scene_mode != "dialogue" and scene_mode != "ending" and scene_mode != "route_map"
+	_status_bar.visible = scene_mode != "dialogue" and scene_mode != "ending" and scene_mode != "route_map"
+	_scene_interaction_panel.size_flags_vertical = Control.SIZE_EXPAND_FILL if scene_mode == "route_map" else 0
+	_route_map_panel.custom_minimum_size = Vector2(0, 560) if scene_mode == "route_map" else Vector2(0, 230)
+	_node_summary_label.visible = scene_mode == "route_map"
+	_card_menu_button.visible = scene_mode != "route_map"
 
 	match scene_mode:
 		"dialogue":
 			_action_title.text = _main_text("action_titles.dialogue")
+			_action_title.visible = true
 			_close_scene_popup()
 		"event":
 			_action_title.text = _main_text("action_titles.event")
+			_action_title.visible = true
 			if _active_scene_menu != "cards":
 				_close_scene_popup()
 		"ending":
 			_action_title.text = _main_text("action_titles.ending")
+			_action_title.visible = true
 			if _active_scene_menu != "cards":
 				_close_scene_popup()
 		"battle":
 			_action_title.text = _main_text("action_titles.combat")
+			_action_title.visible = true
+			if _active_scene_menu != "cards":
+				_close_scene_popup()
+		"route_map":
+			_action_title.visible = false
+			_action_title.text = "璺嚎閫夋嫨"
 			if _active_scene_menu != "cards":
 				_close_scene_popup()
 		_:
 			_action_title.text = _main_text("action_titles.scene")
+			_action_title.visible = true
 
 func _build_persistent_card_button() -> void:
 	_top_card_button = Button.new()
@@ -526,6 +566,46 @@ func _update_battle_presentation() -> void:
 		return
 	_battle_panel.configure(battle_view)
 
+func _update_route_map_presentation(scene_mode: String, route_map_view: Dictionary) -> void:
+	if scene_mode != "route_map":
+		_route_map_panel.clear_panel()
+		return
+	_action_title.visible = true
+	_action_title.text = str(route_map_view.get("title", "路线选择"))
+	_route_map_panel.configure(route_map_view)
+	var current_day_text: String = str(route_map_view.get("current_day_text", ""))
+	var current_day_title: String = str(route_map_view.get("current_day_title", ""))
+	var current_day_description: String = str(route_map_view.get("current_day_description", ""))
+	var summary_lines: Array[String] = []
+	if not current_day_text.is_empty() or not current_day_title.is_empty():
+		summary_lines.append("%s %s" % [current_day_text, current_day_title])
+	if not current_day_description.is_empty():
+		summary_lines.append(current_day_description)
+	var visited_path_text: String = str(route_map_view.get("visited_path_text", ""))
+	if not visited_path_text.is_empty():
+		summary_lines.append(visited_path_text)
+	if not summary_lines.is_empty():
+		_node_summary_label.text = "\n\n".join(summary_lines)
+	_route_map_panel.focus_first_selectable_node()
+
+func _apply_route_map_scene_theme(scene_mode: String, route_map_view: Dictionary) -> void:
+	if scene_mode != "route_map":
+		return
+	var current_route_key: String = str(route_map_view.get("current_route_key", ""))
+	if current_route_key.is_empty():
+		_backdrop_tag.visible = true
+		_backdrop_tag.text = "路线图"
+		_backdrop_tag.add_theme_color_override("font_color", Color("b9d4df"))
+		_stage_title_label.add_theme_color_override("font_color", Color("dbe6ef"))
+		return
+	var route_theme: Dictionary = Dictionary(ROUTE_THEME.get(current_route_key, {}))
+	var route_tag: String = str(route_theme.get("tag", route_map_view.get("current_route_text", "路线图")))
+	var route_color: Color = Color(route_theme.get("color", Color("b9d4df")))
+	_backdrop_tag.visible = true
+	_backdrop_tag.text = route_tag
+	_backdrop_tag.add_theme_color_override("font_color", route_color.lightened(0.08))
+	_stage_title_label.add_theme_color_override("font_color", route_color.lightened(0.2))
+
 func _rebuild_event_options(scene_mode: String, current_event: Dictionary, is_run_over: bool) -> void:
 	for child: Node in _event_options_container.get_children():
 		child.queue_free()
@@ -560,7 +640,7 @@ func _update_scene_backdrop(scene_mode: String, current_location: Dictionary, is
 		_backdrop_tag.visible = false
 		return
 
-	if scene_mode != "location":
+	if scene_mode != "location" and scene_mode != "route_map":
 		_scene_background_texture.texture = null
 		if scene_mode == "dialogue":
 			_scene_background.color = Color("242230")
@@ -602,6 +682,16 @@ func _load_scene_background_texture(background_path: String) -> Texture2D:
 		return resource as Texture2D
 	return null
 
+func _apply_ending_art(run_state: RunState) -> void:
+	if run_state == null or run_state.ending_result == null:
+		_ending_art_rect.texture = null
+		_ending_art_rect.visible = false
+		return
+	var ending_id: String = str(run_state.ending_result.id)
+	var art_path: String = str(ENDING_ART_PATHS.get(ending_id, ""))
+	_ending_art_rect.texture = _load_scene_background_texture(art_path)
+	_ending_art_rect.visible = _ending_art_rect.texture != null
+
 func _rebuild_scene_hotspots(
 	scene_mode: String,
 	present_npcs: Array[Dictionary],
@@ -610,7 +700,9 @@ func _rebuild_scene_hotspots(
 	for child: Node in _scene_actor_layer.get_children():
 		child.queue_free()
 
-	if is_run_over or scene_mode != "location":
+	if is_run_over:
+		return
+	if scene_mode != "location" and scene_mode != "route_map":
 		return
 
 	for actor_index: int in present_npcs.size():
@@ -634,7 +726,9 @@ func _rebuild_action_buttons(
 		_actions_container.add_child(restart_button)
 		return
 
-	if scene_mode != "location" and scene_mode != "dialogue":
+	if scene_mode != "location" and scene_mode != "dialogue" and scene_mode != "route_map":
+		return
+	if scene_mode == "route_map":
 		return
 
 	for action_definition: Dictionary in visible_actions:
@@ -678,6 +772,83 @@ func _sync_popup_state(scene_mode: String, is_run_over: bool) -> void:
 func _on_action_pressed(action_id: String) -> void:
 	RunController.perform_action(action_id)
 	_close_scene_popup()
+
+func _on_route_map_node_selected(target_action_id: String) -> void:
+	RunController.select_route_map_node(target_action_id)
+	_close_scene_popup()
+
+func _on_route_map_node_focused(node_view: Dictionary) -> void:
+	_node_summary_label.text = _build_route_map_preview_text(node_view)
+
+func _build_route_map_preview_text(node_view: Dictionary) -> String:
+	var lines: Array[String] = []
+	var route_map_view: Dictionary = RunController.get_current_route_map_view()
+	var current_day_text: String = str(route_map_view.get("current_day_text", ""))
+	var current_day_title: String = str(route_map_view.get("current_day_title", ""))
+	if not current_day_text.is_empty() or not current_day_title.is_empty():
+		lines.append("%s %s" % [current_day_text, current_day_title])
+		lines.append("")
+	var visited_path_text: String = str(route_map_view.get("visited_path_text", ""))
+	if not visited_path_text.is_empty():
+		lines.append(visited_path_text)
+		lines.append("")
+	var route_label: String = str(node_view.get("route_label", ""))
+	var type_label: String = str(node_view.get("type_label", "节点"))
+	var title_text: String = str(node_view.get("title", ""))
+	if not route_label.is_empty():
+		lines.append("%s 路 · %s" % [route_label, type_label])
+	else:
+		lines.append(type_label)
+	if not title_text.is_empty():
+		lines.append(title_text)
+
+	if bool(node_view.get("is_terminal", false)):
+		lines.append("这是当前路线的收束点。点下去后，会进入下一阶段。")
+	else:
+		var focus_state: String = str(node_view.get("focus_state", "neutral"))
+		match focus_state:
+			"active":
+				lines.append("这一步会继续压深你当前主押的路线。")
+			"off_route":
+				lines.append("这一步会把推进偏向另一条线。")
+			_:
+				lines.append("这一步更像是在补信息、调站位，或为后续分支做准备。")
+
+	var hint_text: String = str(node_view.get("hint", ""))
+	if not hint_text.is_empty():
+		lines.append(hint_text)
+
+	var node_type: String = str(node_view.get("node_type", "story"))
+	lines.append(_route_map_node_outlook_text(node_type, bool(node_view.get("is_terminal", false))))
+
+	var lock_reason_text: String = str(node_view.get("lock_reason_text", ""))
+	if bool(node_view.get("is_locked", false)):
+		lines.append("")
+		lines.append("当前还不能进入：")
+		lines.append(lock_reason_text if not lock_reason_text.is_empty() else "这个节点还没有解锁。")
+	return "\n".join(lines)
+
+func _route_map_node_outlook_text(node_type: String, is_terminal: bool = false) -> String:
+	if is_terminal:
+		return "预期：确认后将结束当前这段路线，并把流程推进到下一阶段。"
+	match node_type:
+		"story":
+			return "预期：更接近关键剧情推进。"
+		"dialogue":
+			return "预期：更偏向试探、谈判或经营关系。"
+		"reward":
+			return "预期：资源、线索或站位收益更稳。"
+		"shop":
+			return "预期：会接触灰市、交换或临时买路。"
+		"review":
+			return "预期：更适合收口、整理和稳住状态。"
+		"battle":
+			return "预期：更容易直接推进到冲突或心战。"
+		"risk":
+			return "预期：收益更高，但更容易把自己送进危险。"
+		_:
+			return "预期：这一步会把今天的推进继续向前压一格。"
+
 
 func _on_event_option_pressed(option_id: String) -> void:
 	RunController.choose_event_option(option_id)
@@ -1026,7 +1197,7 @@ func _format_event_option_button_text(option_view: Dictionary, presentation_type
 		if not compact_check_text.is_empty():
 			compact_meta_parts.append(compact_check_text)
 		if not compact_meta_parts.is_empty():
-			compact_lines.append(" · ".join(compact_meta_parts))
+			compact_lines.append(" 路 ".join(compact_meta_parts))
 		if not bool(option_view.get("is_available", false)):
 			compact_lines.append(str(option_view.get("unmet_text", _main_text("buttons.event_option_unmet_default"))))
 		return "\n".join(compact_lines)

@@ -10,6 +10,8 @@ const CATEGORY_LABELS := {
 	"npc_state": "人物状态",
 	"location_content": "地点内容",
 	"random_disturbance": "随机扰动"
+	,
+	"black_market_trade": "灰市交易"
 }
 
 const STATUS_LABELS := {
@@ -156,7 +158,8 @@ func _rebuild_category_filter() -> void:
 		{"id": "main_story", "label": "主线骨架"},
 		{"id": "npc_state", "label": "人物状态"},
 		{"id": "location_content", "label": "地点内容"},
-		{"id": "random_disturbance", "label": "随机扰动"}
+		{"id": "random_disturbance", "label": "随机扰动"},
+		{"id": "black_market_trade", "label": "灰市交易"}
 	]
 	for item: Dictionary in items:
 		_category_filter.add_item(str(item.get("label", "")))
@@ -462,6 +465,7 @@ func _build_flow_node_detail_text(node_definition: Dictionary) -> String:
 		"npc_state": [],
 		"location_content": [],
 		"random_disturbance": [],
+		"black_market_trade": [],
 		"main_story": []
 	}
 	var support_unknown: Array[String] = []
@@ -485,7 +489,7 @@ func _build_flow_node_detail_text(node_definition: Dictionary) -> String:
 			else:
 				support_unknown.append(support_line)
 
-	for category_key: String in ["npc_state", "location_content", "random_disturbance", "main_story"]:
+	for category_key: String in ["npc_state", "location_content", "black_market_trade", "random_disturbance", "main_story"]:
 		var category_lines: Array = support_grouped.get(category_key, [])
 		if category_lines.is_empty():
 			continue

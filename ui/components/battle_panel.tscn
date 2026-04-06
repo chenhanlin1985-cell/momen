@@ -37,7 +37,6 @@ theme_override_constants/margin_bottom = 18
 [node name="Content" type="VBoxContainer" parent="Root" unique_id=1526026905]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
 theme_override_constants/separation = 14
 
 [node name="BattleTitleLabel" type="Label" parent="Root/Content" unique_id=1544140694]
@@ -80,16 +79,38 @@ unique_name_in_owner = true
 layout_mode = 2
 horizontal_alignment = 1
 
+[node name="GuidePanel" type="PanelContainer" parent="Root/Content" unique_id=2100001001]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="GuidePadding" type="MarginContainer" parent="Root/Content/GuidePanel" unique_id=2100001002]
+layout_mode = 2
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 14
+theme_override_constants/margin_bottom = 10
+
+[node name="GuideContent" type="VBoxContainer" parent="Root/Content/GuidePanel/GuidePadding" unique_id=2100001003]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 6
+
+[node name="GuideTitleLabel" type="Label" parent="Root/Content/GuidePanel/GuidePadding/GuideContent" unique_id=2100001004]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="GuideLabel" type="Label" parent="Root/Content/GuidePanel/GuidePadding/GuideContent" unique_id=2100001005]
+unique_name_in_owner = true
+layout_mode = 2
+autowrap_mode = 3
+
 [node name="StageRow" type="HBoxContainer" parent="Root/Content" unique_id=1371892091]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
 theme_override_constants/separation = 16
 
 [node name="EnemyStagePanel" type="PanelContainer" parent="Root/Content/StageRow" unique_id=293629410]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
 
 [node name="EnemyStagePadding" type="MarginContainer" parent="Root/Content/StageRow/EnemyStagePanel" unique_id=790341780]
 layout_mode = 2
@@ -101,7 +122,6 @@ theme_override_constants/margin_bottom = 16
 [node name="EnemyStageContent" type="VBoxContainer" parent="Root/Content/StageRow/EnemyStagePanel/EnemyStagePadding" unique_id=70002881]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
 theme_override_constants/separation = 10
 
 [node name="EnemyStageNameLabel" type="Label" parent="Root/Content/StageRow/EnemyStagePanel/EnemyStagePadding/EnemyStageContent" unique_id=971660150]
@@ -111,8 +131,6 @@ horizontal_alignment = 1
 
 [node name="EnemyPortraitFrame" type="AspectRatioContainer" parent="Root/Content/StageRow/EnemyStagePanel/EnemyStagePadding/EnemyStageContent" unique_id=971336411]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
 ratio = 0.72
 
 [node name="EnemyPortraitPanel" type="PanelContainer" parent="Root/Content/StageRow/EnemyStagePanel/EnemyStagePadding/EnemyStageContent/EnemyPortraitFrame" unique_id=1889548420]
@@ -128,7 +146,6 @@ theme_override_constants/margin_bottom = 12
 [node name="EnemyPortraitStack" type="Control" parent="Root/Content/StageRow/EnemyStagePanel/EnemyStagePadding/EnemyStageContent/EnemyPortraitFrame/EnemyPortraitPanel/EnemyPortraitContent" unique_id=2027486992]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
 
 [node name="EnemyPortraitRect" type="TextureRect" parent="Root/Content/StageRow/EnemyStagePanel/EnemyStagePadding/EnemyStageContent/EnemyPortraitFrame/EnemyPortraitPanel/EnemyPortraitContent/EnemyPortraitStack" unique_id=242623900]
 unique_name_in_owner = true
@@ -153,6 +170,21 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
+[node name="PortraitSlotOverlay" type="VBoxContainer" parent="Root/Content/StageRow/EnemyStagePanel/EnemyStagePadding/EnemyStageContent/EnemyPortraitFrame/EnemyPortraitPanel/EnemyPortraitContent/EnemyPortraitStack" unique_id=2100002001]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 8
+alignment = 2
+
 [node name="HintTitleLabel" type="Label" parent="Root/Content/StageRow/EnemyStagePanel/EnemyStagePadding/EnemyStageContent" unique_id=2100000003]
 unique_name_in_owner = true
 layout_mode = 2
@@ -168,38 +200,42 @@ autowrap_mode = 3
 [node name="BattleInfoColumn" type="VBoxContainer" parent="Root/Content/StageRow" unique_id=936662262]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
 theme_override_constants/separation = 12
 
-[node name="PlayerPanel" type="PanelContainer" parent="Root/Content/StageRow/BattleInfoColumn" unique_id=911638417]
+[node name="StatusRow" type="HBoxContainer" parent="Root/Content/StageRow/BattleInfoColumn" unique_id=2100002002]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+
+[node name="PlayerPanel" type="PanelContainer" parent="Root/Content/StageRow/BattleInfoColumn/StatusRow" unique_id=911638417]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="PlayerPadding" type="MarginContainer" parent="Root/Content/StageRow/BattleInfoColumn/PlayerPanel" unique_id=117717330]
+[node name="PlayerPadding" type="MarginContainer" parent="Root/Content/StageRow/BattleInfoColumn/StatusRow/PlayerPanel" unique_id=117717330]
 layout_mode = 2
 theme_override_constants/margin_left = 12
 theme_override_constants/margin_top = 12
 theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 12
 
-[node name="PlayerStatusLabel" type="Label" parent="Root/Content/StageRow/BattleInfoColumn/PlayerPanel/PlayerPadding" unique_id=1507547786]
+[node name="PlayerStatusLabel" type="Label" parent="Root/Content/StageRow/BattleInfoColumn/StatusRow/PlayerPanel/PlayerPadding" unique_id=1507547786]
 unique_name_in_owner = true
 layout_mode = 2
 text = "-"
 autowrap_mode = 3
 
-[node name="EnemyPanel" type="PanelContainer" parent="Root/Content/StageRow/BattleInfoColumn" unique_id=672857204]
+[node name="EnemyPanel" type="PanelContainer" parent="Root/Content/StageRow/BattleInfoColumn/StatusRow" unique_id=672857204]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="EnemyPadding" type="MarginContainer" parent="Root/Content/StageRow/BattleInfoColumn/EnemyPanel" unique_id=184572640]
+[node name="EnemyPadding" type="MarginContainer" parent="Root/Content/StageRow/BattleInfoColumn/StatusRow/EnemyPanel" unique_id=184572640]
 layout_mode = 2
 theme_override_constants/margin_left = 12
 theme_override_constants/margin_top = 12
 theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 12
 
-[node name="EnemyStatusLabel" type="Label" parent="Root/Content/StageRow/BattleInfoColumn/EnemyPanel/EnemyPadding" unique_id=340261374]
+[node name="EnemyStatusLabel" type="Label" parent="Root/Content/StageRow/BattleInfoColumn/StatusRow/EnemyPanel/EnemyPadding" unique_id=340261374]
 unique_name_in_owner = true
 layout_mode = 2
 text = "-"
@@ -244,34 +280,31 @@ layout_mode = 2
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="SlotPanel" type="PanelContainer" parent="Root/Content/StageRow/BattleInfoColumn" unique_id=747584358]
+[node name="SlotPanel" type="PanelContainer" parent="Root/Content/StageRow/EnemyStagePanel/EnemyStagePadding/EnemyStageContent/EnemyPortraitFrame/EnemyPortraitPanel/EnemyPortraitContent/EnemyPortraitStack/PortraitSlotOverlay" unique_id=747584358]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
 
-[node name="SlotPadding" type="MarginContainer" parent="Root/Content/StageRow/BattleInfoColumn/SlotPanel" unique_id=805816664]
+[node name="SlotPadding" type="MarginContainer" parent="Root/Content/StageRow/EnemyStagePanel/EnemyStagePadding/EnemyStageContent/EnemyPortraitFrame/EnemyPortraitPanel/EnemyPortraitContent/EnemyPortraitStack/PortraitSlotOverlay/SlotPanel" unique_id=805816664]
 layout_mode = 2
 theme_override_constants/margin_left = 12
-theme_override_constants/margin_top = 12
+theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 12
-theme_override_constants/margin_bottom = 12
+theme_override_constants/margin_bottom = 8
 
-[node name="SlotContent" type="VBoxContainer" parent="Root/Content/StageRow/BattleInfoColumn/SlotPanel/SlotPadding" unique_id=1493430086]
+[node name="SlotContent" type="VBoxContainer" parent="Root/Content/StageRow/EnemyStagePanel/EnemyStagePadding/EnemyStageContent/EnemyPortraitFrame/EnemyPortraitPanel/EnemyPortraitContent/EnemyPortraitStack/PortraitSlotOverlay/SlotPanel/SlotPadding" unique_id=1493430086]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/separation = 10
+theme_override_constants/separation = 6
 
-[node name="SlotTitleLabel" type="Label" parent="Root/Content/StageRow/BattleInfoColumn/SlotPanel/SlotPadding/SlotContent" unique_id=931300711]
+[node name="SlotTitleLabel" type="Label" parent="Root/Content/StageRow/EnemyStagePanel/EnemyStagePadding/EnemyStageContent/EnemyPortraitFrame/EnemyPortraitPanel/EnemyPortraitContent/EnemyPortraitStack/PortraitSlotOverlay/SlotPanel/SlotPadding/SlotContent" unique_id=931300711]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="SlotContainer" type="HBoxContainer" parent="Root/Content/StageRow/BattleInfoColumn/SlotPanel/SlotPadding/SlotContent" unique_id=794807429]
+[node name="SlotContainer" type="HBoxContainer" parent="Root/Content/StageRow/EnemyStagePanel/EnemyStagePadding/EnemyStageContent/EnemyPortraitFrame/EnemyPortraitPanel/EnemyPortraitContent/EnemyPortraitStack/PortraitSlotOverlay/SlotPanel/SlotPadding/SlotContent" unique_id=794807429]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/separation = 12
+theme_override_constants/separation = 8
 
 [node name="WeaknessPanel" type="PanelContainer" parent="Root/Content/StageRow/BattleInfoColumn" unique_id=1186054686]
 layout_mode = 2
@@ -325,33 +358,33 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="HandPanel" type="PanelContainer" parent="Root/Content" unique_id=1185066252]
+[node name="HandPanel" type="PanelContainer" parent="Root/Content/StageRow/BattleInfoColumn" unique_id=1185066252]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="HandPadding" type="MarginContainer" parent="Root/Content/HandPanel" unique_id=796889921]
+[node name="HandPadding" type="MarginContainer" parent="Root/Content/StageRow/BattleInfoColumn/HandPanel" unique_id=796889921]
 layout_mode = 2
 theme_override_constants/margin_left = 14
 theme_override_constants/margin_top = 14
 theme_override_constants/margin_right = 14
 theme_override_constants/margin_bottom = 14
 
-[node name="HandContent" type="VBoxContainer" parent="Root/Content/HandPanel/HandPadding" unique_id=1060870066]
+[node name="HandContent" type="VBoxContainer" parent="Root/Content/StageRow/BattleInfoColumn/HandPanel/HandPadding" unique_id=1060870066]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 10
 
-[node name="HandTitleLabel" type="Label" parent="Root/Content/HandPanel/HandPadding/HandContent" unique_id=1348891099]
+[node name="HandTitleLabel" type="Label" parent="Root/Content/StageRow/BattleInfoColumn/HandPanel/HandPadding/HandContent" unique_id=1348891099]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="HandScroll" type="ScrollContainer" parent="Root/Content/HandPanel/HandPadding/HandContent" unique_id=40734521]
-custom_minimum_size = Vector2(0, 184)
+[node name="HandScroll" type="ScrollContainer" parent="Root/Content/StageRow/BattleInfoColumn/HandPanel/HandPadding/HandContent" unique_id=40734521]
+custom_minimum_size = Vector2(0, 168)
 layout_mode = 2
 size_flags_horizontal = 3
 horizontal_scroll_mode = 0
 
-[node name="HandContainer" type="Control" parent="Root/Content/HandPanel/HandPadding/HandContent/HandScroll" unique_id=541133747]
+[node name="HandContainer" type="Control" parent="Root/Content/StageRow/BattleInfoColumn/HandPanel/HandPadding/HandContent/HandScroll" unique_id=541133747]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 208)
 layout_mode = 2

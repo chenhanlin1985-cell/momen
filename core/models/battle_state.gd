@@ -33,10 +33,12 @@ var exp_reward: int = 0
 var reward_card_ids: Array[String] = []
 
 var turn_index: int = 1
+var next_card_instance_seq: int = 1
 var starter_deck: Array[String] = []
 var draw_pile: Array[String] = []
 var discard_pile: Array[String] = []
 var hand_cards: Array[String] = []
+var hand_layout_card_ids: Array[String] = []
 var slot_card_ids: Array[String] = []
 var selected_slot_index: int = -1
 
@@ -78,10 +80,12 @@ func to_dict() -> Dictionary:
 		"exp_reward": exp_reward,
 		"reward_card_ids": reward_card_ids.duplicate(),
 		"turn_index": turn_index,
+		"next_card_instance_seq": next_card_instance_seq,
 		"starter_deck": starter_deck.duplicate(),
 		"draw_pile": draw_pile.duplicate(),
 		"discard_pile": discard_pile.duplicate(),
 		"hand_cards": hand_cards.duplicate(),
+		"hand_layout_card_ids": hand_layout_card_ids.duplicate(),
 		"slot_card_ids": slot_card_ids.duplicate(),
 		"selected_slot_index": selected_slot_index,
 		"used_redraw_count": used_redraw_count,
@@ -123,10 +127,14 @@ static func from_dict(data: Dictionary) -> BattleState:
 	state.exp_reward = int(data.get("exp_reward", 0))
 	state.reward_card_ids = Array(data.get("reward_card_ids", []), TYPE_STRING, "", null)
 	state.turn_index = int(data.get("turn_index", 1))
+	state.next_card_instance_seq = int(data.get("next_card_instance_seq", 1))
 	state.starter_deck = Array(data.get("starter_deck", []), TYPE_STRING, "", null)
 	state.draw_pile = Array(data.get("draw_pile", []), TYPE_STRING, "", null)
 	state.discard_pile = Array(data.get("discard_pile", []), TYPE_STRING, "", null)
 	state.hand_cards = Array(data.get("hand_cards", []), TYPE_STRING, "", null)
+	state.hand_layout_card_ids = Array(data.get("hand_layout_card_ids", []), TYPE_STRING, "", null)
+	if state.hand_layout_card_ids.is_empty() and not state.hand_cards.is_empty():
+		state.hand_layout_card_ids = state.hand_cards.duplicate()
 	state.slot_card_ids = Array(data.get("slot_card_ids", []), TYPE_STRING, "", null)
 	state.selected_slot_index = int(data.get("selected_slot_index", -1))
 	state.used_redraw_count = int(data.get("used_redraw_count", 0))

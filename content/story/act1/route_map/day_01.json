@@ -1,0 +1,45 @@
+{
+  "title": "第一天白天路线图",
+  "description": "重开后的第一天白天，没有真正的自由。你先被柳飞霞试探，再被王麻子盘问，只有扛过这两步，后面的整张路线图才会真正向你展开。",
+  "summary": "第一天是整局路线的起压点。前半段几乎没有岔路，但你仍然会在总图上看见自己正被推向哪一条更长的线。",
+  "nodes": [
+    {
+      "node_id": "day1_liu_battle",
+      "target_kind": "event",
+      "target_id": "2001",
+      "column": 1,
+      "lane": 1,
+      "route_key": "",
+      "node_type": "battle",
+      "title": "柳飞霞的试探",
+      "hint": "第一天白天真正的压力从这里开始。先接住柳飞霞的试探，才能继续把这一天走下去。"
+    },
+    {
+      "node_id": "day1_wang_event",
+      "target_kind": "event",
+      "target_id": "2004",
+      "column": 2,
+      "lane": 1,
+      "route_key": "route_records",
+      "node_type": "dialogue",
+      "title": "王麻子的盘问",
+      "hint": "柳飞霞这一步过后，王麻子会立刻补上正面的压迫，把你往账册与药房线附近逼。"
+    },
+    {
+      "node_id": "day1_close",
+      "target_kind": "transition",
+      "target_transition_kind": "advance_then_phase_entry",
+      "column": 3,
+      "lane": 1,
+      "node_type": "review",
+      "type_label": "终点",
+      "title": "收束第一天白天",
+      "hint": "这一步会把第一天白天收口，并把整张路线图推进到第二天。"
+    }
+  ],
+  "edges": [
+    { "from": "start", "to": "day1_liu_battle" },
+    { "from": "day1_liu_battle", "to": "day1_wang_event" },
+    { "from": "day1_wang_event", "to": "day1_close" }
+  ]
+}

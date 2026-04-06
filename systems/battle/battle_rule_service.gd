@@ -16,8 +16,8 @@ func build_resolution(
 
 	var base_card_id: String = str(battle_state.slot_card_ids[SLOT_BASE])
 	var multi_card_id: String = str(battle_state.slot_card_ids[SLOT_MULTI])
-	var base_card: Dictionary = Dictionary(card_definitions_by_id.get(base_card_id, {}))
-	var multi_card: Dictionary = Dictionary(card_definitions_by_id.get(multi_card_id, {}))
+	var base_card: Dictionary = Dictionary(card_definitions_by_id.get(_resolve_card_definition_id(base_card_id), {}))
+	var multi_card: Dictionary = Dictionary(card_definitions_by_id.get(_resolve_card_definition_id(multi_card_id), {}))
 	if base_card.is_empty() or multi_card.is_empty():
 		return {
 			"success": false,
@@ -25,7 +25,7 @@ func build_resolution(
 		}
 
 	var base_score: int = _resolve_base_score(battle_state, base_card, card_definitions_by_id)
-	var multiplier: float = _resolve_multiplier(multi_card, base_card)
+	var multiplier: float = _resolve_multiplier(battle_state, multi_card, base_card)
 	var vulnerability_factor: float = _resolve_vulnerability_factor(battle_state, multi_card, base_card)
 	var resistance_bonus_cost: int = _resolve_resistance_bonus_cost(battle_state, base_card)
 	var resistance_score_delta: int = _resolve_resistance_score_delta(battle_state, base_card)
@@ -80,17 +80,25 @@ func build_preview(
 	resolution["is_ready"] = bool(resolution.get("success", false))
 	return resolution
 
-func _resolve_multiplier(multi_card: Dictionary, base_card: Dictionary) -> float:
+func _resolve_multiplier(
+	battle_state: BattleState,
+	multi_card: Dictionary,
+	base_card: Dictionary
+) -> float:
+	var multiplier: float = 1.0
 	if str(multi_card.get("pollution_kind", "")) == "reverse_multi":
 		var reverse_tags: Array[String] = Array(multi_card.get("reverse_base_tags", []), TYPE_STRING, "", null)
 		var base_effect_tags: Array[String] = Array(base_card.get("effect_tags", []), TYPE_STRING, "", null)
 		for tag: String in reverse_tags:
 			if base_effect_tags.has(tag):
-				return float(multi_card.get("reverse_multiplier", 1.0))
-		return float(multi_card.get("default_multiplier", 1.0))
+				multiplier = float(multi_card.get("reverse_multiplier", 1.0))
+				return _apply_enemy_specific_multiplier(battle_state, multi_card, multiplier)
+		multiplier = float(multi_card.get("default_multiplier", 1.0))
+		return _apply_enemy_specific_multiplier(battle_state, multi_card, multiplier)
 	var card_type: String = str(base_card.get("card_type", ""))
 	var multiplier_tags: Dictionary = Dictionary(multi_card.get("multiplier_tags", {}))
-	return float(multiplier_tags.get(card_type, 1.0))
+	multiplier = float(multiplier_tags.get(card_type, 1.0))
+	return _apply_enemy_specific_multiplier(battle_state, multi_card, multiplier)
 
 func _resolve_base_score(
 	battle_state: BattleState,
@@ -99,7 +107,7 @@ func _resolve_base_score(
 ) -> int:
 	var total_score: int = int(base_card.get("base_score", 0))
 	for card_id: String in battle_state.hand_cards:
-		var hand_card: Dictionary = Dictionary(card_definitions_by_id.get(card_id, {}))
+		var hand_card: Dictionary = Dictionary(card_definitions_by_id.get(_resolve_card_definition_id(card_id), {}))
 		if str(hand_card.get("pollution_kind", "")) != "hand_aura":
 			continue
 		total_score += int(hand_card.get("hand_base_score_delta", 0))
@@ -130,3 +138,21 @@ func _resolve_resistance_bonus_cost(battle_state: BattleState, base_card: Dictio
 func _resolve_resistance_score_delta(battle_state: BattleState, base_card: Dictionary) -> int:
 	var card_type: String = str(base_card.get("card_type", ""))
 	return int(Dictionary(battle_state.resistance_score_delta_by_base_type).get(card_type, 0))
+
+func _apply_enemy_specific_multiplier(
+	battle_state: BattleState,
+	card_definition: Dictionary,
+	base_multiplier: float
+) -> float:
+	var bonuses: Dictionary = Dictionary(card_definition.get("enemy_mind_multiplier_bonuses", {}))
+	if bonuses.is_empty():
+		return base_multiplier
+	var enemy_mind_id: String = str(battle_state.enemy_mind_id, "")
+	if enemy_mind_id.is_empty() or not bonuses.has(enemy_mind_id):
+		return base_multiplier
+	return base_multiplier * float(bonuses.get(enemy_mind_id, 1.0))
+
+func _resolve_card_definition_id(card_ref: String) -> String:
+	if not card_ref.contains("#"):
+		return card_ref
+	return card_ref.get_slice("#", 0)

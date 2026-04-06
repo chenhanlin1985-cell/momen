@@ -1264,6 +1264,8 @@ func _parse_content_category(value: String) -> String:
 			return "location_content"
 		"随机扰动", "random_disturbance":
 			return "random_disturbance"
+		"灰市交易", "black_market_trade":
+			return "black_market_trade"
 		_:
 			_warn("未识别内容分类: %s" % value)
 			return "npc_state"

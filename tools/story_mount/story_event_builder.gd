@@ -92,7 +92,8 @@ func _setup_static_selectors() -> void:
 		["main_story", "主线骨架"],
 		["npc_state", "人物状态"],
 		["location_content", "地点内容"],
-		["random_disturbance", "随机扰动"]
+		["random_disturbance", "随机扰动"],
+		["black_market_trade", "灰市交易"]
 	])
 	_fill_selector(_time_slot_selector, [
 		["morning", "晨间"],

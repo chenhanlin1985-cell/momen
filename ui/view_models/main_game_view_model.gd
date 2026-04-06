@@ -7,6 +7,7 @@ static func build(
 	current_location: Dictionary,
 	present_npcs: Array[Dictionary],
 	visible_actions: Array[Dictionary],
+	route_map_view: Dictionary,
 	current_event: Dictionary,
 	event_hints: Array[String],
 	current_event_option_views: Array[Dictionary],
@@ -72,6 +73,7 @@ static func build(
 	var event_type_short_text: String = ""
 	var has_battle: bool = run_state.current_battle_state != null
 	var is_dialogue_event: bool = false
+	var has_route_map: bool = not route_map_view.is_empty()
 	if not current_event.is_empty():
 		is_dialogue_event = _should_use_dialogue_scene(current_event)
 		event_title = str(current_event.get("title", GAME_TEXT.text("view_model.current_event_title")))
@@ -106,6 +108,8 @@ static func build(
 	var summary_text: String = story_text
 	var phase_text: String = _describe_phase(run_state.world_state.current_phase)
 	var activity_text: String = _describe_activity_text(run_state.world_state.current_phase)
+	if has_route_map:
+		activity_text = "路线推进中"
 	var stats_text: String = GAME_TEXT.format_text(
 		"view_model.stats_line",
 		[
@@ -143,6 +147,10 @@ static func build(
 	if run_state.is_run_over:
 		stage_title = ending_title if not ending_title.is_empty() else GAME_TEXT.text("view_model.stage_titles.ending")
 		stage_body = ending_body if not ending_body.is_empty() else GAME_TEXT.text("view_model.ending_body_fallback")
+	elif has_route_map:
+		stage_title = str(route_map_view.get("title", "白天路线图"))
+		stage_body = str(route_map_view.get("description", "选择今天白天要主动推进的那条线。"))
+		summary_text = str(route_map_view.get("summary", stage_body))
 	elif not current_event.is_empty():
 		stage_title = event_type_text if not event_type_text.is_empty() else event_title
 		stage_body = event_body
@@ -167,12 +175,17 @@ static func build(
 			)
 		else:
 			status_text = "%s\n%s" % [event_type_text, event_text] if not event_type_text.is_empty() else event_text
+	elif has_route_map:
+		var current_route_text: String = str(route_map_view.get("current_route_text", "尚未明确主押线路"))
+		status_text = "白天路线已展开：%s。请选择下一步推进节点。" % current_route_text
 
 	var scene_mode: String = "location"
 	if run_state.is_run_over:
 		scene_mode = "ending"
 	elif has_battle:
 		scene_mode = "battle"
+	elif has_route_map:
+		scene_mode = "route_map"
 	elif not current_event.is_empty():
 		scene_mode = "dialogue" if is_dialogue_event else "event"
 
@@ -227,11 +240,20 @@ static func build(
 		"option_hint_text": option_hint_text,
 		"log_text": "\n".join(run_state.log_entries),
 		"ending_text": ending_text,
-		"status_text": status_text
+		"status_text": status_text,
+		"route_map_view": route_map_view.duplicate(true)
 	}
 
 
 static func _resolve_gameplay_event_type(current_event: Dictionary, has_battle: bool, run_state: RunState) -> Dictionary:
+	var explicit_event_type_key: String = str(current_event.get("event_type_key", "")).strip_edges()
+	if not explicit_event_type_key.is_empty():
+		return {
+			"key": explicit_event_type_key,
+			"full": GAME_TEXT.text("view_model.event_types.%s" % explicit_event_type_key),
+			"description": GAME_TEXT.text("view_model.event_type_descriptions.%s" % explicit_event_type_key),
+			"short": GAME_TEXT.text("view_model.event_types_short.%s" % explicit_event_type_key)
+		}
 	var event_id: String = str(current_event.get("id", current_event.get("event_id", "")))
 	var battle_id: String = str(current_event.get("battle_id", ""))
 	if has_battle:

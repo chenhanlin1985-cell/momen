@@ -7,6 +7,8 @@ const STORY_EVENT_SCHEDULER_SCRIPT := preload("res://systems/event/story_event_s
 const BATTLE_SERVICE_SCRIPT := preload("res://systems/battle/battle_service.gd")
 const DIALOGUE_MODE_HUB: String = "hub"
 const DIALOGUE_MODE_OBSERVE: String = "observe"
+const ROUTE_MAP_ACTION_FEEDBACK_EVENT_ID: String = "__route_map_action_feedback__"
+const ROUTE_MAP_ACTION_FEEDBACK_KEY: String = "_route_map_action_feedback"
 
 var _condition_evaluator: ConditionEvaluator
 var _run_state_mutator: RunStateMutator
@@ -69,6 +71,15 @@ func resolve_current_or_next_event(
 		_run_state_mutator.set_current_event(run_state, queued_event_id)
 		start_battle_for_current_event_if_needed(run_state, content_repository)
 
+func preview_next_event_definition(
+	run_state: RunState,
+	content_repository: ContentRepository,
+	slot: String = "phase_entry"
+) -> Dictionary:
+	if run_state == null or run_state.is_run_over or not run_state.current_event_id.is_empty():
+		return {}
+	return _story_scheduler.find_next_event(run_state, content_repository, slot)
+
 func start_battle_for_current_event_if_needed(
 	run_state: RunState,
 	content_repository: ContentRepository
@@ -123,7 +134,10 @@ func choose_option(
 		if option_id != "__continue__":
 			return {"success": false, "message": GAME_TEXT.text("event_service.errors.option_unavailable")}
 		var finished_event_id: String = str(event_definition.get("id", ""))
-		_run_state_mutator.mark_event_triggered(run_state, finished_event_id)
+		if finished_event_id == ROUTE_MAP_ACTION_FEEDBACK_EVENT_ID:
+			run_state.world_state.values.erase(ROUTE_MAP_ACTION_FEEDBACK_KEY)
+		else:
+			_run_state_mutator.mark_event_triggered(run_state, finished_event_id)
 		_run_state_mutator.clear_current_event(run_state)
 		return {"success": true, "continued": true}
 
@@ -161,6 +175,9 @@ func choose_option(
 	else:
 		_run_state_mutator.mark_event_triggered(run_state, event_id)
 		_run_state_mutator.clear_current_event(run_state)
+	if run_state.is_run_over:
+		_run_state_mutator.mark_event_triggered(run_state, event_id)
+		_run_state_mutator.clear_current_event(run_state)
 
 	return {
 		"success": true,
@@ -178,15 +195,22 @@ func get_current_event_definition(
 	var definition: Dictionary = {}
 	if run_state.current_event_id.is_empty():
 		return {}
+	if run_state.current_event_id == ROUTE_MAP_ACTION_FEEDBACK_EVENT_ID:
+		var payload: Variant = run_state.world_state.values.get(ROUTE_MAP_ACTION_FEEDBACK_KEY, {})
+		if payload is Dictionary:
+			definition = Dictionary(payload).duplicate(true)
+		if definition.is_empty():
+			return {}
 
-	var story_definition: Dictionary = content_repository.get_story_event_definition(
-		run_state.run_id,
-		run_state.current_event_id
-	)
-	if not story_definition.is_empty():
-		definition = story_definition
-	else:
-		definition = content_repository.get_event_definition(run_state.current_event_id)
+	if definition.is_empty():
+		var story_definition: Dictionary = content_repository.get_story_event_definition(
+			run_state.run_id,
+			run_state.current_event_id
+		)
+		if not story_definition.is_empty():
+			definition = story_definition
+		else:
+			definition = content_repository.get_event_definition(run_state.current_event_id)
 
 	if definition.is_empty():
 		return {}

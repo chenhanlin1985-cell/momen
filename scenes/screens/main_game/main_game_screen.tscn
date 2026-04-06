@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://cvqm5ubancigd"]
+[gd_scene load_steps=5 format=3 uid="uid://cvqm5ubancigd"]
 
 [ext_resource type="Script" uid="uid://dx7ojhvs73blf" path="res://scenes/screens/main_game/main_game_screen.gd" id="1"]
 [ext_resource type="PackedScene" path="res://ui/components/dialogue_event_panel.tscn" id="2"]
 [ext_resource type="PackedScene" path="res://ui/components/battle_panel.tscn" id="3"]
+[ext_resource type="Script" path="res://ui/components/route_map_panel.gd" id="4"]
 
 [node name="MainGameScreen" type="Control"]
 layout_mode = 3
@@ -546,6 +547,15 @@ layout_mode = 2
 text = "-"
 autowrap_mode = 3
 
+[node name="EndingArtRect" type="TextureRect" parent="MarginContainer/Root/MainRow/StageColumn/EndingPanel/EndingPadding/EndingScroll/EndingContent"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(0, 220)
+layout_mode = 2
+size_flags_horizontal = 3
+expand_mode = 1
+stretch_mode = 5
+
 [node name="EndingBodyLabel" type="Label" parent="MarginContainer/Root/MainRow/StageColumn/EndingPanel/EndingPadding/EndingScroll/EndingContent"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -590,6 +600,14 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "-"
 autowrap_mode = 3
+
+[node name="RouteMapPanel" type="Control" parent="MarginContainer/Root/MainRow/StageColumn/SceneInteractionPanel/SceneInteractionPadding/SceneInteractionContent"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(0, 230)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4")
 
 [node name="ActionScroll" type="ScrollContainer" parent="MarginContainer/Root/MainRow/StageColumn/SceneInteractionPanel/SceneInteractionPadding/SceneInteractionContent"]
 custom_minimum_size = Vector2(0, 140)
